@@ -30,7 +30,7 @@ int main(void){ // possible main program that tests your functions
 unsigned int i;
   Errors = 0;
   for(i=0; i<16; i++){
-    //Fixed_uBinOut8s(outTests3[i].InNumber,Buffer);
+    Fixed_uBinOut8s(outTests3[i].InNumber,Buffer);
     if(strcmp(Buffer, outTests3[i].OutBuffer)){
       Errors++;
       AnError = i;

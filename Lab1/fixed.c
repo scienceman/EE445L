@@ -9,9 +9,19 @@
   Hardware Configuration: n/a
 ***************************************************/
 #include <stdio.h>
+#include <string.h>
 #include "fixed.h"
 
-void Fixed_uDecOut2s(unsigned long n,  char *string);
+void Fixed_uDecOut2s(unsigned long n,  char *string){
+	unsigned long fixedNumber = (n*100) / 256;
+	char holderString[10];
+	if (fixedNumber > 99999){
+		strcpy(string, "***.**");
+	}else{
+		holderString[0] = (char) (n % 10);
+		strcat((char*) (n % 100), holderString);
+	}
+}
 void Fixed_uDecOut2(unsigned long n);
 void Fixed_sDecOut3s(long n, char *string);
 void Fixed_sDecOut3(long n);
