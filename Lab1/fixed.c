@@ -19,7 +19,7 @@ void Fixed_uDecOut2s(unsigned long n,  char *string){
 		strcpy(holderString, "***.**");
 	}else{
 		holderString[0] = (char) (n % 10);
-		sprintf(holderString, "%lu.%lu", n / 100, n % 100);
+		sprintf(holderString, "%lu.%02lu", n / 100, n % 100);
 	}
 	sprintf(string, holderString);
 }
@@ -36,28 +36,28 @@ void Fixed_sDecOut3s(long n, char *string){
 		strcpy(holderString, "***.**");
 	}else{
 		holderString[0] = (char) (n % 10);
-		sprintf(holderString, "%s%ld.%ld", (n > 0) ? ("+") : ("-"), n / 100, n % 100);
+		sprintf(holderString, "%s%lu.%02lu", (n > 0) ? ("+") : ("-"), n / 100, n % 100);
 	}
 	sprintf(string, holderString);
 }
 void Fixed_sDecOut3(long n){
 	 char output[10];
 	 Fixed_sDecOut3s(n, output);
-	 printf(output);
+	 printf("%s\r",output);
 }
 void Fixed_uBinOut8s(unsigned long n,  char *string){
 	unsigned long fixedNumber = (n * 100) / 256;
   char holderString[10];
-	if (n > 256000){
+	if (n >= 256000){
 	 strcpy(holderString, "***.**");}
   else{
 		holderString[0] = (char) (n % 10);
-		sprintf(holderString, "%lud.%lud", fixedNumber / 100, fixedNumber % 100);
+		sprintf(holderString, "%lu.%02lu", fixedNumber / 100, fixedNumber % 100);
 	}
   sprintf(string, holderString);
 }
 void Fixed_uBinOut8(unsigned long n){
 	 char output[10];
 	 Fixed_uBinOut8s(n, output);
-	 printf(output);
+	 printf("%s\r",output);
 }
