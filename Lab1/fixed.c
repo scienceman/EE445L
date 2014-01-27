@@ -11,6 +11,7 @@
 *************************************************************************/
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "fixed.h"
 
 void Fixed_uDecOut2s(unsigned long n,  char *string){
@@ -27,7 +28,7 @@ void Fixed_uDecOut2s(unsigned long n,  char *string){
 void Fixed_uDecOut2(unsigned long n) {
 	 char output[10];
 	 Fixed_uDecOut2s(n, output);
-	 printf("%s\r",output);
+	 printf(" %s\r",output);
 }
 
 void Fixed_sDecOut3s(long n, char *string){
@@ -35,7 +36,6 @@ void Fixed_sDecOut3s(long n, char *string){
 	if ((n > 9999) || (n < -9999)){
 		strcpy(holderString, "*.***");
 	}else{
-	//  holderString[0] = (char) (n % 10);
 		sprintf(holderString, "%s%lu.%03lu", (n >= 0) ? (" ") : ("-"), abs(n) / 1000, abs(n) % 1000);
 	}
 	sprintf(string, holderString);
@@ -44,7 +44,7 @@ void Fixed_sDecOut3s(long n, char *string){
 void Fixed_sDecOut3(long n){
 	 char output[10];
 	 Fixed_sDecOut3s(n, output);
-	 printf("%s\r",output);
+	 printf(" %s\r",output);
 }
 
 void Fixed_uBinOut8s(unsigned long n,  char *string){
@@ -62,5 +62,5 @@ void Fixed_uBinOut8s(unsigned long n,  char *string){
 void Fixed_uBinOut8(unsigned long n){
 	 char output[10];
 	 Fixed_uBinOut8s(n, output);
-	 printf("%s\r",output);
+	 printf(" %s\r",output);
 }

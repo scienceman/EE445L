@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "fixed.h"
 #include "output.h"
 // const will place these structures in ROM
@@ -63,11 +64,11 @@ int main(void){ // possible main program that tests your functions
     printf("uBinOut8: ");
     Fixed_uBinOut8(outTests3[i].InNumber);
 	Delay(8000000);
+	printf("sDecOut3: ");
+	Fixed_sDecOut3(outTests2[i].InNumber);
+	Delay(8000000);
 	printf("uDecOut2: ");
 	Fixed_uDecOut2(outTests1[i].InNumber);
-	Delay(8000000);
-	printf("sDecOut3: ");
-	Fixed_sDecOut3(outTests3[i].InNumber);
 	Delay(8000000);
     if(strcmp(Buffer, outTests3[i].OutBuffer)){
       Errors++;
