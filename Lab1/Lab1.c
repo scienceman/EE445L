@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "fixed.h"
+#include "output.h"
 // const will place these structures in ROM
 const struct outTestCase{       // used to test routines
   unsigned long InNumber;       // test input number
@@ -27,14 +28,19 @@ outTestCaseType outTests3[16]={
 unsigned int Errors,AnError;
 char Buffer[10];
 int main(void){ // possible main program that tests your functions
-unsigned int i;
-  Errors = 0;
+  unsigned int i;
+  Output_Init();
+  Output_Color(15);
+  i = 12345;
+  Fixed_uDecOut2(i);
+
+  /*Errors = 0;
   for(i=0; i<16; i++){
     Fixed_uBinOut8s(outTests3[i].InNumber,Buffer);
     if(strcmp(Buffer, outTests3[i].OutBuffer)){
       Errors++;
       AnError = i;
     }
-  }
+  }	*/
   for(;;) {} /* wait forever */
 }

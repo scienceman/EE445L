@@ -22,7 +22,13 @@ void Fixed_uDecOut2s(unsigned long n,  char *string){
 		strcat((char*) (n % 100), holderString);
 	}
 }
-void Fixed_uDecOut2(unsigned long n);
+
+void Fixed_uDecOut2(unsigned long n) {
+	 char* output;
+	 Fixed_uDecOut2s(n,output);
+	 printf(output);
+}
+
 void Fixed_sDecOut3s(long n, char *string);
 void Fixed_sDecOut3(long n);
 void Fixed_uBinOut8s(unsigned long n,  char *string); 
