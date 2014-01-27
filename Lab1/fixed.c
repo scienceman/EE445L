@@ -19,7 +19,7 @@ void Fixed_uDecOut2s(unsigned long n,  char *string){
 		strcpy(holderString, "***.**");
 	}else{
 		holderString[0] = (char) (n % 10);
-		sprintf(holderString, "%lud.%lud", n / 100, n % 100);
+		sprintf(holderString, "%lu.%lu", n / 100, n % 100);
 	}
 	sprintf(string, holderString);
 }
@@ -27,7 +27,7 @@ void Fixed_uDecOut2s(unsigned long n,  char *string){
 void Fixed_uDecOut2(unsigned long n) {
 	 char output[10];
 	 Fixed_uDecOut2s(n, output);
-	 printf(output);
+	 printf("%s\r",output);
 }
 
 void Fixed_sDecOut3s(long n, char *string){
