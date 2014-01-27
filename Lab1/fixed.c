@@ -6,7 +6,7 @@
 	                  and binary values and output them to the LED screen on the 1968 borad
   Lab Number: 1
   TA: Mahesh Srinivasan and Zichong Li
-  Date of last revision: 1/24/14
+  Date of last revision: 1/27/14
   Hardware Configuration: n/a
 *************************************************************************/
 #include <stdio.h>
@@ -19,7 +19,6 @@ void Fixed_uDecOut2s(unsigned long n,  char *string){
 	if (n > 99999){
 		strcpy(holderString, "***.**");
 	}else{
-		holderString[0] = (char) (n % 10);
 		sprintf(holderString, "%3lu.%02lu", n / 100, n % 100);
 	}
 	sprintf(string, holderString);
@@ -53,7 +52,6 @@ void Fixed_uBinOut8s(unsigned long n,  char *string){
 	if (n >= 256000){
 	 strcpy(holderString, "***.**");}
   else{
-		holderString[0] = (char) (n % 10);
 		sprintf(holderString, "%3lu.%02lu", fixedNumber / 100, fixedNumber % 100);
 	}
   sprintf(string, holderString);
