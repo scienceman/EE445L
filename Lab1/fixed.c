@@ -4,7 +4,7 @@
   Initial Creation Date: 1/22/14
   Description: stuff
   Lab Number: 1
-  TA: some dude
+  TA: 
   Date of last revision: 1/24/14
   Hardware Configuration: n/a
 ***************************************************/
@@ -13,9 +13,8 @@
 #include "fixed.h"
 
 void Fixed_uDecOut2s(unsigned long n,  char *string){
-	unsigned long fixedNumber = (n*100) / 256;
 	char holderString[10];
-	if (fixedNumber > 99999){
+	if (n > 99999){
 		strcpy(holderString, "***.**");
 	}else{
 		holderString[0] = (char) (n % 10);
@@ -33,9 +32,8 @@ void Fixed_uDecOut2(unsigned long n) {
 }
 
 void Fixed_sDecOut3s(long n, char *string){
-	long fixedNumber = (n*100) / 256;
 	char holderString[10];
-	if (fixedNumber > 9999 || fixedNumber < -9999){
+	if ((n > 9999) || (n < -9999){
 		strcpy(holderString, "***.**");
 	}else{
 		holderString[0] = (char) (n % 10);
@@ -43,9 +41,24 @@ void Fixed_sDecOut3s(long n, char *string){
 		strcat((char*) (n % 1000), holderString);
 		strcat(".", holderString);
 		strcat((char*) (n / 100), holderString);
+		if (n != 0) strcat((n > 0) ? ("+") : ("-"), holderString);
 	}
 	sprintf(string, holderString);
 }
 void Fixed_sDecOut3(long n);
-void Fixed_uBinOut8s(unsigned long n,  char *string); 
+void Fixed_uBinOut8s(unsigned long n,  char *string){
+char holderString[10];
+	if ((n > 9999) || (n < -9999){
+		strcpy(holderString, "***.**");
+	}else{
+		holderString[0] = (char) (n % 10);
+		strcat((char*) (n % 100), holderString);
+		strcat((char*) (n % 1000), holderString);
+		strcat(".", holderString);
+		strcat((char*) (n / 100), holderString);
+		if (n != 0) strcat((n > 0) ? ("+") : ("-"), holderString);
+	}
+	sprintf(string, holderString);
+}
+}
 void Fixed_uBinOut8(unsigned long n); 
