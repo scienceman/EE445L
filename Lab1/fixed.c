@@ -16,15 +16,18 @@ void Fixed_uDecOut2s(unsigned long n,  char *string){
 	unsigned long fixedNumber = (n*100) / 256;
 	char holderString[10];
 	if (fixedNumber > 99999){
-		strcpy(string, "***.**");
+		strcpy(holderString, "***.**");
 	}else{
 		holderString[0] = (char) (n % 10);
 		strcat((char*) (n % 100), holderString);
+		strcat(".", holderString);
+		strcat((char*) (n / 100), holderString);
 	}
+	strcpy(string, holderString);
 }
 
 void Fixed_uDecOut2(unsigned long n) {
-	 char* output;
+	 char output[10];
 	 Fixed_uDecOut2s(n,output);
 	 printf(output);
 }

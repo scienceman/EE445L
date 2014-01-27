@@ -1,29 +1,29 @@
 Dependencies for Project 'Lab1', Target 'OLED': (DO NOT MODIFY !)
-F (.\OLEDTestMain.c)(0x52E5BAC8)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "oledtestmain.o" --omf_browse "oledtestmain.crf" --depend "oledtestmain.d")
-I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4E78C1CE)
-I (Output.h)(0x52E5BAC8)
-F (.\Output.c)(0x52E5BAC8)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "output.o" --omf_browse "output.crf" --depend "output.d")
-I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4E78C1CE)
-I (rit128x96x4.h)(0x52E5BAC8)
-I (Output.h)(0x52E5BAC8)
-F (.\rit128x96x4.c)(0x52E5BAC8)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "rit128x96x4.o" --omf_browse "rit128x96x4.crf" --depend "rit128x96x4.d")
-I (../inc/hw_ssi.h)(0x50EC984C)
-I (../inc/hw_memmap.h)(0x50EC984C)
-I (../inc/hw_sysctl.h)(0x50EC984C)
-I (../inc/hw_types.h)(0x50EC984C)
-I (../driverlib/debug.h)(0x50EC984C)
-I (../driverlib/gpio.h)(0x50EC984C)
-I (../driverlib/ssi.h)(0x52E068D5)
-I (../driverlib/../driverlib/sysctl.h)(0x50EC984C)
-I (rit128x96x4.h)(0x52E5BAC8)
-F (.\Startup.s)(0x52E5BAC8)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
-F (.\fixed.c)(0x52E5BCA2)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "fixed.o" --omf_browse "fixed.crf" --depend "fixed.d")
-I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4E78C1CE)
-I (C:\Keil\ARM\RV31\INC\string.h)(0x4E78C1CE)
-I (fixed.h)(0x52E5BAC8)
-F (.\Lab1.c)(0x52E5BC5D)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "lab1.o" --omf_browse "lab1.crf" --depend "lab1.d")
-I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4E78C1CE)
-I (fixed.h)(0x52E5BAC8)
-I (output.h)(0x52E5BAC8)
-F (.\fixed.h)(0x52E5BAC8)()
-F (..\driverlib\rvmdk\driverlib.lib)(0x50EC984C)()
+F (.\OLEDTestMain.c)(0x52E06EB8)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\..-I C:\Keil\ARM\RV31\Inc-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\oledtestmain.o --omf_browse .\oledtestmain.crf --depend .\oledtestmain.d)
+I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4F58EC4C)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab1\Output.h)(0x52E06EB8)
+F (.\Output.c)(0x52E06EB8)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\..-I C:\Keil\ARM\RV31\Inc-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\output.o --omf_browse .\output.crf --depend .\output.d)
+I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4F58EC4C)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab1\rit128x96x4.h)(0x52E06EBF)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab1\Output.h)(0x52E06EB8)
+F (.\rit128x96x4.c)(0x52E06EBE)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\..-I C:\Keil\ARM\RV31\Inc-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\rit128x96x4.o --omf_browse .\rit128x96x4.crf --depend .\rit128x96x4.d)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\inc\hw_ssi.h)(0x4C6193FC)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\inc\hw_memmap.h)(0x4C6193FC)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\inc\hw_sysctl.h)(0x4C6193FC)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\inc\hw_types.h)(0x4C6193FC)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\driverlib\debug.h)(0x4C6193FA)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\driverlib\gpio.h)(0x4C6193FA)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\driverlib\ssi.h)(0x4D640716)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\driverlib\sysctl.h)(0x4C6193FA)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab1\rit128x96x4.h)(0x52E06EBF)
+F (.\Startup.s)(0x52E06EB9)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\Inc-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\fixed.c)(0x52E5C2A4)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\..-I C:\Keil\ARM\RV31\Inc-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\fixed.o --omf_browse .\fixed.crf --depend .\fixed.d)
+I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4F58EC4C)
+I (C:\Keil\ARM\RV31\INC\string.h)(0x4F58EC4C)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab1\fixed.h)(0x52E2EE0C)
+F (.\Lab1.c)(0x52E5C1EB)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\..-I C:\Keil\ARM\RV31\Inc-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\lab1.o --omf_browse .\lab1.crf --depend .\lab1.d)
+I (C:\Keil\ARM\RV31\INC\stdio.h)(0x4F58EC4C)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab1\fixed.h)(0x52E2EE0C)
+I (C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab1\output.h)(0x52E06EB8)
+F (.\fixed.h)(0x52E2EE0C)()
+F (..\driverlib\rvmdk\driverlib.lib)(0x4C6193FA)()
