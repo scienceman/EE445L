@@ -7,7 +7,13 @@ const struct outTestCase{       // used to test routines
   unsigned long InNumber;       // test input number
   char OutBuffer[10];           // Output String  
 };
+const struct s_outTestCase {
+  signed long InNumber;
+  char OutBUffer[10];
+};
+
 typedef const struct outTestCase outTestCaseType;
+typedef const struct s_outTestCase s_outTestCaseType;
 outTestCaseType outTests1[10]={ 
 {     0,  "  0.00" }, //      0/100 = 0.00  
 {     1,  "  0.01" }, //      1/100 = 0.01  
@@ -21,7 +27,7 @@ outTestCaseType outTests1[10]={
 {100000,  "***.**" }, //  error condition
 };
 
-outTestCaseType outTests2[10]={ 
+s_outTestCaseType outTests2[10]={ 
 {-100000,  " *.***"  }, //      error condition   
 { -10000,  " *.***"  }, //      error condition 
 {  -9999,  "-9.999" }, //   -9999/100 = -9.999
@@ -63,17 +69,24 @@ int main(void){ // possible main program that tests your functions
   for(i=0; i<16; i++){
     printf("uBinOut8: ");
     Fixed_uBinOut8(outTests3[i].InNumber);
-	Delay(8000000);
+  }
+  printf("________________\r");
+  Delay(8000000);
+
+  for(i=0; i<10; i++) {
 	printf("sDecOut3: ");
 	Fixed_sDecOut3(outTests2[i].InNumber);
-	Delay(8000000);
+  }
+  printf("________________\r");
+  Delay(8000000);
+  for(i=0;i<10;i++) {
 	printf("uDecOut2: ");
 	Fixed_uDecOut2(outTests1[i].InNumber);
-	Delay(8000000);
+  }
+  Delay(8000000);
     if(strcmp(Buffer, outTests3[i].OutBuffer)){
       Errors++;
       AnError = i;
-    }
-  }	
+    }	
   for(;;) {} /* wait forever */
 }
