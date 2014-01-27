@@ -34,13 +34,13 @@ int main(void){ // possible main program that tests your functions
   i = 12345;
   Fixed_uDecOut2(i);
 
-  /*Errors = 0;
+  Errors = 0;
   for(i=0; i<16; i++){
     Fixed_uBinOut8s(outTests3[i].InNumber,Buffer);
     if(strcmp(Buffer, outTests3[i].OutBuffer)){
       Errors++;
       AnError = i;
     }
-  }	*/
+  }	
   for(;;) {} /* wait forever */
 }

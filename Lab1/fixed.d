@@ -1,4 +1,4 @@
-fixed.o: fixed.c
-fixed.o: C:\Keil\ARM\RV31\INC\stdio.h
-fixed.o: C:\Keil\ARM\RV31\INC\string.h
-fixed.o: fixed.h
+.\fixed.o: fixed.c
+.\fixed.o: C:\Keil\ARM\RV31\Inc\stdio.h
+.\fixed.o: C:\Keil\ARM\RV31\Inc\string.h
+.\fixed.o: fixed.h

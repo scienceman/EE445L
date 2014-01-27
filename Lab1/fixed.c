@@ -1,13 +1,14 @@
-/***************************************************
+/************************************************************************
   File Name: fixed.c
   Author(s): Kevin Gilbert and Gilberto Rodriguez
   Initial Creation Date: 1/22/14
-  Description: stuff
+  Description: A set of funtions that can take in unsigned integer, signed integer, 
+	                  and binary values and output them to the LED screen on the 1968 borad
   Lab Number: 1
-  TA: 
+  TA: Mahesh Srinivasan and Zichong Li
   Date of last revision: 1/24/14
   Hardware Configuration: n/a
-***************************************************/
+*************************************************************************/
 #include <stdio.h>
 #include <string.h>
 #include "fixed.h"
@@ -25,7 +26,7 @@ void Fixed_uDecOut2s(unsigned long n,  char *string){
 
 void Fixed_uDecOut2(unsigned long n) {
 	 char output[10];
-	 Fixed_uDecOut2s(n,output);
+	 Fixed_uDecOut2s(n, output);
 	 printf(output);
 }
 
@@ -39,7 +40,11 @@ void Fixed_sDecOut3s(long n, char *string){
 	}
 	sprintf(string, holderString);
 }
-void Fixed_sDecOut3(long n);
+void Fixed_sDecOut3(long n){
+	 char output[10];
+	 Fixed_sDecOut3s(n, output);
+	 printf(output);
+}
 void Fixed_uBinOut8s(unsigned long n,  char *string){
 	unsigned long fixedNumber = (n * 100) / 256;
   char holderString[10];
@@ -51,4 +56,8 @@ void Fixed_uBinOut8s(unsigned long n,  char *string){
 	}
   sprintf(string, holderString);
 }
-void Fixed_uBinOut8(unsigned long n); 
+void Fixed_uBinOut8(unsigned long n){
+	 char output[10];
+	 Fixed_uBinOut8s(n, output);
+	 printf(output);
+}
