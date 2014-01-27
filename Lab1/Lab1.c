@@ -46,8 +46,15 @@ int main(void){ // possible main program that tests your functions
 
   Errors = 0;
   for(i=0; i<16; i++){
-    //Fixed_uBinOut8(outTests3[i].InNumber);
+    printf("uBinOut8: ");
+    Fixed_uBinOut8(outTests3[i].InNumber);
+	Delay(8000000);
+	printf("uDecOut2: ");
+	Fixed_uDecOut2(outTests1[i].InNumber);
+	Delay(8000000);
+	printf("sDecOut3: ");
 	Fixed_sDecOut3(outTests3[i].InNumber);
+	Delay(8000000);
     if(strcmp(Buffer, outTests3[i].OutBuffer)){
       Errors++;
       AnError = i;
