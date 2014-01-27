@@ -23,7 +23,7 @@ void Fixed_uDecOut2s(unsigned long n,  char *string){
 		strcat(".", holderString);
 		strcat((char*) (n / 100), holderString);
 	}
-	strcpy(string, holderString);
+	sprintf(string, holderString);
 }
 
 void Fixed_uDecOut2(unsigned long n) {
@@ -32,7 +32,20 @@ void Fixed_uDecOut2(unsigned long n) {
 	 printf(output);
 }
 
-void Fixed_sDecOut3s(long n, char *string);
+void Fixed_sDecOut3s(long n, char *string){
+	long fixedNumber = (n*100) / 256;
+	char holderString[10];
+	if (fixedNumber > 9999 || fixedNumber < -9999){
+		strcpy(holderString, "***.**");
+	}else{
+		holderString[0] = (char) (n % 10);
+		strcat((char*) (n % 100), holderString);
+		strcat((char*) (n % 1000), holderString);
+		strcat(".", holderString);
+		strcat((char*) (n / 100), holderString);
+	}
+	sprintf(string, holderString);
+}
 void Fixed_sDecOut3(long n);
 void Fixed_uBinOut8s(unsigned long n,  char *string); 
 void Fixed_uBinOut8(unsigned long n); 
