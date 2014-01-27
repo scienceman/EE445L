@@ -7,6 +7,18 @@ const struct outTestCase{       // used to test routines
   char OutBuffer[10];           // Output String  
 };
 typedef const struct outTestCase outTestCaseType;
+outTestCaseType outTests1[16]={ 
+{     0,  "  0.00" }, //      0/100 = 0.00  
+{     1,  "  0.01" }, //      1/100 = 0.01  
+{    99,  "  0.99" }, //     99/100 = 0.99
+{   100,  "  1.00" }, //    100/100 = 1.00
+{   999,  "  9.99" }, //    999/100 = 0.99
+{  1000,  " 10.00" }, //   1000/100 = 10.00
+{  9999,  " 99.99" }, //   9999/100 = 99.99
+{ 10000,  "100.00" }, //  10000/100 = 100.00
+{ 99999,  "999.99" }, //  99999/100 = 999.99
+{100000,  "***.**" }, //  error condition
+};
 outTestCaseType outTests3[16]={ 
 {     0,  "  0.00" }, //      0/256 = 0.00  
 {     4,  "  0.01" }, //      4/256 = 0.01  
