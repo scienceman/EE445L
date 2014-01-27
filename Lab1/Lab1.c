@@ -14,7 +14,7 @@ outTestCaseType outTests3[16]={
 {   200,  "  0.78" }, //    200/256 = 0.78
 {   254,  "  0.99" }, //    254/256 = 0.99
 {   505,  "  1.97" }, //    505/256 = 1.97
-{  1070,  "  4.17" }, //   1070/256 = 4.17
+{  -1070,  "  4.17" }, //   1070/256 = 4.17
 {  5120,  " 20.00" }, //   5120/256 = 20.00
 { 12184,  " 47.59" }, //  12184/256 = 47.59
 { 26000,  "101.56" }, //  26000/256 = 101.56
@@ -34,7 +34,8 @@ int main(void){ // possible main program that tests your functions
 
   Errors = 0;
   for(i=0; i<16; i++){
-    Fixed_uBinOut8(outTests3[i].InNumber);
+    //Fixed_uBinOut8(outTests3[i].InNumber);
+	Fixed_sDecOut3(outTests3[i].InNumber);
     if(strcmp(Buffer, outTests3[i].OutBuffer)){
       Errors++;
       AnError = i;
