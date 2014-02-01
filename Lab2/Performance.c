@@ -28,8 +28,8 @@
 
 #include <math.h>
 #include "SysTick.h"
-#include "hw_types.h"
-#include "sysctl.h"
+#include "../inc/hw_types.h"
+#include "../driverlib/sysctl.h"
 #include "lm3s1968.h"
 #define GPIO_PORTG2             (*((volatile unsigned long *)0x40026010))
 #define NVIC_ST_CURRENT_R       (*((volatile unsigned long *)0xE000E018))
@@ -48,7 +48,7 @@ int n;                   // loop counter to make sure it stops running
 }*/
 
 volatile unsigned long before, elapsed, ss, tt;
-int main(void){ volatile unsigned long delay;
+int PerformanceTest_main(void){ volatile unsigned long delay;
   SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |
                  SYSCTL_XTAL_8MHZ);     // 50 MHz
   SysTick_Init(); // initialize SysTick timer, see SysTick.c

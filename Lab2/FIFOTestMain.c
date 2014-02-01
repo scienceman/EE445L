@@ -47,8 +47,8 @@
  For more information about my classes, my research, and my books, see
  http://users.ece.utexas.edu/~valvano/
  */
-#include "hw_types.h"
-#include "sysctl.h"
+#include "../inc/hw_types.h"
+#include "../driverlib/sysctl.h"
 #include "lm3s1968.h"
 
 #include "FIFO.h"
