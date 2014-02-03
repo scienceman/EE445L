@@ -74,10 +74,12 @@ int lab2_partD(void){
 int main(void) {
   Output_Init();
   Output_Color(15);
-  RIT128x96x4_Line(0,0,10,10,0xFF);
-  Delay(10000000);
+  RIT128x96x4_Line(40,20,10,10,0xFF);
+  RIT128x96x4_ShowImage();
+  Delay(100000000);
   RIT128x96x4_ClearImage();
-  //RIT128x96x4_Line(0,0,10,10,0xFF);
+  //Screen saver
+  RIT128x96x4DisplayOff();
 
   while(1);
 }
