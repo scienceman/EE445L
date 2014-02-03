@@ -10,12 +10,10 @@ void RIT128x96x4_ShowImage(void) {
 }
 
 void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color) {
-	int i,index=0;
-	for(i=0;i<50;i++) {
-	   imageBuff[index] = 0xFF;
-	   index += (128/2)+1;
-	}	
-	RIT128x96x4ImageDraw(imageBuff,0,0,128,96);
+	int i,slope,index=0;
+	if((x2 - x1) != 0){
+	slope = (y2 - y1) / (x2 - x1);
+	}else{ slope = 128/2;}
 }
 
 void RIT128x96x4_ClearImage(void) {
