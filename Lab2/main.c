@@ -6,6 +6,10 @@
 #include "stdio.h"
 #include "FIFO.h"
 #include "Output.h"
+#include "rit128x96x4.h"
+#include "line.h"
+
+int lab2_partD(void);
 
 volatile unsigned long before, elapsed;
 int volatile result;
@@ -42,10 +46,13 @@ int lab2_partD(void){
    	printf("timeTest1 flag: %d\r",result1);
 	printf("timeTest2 flag: %d\r",result2);
 	printf("timeTest3 flag: %d\r",result3);
-
-	while(1){};
+	return 0;
 } 
 
 int main(void) {
-	while(1);
+  Output_Init();
+  Output_Color(15);
+  RIT128x96x4_ClearImage();
+
+  while(1);
 }
