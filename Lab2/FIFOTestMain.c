@@ -178,7 +178,7 @@ void Timer0A_Handler(void){
   GPIO_PORTF2 = 0x00;
 }
 
-int main(void){
+int main3(void){
   int i;
   SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |
                  SYSCTL_XTAL_8MHZ);        // 50 MHz

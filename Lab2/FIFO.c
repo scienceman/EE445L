@@ -26,6 +26,7 @@
  */
 
 #include "FIFO.h"
+#include "stdio.h"
 
 
 // Two-index implementation of the transmit FIFO
@@ -116,3 +117,47 @@ unsigned short RxFifo_Size(void){
   }
   return ((unsigned short)(RxPutPt-RxGetPt)/sizeof(rxDataType));
 }
+
+int timeTest1(rxDataType *datapt){
+	if(RxPutPt == RxGetPt ){
+	return(RXFIFOFAIL); // Empty
+	}
+	*datapt = *(RxGetPt++);
+	if(RxGetPt == &RxFifo[RXFIFOSIZE]){
+	RxGetPt = &RxFifo[0]; // wrap
+	}
+	return(RXFIFOSUCCESS);
+} 
+
+int timeTest2(rxDataType* datapt) {
+	if(RxPutPt == RxGetPt ){
+		return(RXFIFOFAIL); // Empty
+	}
+	*datapt = *(RxGetPt++);
+	if(RxGetPt == &RxFifo[RXFIFOSIZE]){
+		RxGetPt = &RxFifo[0]; // wrap
+	}
+	printf("RxGetPt = %x , data= %d\r", RxGetPt, *datapt);
+	return(RXFIFOSUCCESS); 
+}
+
+unsigned long ptBuf[10];
+rxDataType dataBuf[10];
+unsigned long Debug_n=0;
+
+int timeTest3(rxDataType* datapt) {
+	if(RxPutPt == RxGetPt ){
+		return(RXFIFOFAIL); // Empty
+	}
+	*datapt = *(RxGetPt++);
+	if(RxGetPt == &RxFifo[RXFIFOSIZE]){
+		RxGetPt = &RxFifo[0]; // wrap
+	}
+	if(Debug_n<10){
+		ptBuf[Debug_n] = (unsigned long) RxGetPt;
+		dataBuf[Debug_n] = *datapt;
+		Debug_n++;
+	}
+	return(RXFIFOSUCCESS);
+}
+

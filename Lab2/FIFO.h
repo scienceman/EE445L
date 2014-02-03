@@ -145,6 +145,11 @@ unsigned short NAME ## Fifo_Size (void){\
   }                                     \
   return ((unsigned short)( NAME ## PutPt - NAME ## GetPt )/sizeof(TYPE)); \
 }
+
+int timeTest1(rxDataType *datapt);
+int timeTest2(rxDataType* datapt);
+int timeTest3(rxDataType* datapt);
+
 // e.g.,
 // AddPointerFifo(Rx,32,unsigned char, 1,0)
 // SIZE can be any size

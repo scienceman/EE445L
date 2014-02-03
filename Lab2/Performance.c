@@ -46,7 +46,7 @@ int n;                   // loop counter to make sure it stops running
   }
   return t; 
 }*/
-
+						/*
 volatile unsigned long before, elapsed, ss, tt;
 int PerformanceTest_main(void){ volatile unsigned long delay;
   SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |
@@ -71,3 +71,4 @@ int PerformanceTest_main(void){ volatile unsigned long delay;
     tt = sqrt(ss);
   }
 }
+	  */
