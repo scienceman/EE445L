@@ -1,1 +1,1 @@
-void SwitchInit(void);
+void Switch_Init(void);
