@@ -31,7 +31,7 @@
 //        Maximum is 2^24-1
 //        Minimum is determined by length of ISR
 // Output: none
-void SysTick_Init(unsigned long period);
+void SysTick_IE_Init(unsigned long period);
 
 // Reset RELOAD value
 void SysTick_Period(unsigned long period);

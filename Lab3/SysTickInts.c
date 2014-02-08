@@ -23,9 +23,10 @@
  */
 
 // oscilloscope or LED connected to PD0 for period measurement
-#include "hw_types.h"
-#include "sysctl.h"
+#include "inc/hw_types.h"
+#include "DriverLib/sysctl.h"
 #include "lm3s1968.h"
+#include "SysTickInts.h"
 
 #define NVIC_SYS_PRI3_R         (*((volatile unsigned long *)0xE000ED20))  // Sys. Handlers 12 to 15 Priority
 #define NVIC_ST_CTRL_R          (*((volatile unsigned long *)0xE000E010))
@@ -54,7 +55,7 @@ unsigned char index;
 //        Maximum is 2^24-1
 //        Minimum is determined by length of ISR
 // Output: none
-void SysTick_Init(unsigned long period){
+void SysTick_IE_Init(unsigned long period){
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD; // activate port D
   index = 0;
   GPIO_PORTD_DIR_R |= 0x01;   // make PD0 out
