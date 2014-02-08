@@ -431,6 +431,11 @@
               <FileType>1</FileType>
               <FilePath>.\SysTickInts.c</FilePath>
             </File>
+            <File>
+              <FileName>Output.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Output.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

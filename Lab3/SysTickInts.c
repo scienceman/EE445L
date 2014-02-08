@@ -78,7 +78,7 @@ void SysTick_Period(unsigned long period) {
 
 void SysTick_Handler(void){
 	GPIO_PORTD_DATA_R ^= 0x01;		// Toggle debugging pin
-	DAC_OUT(wave[index]);
+	//DAC_OUT(wave[index]);
 	if((index+1) > 31) { index = 0; }
 	else { index++; }
 	GPIO_PORTD_DATA_R ^= 0x01;	
