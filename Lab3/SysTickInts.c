@@ -58,9 +58,6 @@ unsigned char index;
 void SysTick_IE_Init(unsigned long period){
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD; // activate port D
   index = 0;
-  GPIO_PORTD_DIR_R |= 0x01;   // make PD0 out
-  GPIO_PORTD_DEN_R |= 0x01;   // enable digital I/O on PD0
-  GPIO_PORTD_AFSEL_R &= 0xFE; // Disable alternate functions
   NVIC_ST_CTRL_R = 0;         // disable SysTick during setup
   NVIC_ST_RELOAD_R = period-1;// reload value
   NVIC_ST_CURRENT_R = 0;      // any write to current clears it
@@ -77,10 +74,6 @@ void SysTick_Period(unsigned long period) {
 // Executed every 20ns*(period)
 
 void SysTick_Handler(void){
-	GPIO_PORTD_DATA_R ^= 0x01;		// Toggle debugging pin
-	//DAC_OUT(wave[index]);
-	if((index+1) > 31) { index = 0; }
-	else { index++; }
-	GPIO_PORTD_DATA_R ^= 0x01;	
+    GPIO_PORTG_DATA_R ^= 0x04;
 }
 

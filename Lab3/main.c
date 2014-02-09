@@ -39,6 +39,7 @@ int main(void){
 	// Initializations
 	int i = 0;
 	Switch_Init();
+    SysTick_IE_Init(250000);
     Output_Init();
 	Output_Color(15);
 	 // Hardcoded clock example
