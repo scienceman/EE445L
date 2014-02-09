@@ -5,6 +5,7 @@
 inputFile = 'fullClock1.txt'
 outputFile = 'ReversedFullClock1.txt'
 
-writeFile = open(outputFile,'r')
+writeFile = open(outputFile, 'w')
 array = list(reversed(list(open(inputFile))))
 writeFile.writelines(array)
+writeFile.close()
