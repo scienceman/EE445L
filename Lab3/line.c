@@ -13,6 +13,8 @@ void RIT128x96x4_ShowImage(void) {
 
 void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color) {
 	int dx,dy,index,sx,sy,err,e2;
+	x1 /= 2;
+	x2 /= 2;
 	dx = abs(x2 - x1);
 	dy = abs(y2 - y1);
 	index = x1+y1*(128/2);

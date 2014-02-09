@@ -436,6 +436,11 @@
               <FileType>1</FileType>
               <FilePath>.\Output.c</FilePath>
             </File>
+            <File>
+              <FileName>logo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\logo.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
