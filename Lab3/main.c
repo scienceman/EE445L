@@ -29,11 +29,11 @@
 
 int main(void){
 	// Initializations
-	int i;
+	//int i;
 	Output_Init();
 	Output_Color(15);
 	 // Hardcoded clock example
-	 Draw_Clock();
+	 //Draw_Clock();
 
 	 //Hour hand
 	 RIT128x96x4_Line(64,48,84,68,15);

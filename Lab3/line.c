@@ -2,13 +2,15 @@
 #include "rit128x96x4.h"
 #include "math.h"
 #include "stdlib.h"
+#include "OLED.h"
 
 //*************OLED Buffer*************************************************
 // 4-bit color pixels, each char 2 pixels. Width = 128/2
-unsigned char imageBuff[(128/2)*96] = {0};
+extern unsigned char imageBuff[];
+extern unsigned char clock1[];
 
 void RIT128x96x4_ShowImage(void) {
-    RIT128x96x4ImageDraw(imageBuff,0,0,128,96);
+    RIT128x96x4ImageDraw(clock1,0,0,128,96);
 }
 
 void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color) {
@@ -31,7 +33,7 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color) {
 	err = dx-dy;
 
 	while(1) {
-	 	imageBuff[index] = color;
+	 	clock1[index] = color;
 		if(x1 == x2 && y1==y2){
 			return;
 		}
@@ -41,14 +43,14 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color) {
 			x1 += sx;
 		}
 		if(x1 == x2 && y1 == y2) {
-			imageBuff[x1+y1*(128/2)] = color;
+			clock1[x1+y1*(128/2)] = color;
 			return;
 		}
 		if(e2 < dx) {
 			err += dx;
 			y1 += sy;
 		}
-		imageBuff[x1+y1*(128/2)] = color;
+		clock1[x1+y1*(128/2)] = color;
 	}				 	
 }
 
@@ -56,7 +58,7 @@ void RIT128x96x4_ClearImage(void) {
 	int i,size;
 	size = (128/2)*96;
 	for(i=0;i<size;i++) {
-	    imageBuff[i]=0;
+	    clock1[i]=0;
 	}
-	RIT128x96x4ImageDraw(imageBuff,0,0,128,96);
+	RIT128x96x4ImageDraw(clock1,0,0,128,96);
 }
