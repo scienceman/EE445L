@@ -198,13 +198,9 @@ void RIT128x96x4_BMP(unsigned long xpos, unsigned long ypos, const unsigned char
     // bottom row on the display since bitmaps are encoded upside down).
     //************ ypos is 94 (bottom) 80 (starter file) ****************
     pucRow = (unsigned char *)&Buffer[BITMAP_HEADER_SIZE];
-	//pucRow = (unsigned char *)&Buffer[0];
     for(ulRow = 0; ulRow < ulHeight; ulRow++){
         // Display in reverse row order.  
-        //RIT128x96x4ImageDraw(pucRow, xpos, (ypos - ulRow), ulWidth, 1);
-
-		// Display in NON reverse row 
-		//RIT128x96x4ImageDraw(pucRow, xpos, (ypos - ulRow), ulWidth, 1);
+        RIT128x96x4ImageDraw(pucRow, xpos, (ypos - ulRow), ulWidth, 1);
         
 //        pucRow += (ulWidth / 2);   // Move to the next row in the source image.
         pucRow += (((ulWidth + 7) / 8) * 4);   // Move to the next row in the source image.

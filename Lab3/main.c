@@ -37,12 +37,12 @@ int main(void){
 	 //Draw_Clock();
 
 	 //Hour hand
-	 RIT128x96x4_Line(64,48,84,68,15);
-	 RIT128x96x4_Line(66,49,86,69,15);
-	 RIT128x96x4_Line(62,47,82,67,15);
+	 RIT128x96x4_Line(64,48,72,60,15);
+	 //RIT128x96x4_Line(66,49,86,69,15);
+	 //RIT128x96x4_Line(62,47,82,67,15);
 	 //Minute hand
-	 RIT128x96x4_Line(64,48,30,36,15);
-	 RIT128x96x4_ShowImage();
+	 RIT128x96x4_Line(64,48,35,40,15);
+	 RIT128x96x4_ShowImage();	  
 
 
 	// 
@@ -51,7 +51,7 @@ int main(void){
 		//reposition in RAM
 		//redraw image on OLED
 	    if (i == 500){
-            GPIO_PORTG_DATA_R ^= 0x04; //heartbeat
+           // GPIO_PORTG_DATA_R ^= 0x04; //heartbeat
             i = 0;
         }
         //printf("(1) Set Time\r");

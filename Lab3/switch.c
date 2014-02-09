@@ -15,7 +15,7 @@ void Switch_Init(void){
     GPIO_PORTG_ICR_R = 0xF0;
     GPIO_PORTG_IM_R |= 0xF0;
     GPIO_PORTG_DATA_R &= 0xFB;        // Clear PG2
-    NVIC_PRI0_R = (NVIC_PRIO_R & 0x00FFFFFF) | 0x40000000;
+    //NVIC_PRI0_R = (NVIC_PRIO_R & 0x00FFFFFF) | 0x40000000;
     NVIC_EN0_R |= (NVIC_EN0_INT2 + NVIC_EN0_INT3);
 }
 
