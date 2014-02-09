@@ -38,9 +38,9 @@ void WaitForInterrupt(void);  // low power mode
 
 int main(void){
 	// Initializations
-	int i = 0;
+	//int i = 0;
 	Switch_Init();
-    SysTick_IE_Init(25000000);
+    SysTick_IE_Init(50000000);
   	Output_Init();
 	Output_Color(15);
 	 // Hardcoded clock example
@@ -62,15 +62,10 @@ int main(void){
 		//while(!update);	 // Wait for systick
 		//reposition in RAM
 		//redraw image on OLED
-	    if (i == 500000){
-            //GPIO_PORTG_DATA_R ^= 0x04; //heartbeat
-            i = 0;
-        }
         //printf("(1) Set Time\r");
         //printf("(2) Set Alarm\r");
         //printf("(3) Turn on/off Alarm\r");
         //printf("(4) Display Mode\r");
-        i += 1;
     }
 	
 }
