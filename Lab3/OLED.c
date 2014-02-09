@@ -480,6 +480,10 @@ unsigned char clock1[] ={  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 unsigned char imageBuff[(128/2)*96] = {0};
 
 void Draw_Clock(void){
-	RIT128x96x4_BMP(0,0,smallclock1);
-	
+	RIT128x96x4_BMP(0,0,smallclock1);	
+}
+
+void DisplayTimeNumeric(void) {
+	char* time = "7:28";
+	RIT128x96x4StringDraw((const char *)time, 64, 48, 15);
 }
