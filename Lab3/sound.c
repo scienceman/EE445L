@@ -7,8 +7,6 @@
 #include "SysTick.h"
 #include "sound.h"
 
-void soundWave(void);
-
 void alarmInit(void) {
 	/*unsigned long ulPeriod;
  	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOH);

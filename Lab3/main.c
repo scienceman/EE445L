@@ -65,7 +65,6 @@ int main(void){
 	while(1){  	
 		//DisplayTimeNumeric(hours, minutes);
 		DisplayTimeClock(hours, minutes);
-		prevHours=hours; prevMins = minutes;
 		if(alarm){
 		 	GPIOPinWrite(GPIO_PORTH_BASE,GPIO_PIN_0,output);
 			SysTick_Wait10ms(1);

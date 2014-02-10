@@ -22,7 +22,7 @@
  http://users.ece.utexas.edu/~valvano/
  */
 
-
+extern unsigned int count, hours, minutes;
 
 // **************SysTick_Init*********************
 // Initialize Systick periodic interrupts
