@@ -77,7 +77,7 @@ void RIT128x96x4_ClearImage(void) {
 	int i,size;
 	size = (128/2)*96;
 	for(i=0;i<size;i++) {
-	    clock1[i]=0;
+	    lineBuff[i]=0;
 	}
 	RIT128x96x4ImageDraw(lineBuff,0,0,128,96);
 }
