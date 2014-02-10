@@ -75,7 +75,7 @@ void SysTick_Period(unsigned long period) {
 // Interrupt service routine
 // Executed every 20ns*(period)
 
-#define MENU
+//#define MENU
 
 void SysTick_Handler(void){
     GPIO_PORTG_DATA_R ^= 0x04;

@@ -17,6 +17,10 @@ void RIT128x96x4_ShowImage(void) {
     RIT128x96x4ImageDraw(imageBuff,0,0,128,96);
 }
 
+void RIT128x96x4_ShowImageLines(void) {
+	RIT128x96x4ImageDraw(lineBuff,0,0,128,96);
+}
+
 void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color) {
 	int dx,dy,index,sx,sy,err,e2;
 	x1 /= 2;

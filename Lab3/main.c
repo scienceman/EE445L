@@ -37,7 +37,7 @@ int main(void){
 	char* menu[] = {"(1) Display Mode",
 		 			"(2) Set Time",
 					"(3) Set Alarm",
-					"(4) Turn On/Off Alarm"};
+					"(4) Toggle Alarm"};
 	unsigned char output=0;
 	//SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	Switch_Init();
@@ -51,10 +51,23 @@ int main(void){
 	//alarmflag=true;
 
 	while(1){
+		if(!GPIOPinRead(GPIO_PORTG_BASE,GPIO_PIN_7)) {
+			displayClock = 0;
+			alarm = 0;
+			set_time = 0;
+			set_alarm = 0;
+		 	main_menu=1;
+		}
 		if(main_menu){
 			RIT128x96x4Clear();
+			RIT128x96x4_ClearImage(); //clear hands
+			RIT128x96x4_Line(5,5,123,5,10);
+			RIT128x96x4_Line(5,70,123,70,10);
+			RIT128x96x4_Line(5,5,5,70,10);
+			RIT128x96x4_Line(123,5,123,70,10);
+			RIT128x96x4_ShowImageLines();
 			for(i=0;i<4;i++) {
-				RIT128x96x4StringDraw(menu[i],0,10*i,15);
+				RIT128x96x4StringDraw(menu[i],12,10*i+20,15);
 			}
 			while(!button);
 			RIT128x96x4Clear();
