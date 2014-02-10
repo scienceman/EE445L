@@ -44,28 +44,48 @@ int main(void){
   	Output_Init();
 	Output_Color(15);
 	 // Hardcoded clock example
-	 //Draw_Clock();
+	 
 
-	 DisplayTimeNumeric();
-	 /*
+	 //DisplayTimeNumeric();
+	 
 	 //Hour hand
-	 RIT128x96x4_Line(64,48,72,60,15);
+	 //RIT128x96x4_Line(64,48,72,60,15);
+	 RIT128x96x4_Line(66,46,48,36,15);
 	 //RIT128x96x4_Line(66,49,86,69,15);
 	 //RIT128x96x4_Line(62,47,82,67,15);
 	 //Minute hand
-	 RIT128x96x4_Line(64,48,35,40,15);
-	 RIT128x96x4_ShowImage();*/
+	 RIT128x96x4_Line(66,46,66,21,15);
+	 RIT128x96x4_ShowImage();
 	 EnableInterrupts();	  
-
+//	 printf("(1) Set Time\r");
+//     printf("(2) Set Alarm\r");
+//     printf("(3) Turn on/off Alarm\r");
+//     printf("(4) Display Mode\r");
 	// 
-	while(1){
-		//while(!update);	 // Wait for systick
-		//reposition in RAM
+	while(1){         
+//		while((GPIO_PORTG_DATA_R&0xF0)>= 0xF0);   // Do nothing, wait for button press
+//		// Determine which button was pressed
+//		switch(GPIO_PORTG_DATA_R&0xF0) {
+//			case(0xE0):   //1110 (button button)	
+//				//printf("%x\r",GPIO_PORTG_DATA_R);
+//				
+//				break;
+//			case(0xD0):   //1101 (left button)
+//				//printf("%x\r",GPIO_PORTG_DATA_R);
+//				break;
+//			case(0xB0):	  //1011 (right button)
+//				//printf("%x\r",GPIO_PORTG_DATA_R);
+//				break;
+//			case(0x70):    //0111 (select)
+//				//printf("%x\r",GPIO_PORTG_DATA_R); 
+//				//ToggleDisplayMode();
+//				Draw_Clock();
+//				break; 
+//			default:
+//				printf("Hit Default\r");
+//				break;
+//		} 
 		//redraw image on OLED
-        //printf("(1) Set Time\r");
-        //printf("(2) Set Alarm\r");
-        //printf("(3) Turn on/off Alarm\r");
-        //printf("(4) Display Mode\r");
     }
 	
 }
