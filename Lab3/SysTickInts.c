@@ -47,8 +47,7 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 unsigned char index;
-unsigned int count, hours, minutes;
-count = hours = minutes = 0;
+unsigned int count=0, hours=0, minutes=0;
 
 // **************SysTick_Init*********************
 // Initialize Systick periodic interrupts
@@ -76,8 +75,7 @@ void SysTick_Period(unsigned long period) {
 // Executed every 20ns*(period)
 
 void SysTick_Handler(void){
-<<<<<<< HEAD
-    GPIO_PORTG_DATA_R ^= 0x04;
+    //GPIO_PORTG_DATA_R ^= 0x04;
     count += 1;
     if (count == 60){
         count = 0;
@@ -88,8 +86,6 @@ void SysTick_Handler(void){
             hours %= 24;
         }
     }
-=======
-    //GPIO_PORTG_DATA_R ^= 0x04;
->>>>>>> 82c9f749eb9e31f9c171ff132899ad53c44de5e4
+	
 }
 

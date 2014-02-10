@@ -7,6 +7,11 @@
 #include "logo.h"
 #include "OLED.h"
 #include "Output.h"
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define PI 3.14159265
 
 unsigned char clock1rev[] ={
  0x42, 0x4D, 0x76, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x76, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x60, 0x00, 0x00, 0x00, 0x01, 0x00, 0x04, 0x00, 0x00, 0x00,
@@ -483,7 +488,15 @@ void Draw_Clock(void){
 	RIT128x96x4_BMP(0,0,clock1);	
 }
 
-void DisplayTimeNumeric(void) {
-	char* time = "7:28";
+void DisplayTimeClock(int hour, int min) {
+	RIT128x96x4_ClearImage();   // Clear line buffer
+	RIT128x96x4_Line(66,46,(66+(15*(cos((hour-3)*(PI/6))))),46+(sin((hour-3)*(PI/6))*15),15);
+	RIT128x96x4_Line(66,46,(66+(25*(cos((min-3)*(PI/30))))),46+(sin((min-3)*(PI/30))*25),15);
+	RIT128x96x4_ShowImage();
+}
+
+void DisplayTimeNumeric(int hour, int min) {
+	char time[6];
+	sprintf(time, "%d:%02d", hour, min);
 	RIT128x96x4StringDraw((const char *)time, 64, 48, 15);
 }
