@@ -75,7 +75,7 @@ void SysTick_Period(unsigned long period) {
 // Executed every 20ns*(period)
 
 void SysTick_Handler(void){
-    //GPIO_PORTG_DATA_R ^= 0x04;
+    GPIO_PORTG_DATA_R ^= 0x04;
     count += 1;
     if (count == 60){
         count = 0;

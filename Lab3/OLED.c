@@ -488,15 +488,16 @@ void Draw_Clock(void){
 	RIT128x96x4_BMP(0,0,clock1);	
 }
 
-void DisplayTimeClock(int hour, int min) {
+void DisplayTimeClock(int hour, int min, int sec) {
 	RIT128x96x4_ClearImage();   // Clear line buffer
 	RIT128x96x4_Line(66,46,(66+(15*(cos((hour-3)*(PI/6))))),46+(sin((hour-3)*(PI/6))*15),15);
-	RIT128x96x4_Line(66,46,(66+(25*(cos((min-3)*(PI/30))))),46+(sin((min-3)*(PI/30))*25),15);
+	RIT128x96x4_Line(66,46,(66+(25*(cos((min-15)*(PI/30))))),46+(sin((min-15)*(PI/30))*25),10);
+	RIT128x96x4_Line(66,46,(66+(20*(cos((sec-15)*(PI/30))))),46+(sin((sec-15)*(PI/30))*20),6);
 	RIT128x96x4_ShowImage();
 }
 
-void DisplayTimeNumeric(int hour, int min) {
-	char time[6];
-	sprintf(time, "%d:%02d\r", hour, min);
-	RIT128x96x4StringDraw((const char *)time, 64, 48, 15);
+void DisplayTimeNumeric(int hour, int min, int sec) {
+	char time[8];
+	sprintf(time, "%d:%02d:%02d\r", hour, min, sec);
+	RIT128x96x4StringDraw((const char *)time, 50, 48, 15);
 }
