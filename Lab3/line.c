@@ -6,11 +6,15 @@
 
 //*************OLED Buffer*************************************************
 // 4-bit color pixels, each char 2 pixels. Width = 128/2
-extern unsigned char imageBuff[];
+extern unsigned char imageBuff[(128/2)*96];
+unsigned char lineBuff[(128/2)*96];
 extern unsigned char clock1[];
 
+void mergeBuffers(unsigned char* buff1, unsigned char* buff2, unsigned char* result);
+
 void RIT128x96x4_ShowImage(void) {
-    RIT128x96x4ImageDraw(clock1,0,0,128,96);
+	mergeBuffers(clock1,lineBuff,imageBuff);
+    RIT128x96x4ImageDraw(imageBuff,0,0,128,96);
 }
 
 void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color) {
@@ -33,7 +37,7 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color) {
 	err = dx-dy;
 
 	while(1) {
-	 	clock1[index] = color;
+	 	lineBuff[index] = color;
 		if(x1 == x2 && y1==y2){
 			return;
 		}
@@ -43,15 +47,30 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color) {
 			x1 += sx;
 		}
 		if(x1 == x2 && y1 == y2) {
-			clock1[x1+y1*(128/2)] = color;
+			lineBuff[x1+y1*(128/2)] = color;
 			return;
 		}
 		if(e2 < dx) {
 			err += dx;
 			y1 += sy;
 		}
-		clock1[x1+y1*(128/2)] = color;
+		lineBuff[x1+y1*(128/2)] = color;
 	}				 	
+}
+
+void mergeBuffers(unsigned char* buff1,unsigned char* buff2,unsigned char* result) {
+    int i=0;
+	char temp;
+	while(i<(128/2)*96) {
+		temp =(buff1[i]+buff2[i]);
+		if(temp > 0xFF) {
+		 	result[i]=0xFF;
+		} else {
+		 	result[i]=temp;
+		}
+		i++;
+	}
+	return;
 }
 
 void RIT128x96x4_ClearImage(void) {
@@ -60,5 +79,5 @@ void RIT128x96x4_ClearImage(void) {
 	for(i=0;i<size;i++) {
 	    clock1[i]=0;
 	}
-	RIT128x96x4ImageDraw(clock1,0,0,128,96);
+	RIT128x96x4ImageDraw(lineBuff,0,0,128,96);
 }

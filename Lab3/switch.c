@@ -22,6 +22,8 @@ void Switch_Init(void){
 	//NVIC_EN0_R |= 0x80000;
 }
 
+
+
 void GPIOPortG_Handler(void){
     GPIO_PORTG_ICR_R = 0xF0;
 	GPIO_PORTG_DATA_R |= 0x04;
