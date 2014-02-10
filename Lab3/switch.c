@@ -10,8 +10,12 @@
 #include "rit128x96x4.h"
 #include <stdio.h>
 
+extern int hours, minutes;
 int main_menu = 1;
-int counter;
+int counter, alarm_hours, alarm_minutes;
+int alarm, set_alarm, set_time;
+alarm = set_alarm = set_time = 0;
+alarm_hours = alarm_minutes = 0;
 
 void Switch_Init(void){
    int delay;
@@ -45,10 +49,16 @@ void GPIOPortG_Wait(void){
             main_menu = 0;
             break;
         case(0x68): //bottom button
+            RIT128x96x4Clear();
+            main_menu = 0;
             break;
         case(0x58):  //left button
+            RIT128x96x4Clear();
+            main_menu = 0;
             break;
         case(0x38):  //right button
+            RIT128x96x4Clear();
+            main_menu = 0;
             break;
     }
 }
