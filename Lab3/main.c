@@ -26,11 +26,18 @@ void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
 tBoolean alarmflag = false;
+tBoolean reset = true;
 
 int main(void){
 	// Initializations
+	int i;
 	extern unsigned int count, hours, minutes;
-	extern int displayClock, main_menu, set_time, button, set_alarm, alarm_hours, alarm_minutes;
+	extern int displayClock, main_menu, set_time, button, set_alarm, alarm_hours, alarm_minutes, alarm;
+	extern 	char alarmTime[6];
+	char* menu[] = {"(1) Display Mode",
+		 			"(2) Set Time",
+					"(3) Set Alarm",
+					"(4) Turn On/Off Alarm"};
 	unsigned char output=0;
 	//SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	Switch_Init();
@@ -41,29 +48,31 @@ int main(void){
 	EnableInterrupts();	  
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOH);
 	GPIOPinTypeGPIOOutput(GPIO_PORTH_BASE, GPIO_PIN_0);
-	alarmflag=false;
+	//alarmflag=true;
 
 	while(1){
 		if(main_menu){
 			RIT128x96x4Clear();
-			printf("(1) Display Mode\r");
-			printf("(2) Set Time\r");
-			printf("(3) Set Alarm\r");
-			printf("(4) Turn On/Off Alarm\n");
+			for(i=0;i<4;i++) {
+				RIT128x96x4StringDraw(menu[i],0,10*i,15);
+			}
 			while(!button);
 			RIT128x96x4Clear();
 			button = 0;
 		}
-		if(set_time){
+		if(set_time && !displayClock){
 			DisplayTimeNumeric(hours, minutes, count);
-		} else if(set_alarm){
+		} else if(set_alarm && !displayClock){
 			DisplayAlarmNumeric(alarm_hours, alarm_minutes);
-		}else if(displayClock) {
+		}else if(displayClock && !set_time && !set_alarm) {
 		    DisplayTimeClock(hours, minutes, count);
-		} else {
+			reset = true;
+		}else if(!set_time && !set_alarm){
 			DisplayTimeNumeric(hours, minutes, count);
 		}
-		//GPIOPortG_Wait();
+		if(alarmflag && !displayClock) { 			
+			RIT128x96x4StringDraw(alarmTime,0,86,15);
+		}
 		if(alarmflag && (hours == alarm_hours) && (minutes == alarm_minutes)){
 		 	GPIOPinWrite(GPIO_PORTH_BASE,GPIO_PIN_0,output);
 			//SysTick_Wait10ms(1);

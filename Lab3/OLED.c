@@ -7,6 +7,7 @@
 #include "logo.h"
 #include "OLED.h"
 #include "Output.h"
+#include "../inc/hw_types.h"
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -483,6 +484,7 @@ unsigned char clock1[] ={  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
 unsigned char imageBuff[(128/2)*96] = {0};
+extern tBoolean reset;
 
 void Draw_Clock(void){
 	RIT128x96x4_BMP(0,0,clock1);	
@@ -498,6 +500,10 @@ void DisplayTimeClock(int hour, int min, int sec) {
 
 void DisplayTimeNumeric(int hour, int min, int sec) {
 	char time[8];
+	if(reset) {
+	 	RIT128x96x4Clear();
+		reset=false;
+	}
 	sprintf(time, "%d:%02d:%02d\r", hour, min, sec);
 	RIT128x96x4StringDraw((const char *)time, 50, 48, 15);
 }

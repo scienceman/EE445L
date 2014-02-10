@@ -46,7 +46,7 @@ void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
-extern int counter, set_time, main_menu, set_alarm, displayClock;
+extern int counter, set_time, main_menu, set_alarm, displayClock, alarm;
 unsigned char index;
 unsigned int count=0, hours=0, minutes=0;
 
@@ -75,15 +75,20 @@ void SysTick_Period(unsigned long period) {
 // Interrupt service routine
 // Executed every 20ns*(period)
 
+#define MENU
+
 void SysTick_Handler(void){
     GPIO_PORTG_DATA_R ^= 0x04;
     count += 1;
+#ifdef MENU
 	if (count % 10 == counter){
 		displayClock = 0;
+		alarm = 0;
 		set_time = 0;
 		set_alarm = 0;
 		main_menu = 1;
 	}
+#endif
     if (count == 60){
         count = 0;
         minutes += 1;

@@ -11,16 +11,18 @@
 #include <stdio.h>
 
 extern int hours, minutes, count, alarmflag;
+extern tBoolean reset;
 int main_menu = 1;
 int counter, alarm_hours, alarm_minutes;
 int set_alarm, set_time;
-int displayClock, button;
+int displayClock, button, alarm;
+char alarmTime[6];
 
 void Switch_Init(void){
     //int delay;
     SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG;
     set_alarm = 0;set_time = 0;
-	displayClock=0;
+	displayClock=0; alarm = 1;
 	button = alarm_hours = alarm_minutes = 0;
     //delay = SYSCTL_RCGC2_R;
     GPIO_PORTG_DIR_R &= ~0x78;  // enable PG7-4
@@ -29,7 +31,7 @@ void Switch_Init(void){
     GPIO_PORTG_PUR_R |= 0x78;  
     GPIO_PORTG_IS_R &= ~0x78;
     GPIO_PORTG_IBE_R &= ~0x78;
-    GPIO_PORTG_IEV_R &= ~0x78;
+    GPIO_PORTG_IEV_R |= 0x78;
     GPIO_PORTG_ICR_R |= 0x78;
     GPIO_PORTG_IM_R |= 0x78;
     GPIO_PORTG_DATA_R &= 0xFB;        // Clear PG2
@@ -58,7 +60,7 @@ void EdgeCounter_Init(void){
 void GPIOPortC_Handler(void) {
 	GPIO_PORTC_ICR_R = 0x3C;
 	main_menu = 0;
-	RIT128x96x4Clear();
+	//RIT128x96x4Clear();
 	counter = count % 10;
 	    switch(GPIO_PORTC_DATA_R&0x3C){
         case(0x20): //(1) button (closest to board)
@@ -113,6 +115,13 @@ void GPIOPortC_Handler(void) {
 				}
 			}else{
 				alarmflag ^= 1;
+				alarm = 1;
+				if(alarmflag) {
+					sprintf(alarmTime, "%d:%02d\r",alarm_hours,alarm_minutes);
+				} else {
+				 	sprintf(alarmTime, "Alarm OFF");
+				}
+				reset = true;
 			}
             break;
 		default:
