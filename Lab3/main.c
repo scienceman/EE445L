@@ -60,11 +60,11 @@ int main(void){
 			RIT128x96x4Clear();
 			button = 0;
 		}
-		if(set_time && !displayClock){
+		if(set_time){
 			DisplayTimeNumeric(hours, minutes, count);
-		} else if(set_alarm && !displayClock){
+		} else if(set_alarm){
 			DisplayAlarmNumeric(alarm_hours, alarm_minutes);
-		}else if(displayClock && !set_time && !set_alarm) {
+		}else if(displayClock) {
 		    DisplayTimeClock(hours, minutes, count);
 			reset = true;
 		}else if(!set_time && !set_alarm){
