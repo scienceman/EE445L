@@ -501,3 +501,9 @@ void DisplayTimeNumeric(int hour, int min, int sec) {
 	sprintf(time, "%d:%02d:%02d\r", hour, min, sec);
 	RIT128x96x4StringDraw((const char *)time, 50, 48, 15);
 }
+
+void DisplayAlarmNumeric(int hour, int min){
+	char time[6];
+	sprintf(time, "%d:%02d\r", hour, min);
+	RIT128x96x4StringDraw((const char *)time, 50, 48, 15);
+}

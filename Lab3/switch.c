@@ -10,18 +10,18 @@
 #include "rit128x96x4.h"
 #include <stdio.h>
 
-extern int hours, minutes;
+extern int hours, minutes, count, alarmflag;
 int main_menu = 1;
 int counter, alarm_hours, alarm_minutes;
-int alarm, set_alarm, set_time;
-int displayClock;
+int set_alarm, set_time;
+int displayClock, button;
 
 void Switch_Init(void){
     //int delay;
     SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG;
-    alarm = 0; set_alarm = 0;set_time = 0;
+    set_alarm = 0;set_time = 0;
 	displayClock=0;
-	alarm_hours = alarm_minutes = 0;
+	button = alarm_hours = alarm_minutes = 0;
     //delay = SYSCTL_RCGC2_R;
     GPIO_PORTG_DIR_R &= ~0x78;  // enable PG7-4
     GPIO_PORTG_DIR_R |= 0x04;  // set up PG2 LED
@@ -57,51 +57,68 @@ void EdgeCounter_Init(void){
 
 void GPIOPortC_Handler(void) {
 	GPIO_PORTC_ICR_R = 0x3C;
+	main_menu = 0;
+	RIT128x96x4Clear();
+	counter = count % 10;
 	    switch(GPIO_PORTC_DATA_R&0x3C){
-        case(0x20): //top button
-			RIT128x96x4Clear();
-			toggleDisplay();
+        case(0x20): //(1) button (closest to board)
+			if(set_time){
+				hours += 1;
+				hours %= 24;
+			}else if(set_alarm){
+				alarm_hours += 1;
+				alarm_hours %= 24;
+			}else{
+				toggleDisplay();
+			}
             break;
-        case(0x10): //bottom button
+        case(0x10): //(2) button
+			if(set_time){
+				minutes += 1;
+				minutes %= 60;
+			}else if(set_alarm){
+				alarm_minutes += 1;
+				alarm_minutes %= 60;
+			}else{
+			 	set_time = 1;
+			}
+			break;
+        case(0x08):  //(3) button
+			if(set_time){
+				minutes -= 1;
+				if(minutes<0) {
+				 	minutes = 59;
+				}
+				minutes %= 60;
+			}else if(set_alarm){
+			 	alarm_minutes -= 1;
+				if(alarm_minutes<0){
+				 	alarm_minutes = 59;
+				}
+			}else {
+			 	set_alarm=1;
+			}
             break;
-        case(0x08):  //left button
-            break;
-        case(0x04):  //right button
+        case(0x04):  //(4) button
+			if(set_time){
+				hours -= 1;
+				if(hours<0) {
+				 	hours=23;
+				}
+				hours %= 24;
+			}else if(set_alarm){
+			 	alarm_hours -= 1;
+				if(alarm_hours<0){
+				 	alarm_hours = 23;
+				}
+			}else{
+				alarmflag ^= 1;
+			}
             break;
 		default:
 			break;
     }
-}
-
-void GPIOPortG_Wait(void){
-    if (main_menu){
-        printf("(1) Set Time\r");
-        printf("(2) Set Alarm\r");
-        printf("(3) Turn on/off Alarm\r");
-        printf("(4) Display Mode\r");
-    }
-    switch(GPIO_PORTG_DATA_R&0x78){
-        case(0x70): //top button
-			while(GPIO_PORTG_DATA_R&0x79 == 0x70);
-            RIT128x96x4Clear();
-            main_menu = 0;
-			toggleDisplay();
-            break;
-        case(0x68): //bottom button
-            RIT128x96x4Clear();
-            main_menu = 0;
-            break;
-        case(0x58):  //left button
-            RIT128x96x4Clear();
-            main_menu = 0;
-            break;
-        case(0x38):  //right button
-            RIT128x96x4Clear();
-            main_menu = 0;
-            break;
-		default:
-			break;
-    }
+	button = 1;
 }
 
 void toggleDisplay(void) {
