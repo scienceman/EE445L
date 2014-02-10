@@ -497,6 +497,6 @@ void DisplayTimeClock(int hour, int min) {
 
 void DisplayTimeNumeric(int hour, int min) {
 	char time[6];
-	sprintf(time, "%d:%02d", hour, min);
+	sprintf(time, "%d:%02d\r", hour, min);
 	RIT128x96x4StringDraw((const char *)time, 64, 48, 15);
 }

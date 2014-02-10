@@ -30,11 +30,10 @@ void DisplayTimeClock(int hour, int min);
 
 int main(void){
 	// Initializations
-	int HOUR;
 	extern unsigned int count, hours, minutes;
 	unsigned char output=0;
-	//Switch_Init();
-    SysTick_IE_Init(50000); //50000000 = 1 sec
+	Switch_Init();
+    SysTick_IE_Init(5000); //50000000 = 1 sec
 	//Switch_Init();
   	Output_Init();
 	Output_Color(15);
@@ -63,8 +62,9 @@ int main(void){
 		alarm=false;
 
 	while(1){  	
-		//DisplayTimeNumeric(hours, minutes);
-		DisplayTimeClock(hours, minutes);
+		DisplayTimeNumeric(hours, minutes);
+		//DisplayTimeClock(hours, minutes);
+		GPIOPortG_Wait();
 		if(alarm){
 		 	GPIOPinWrite(GPIO_PORTH_BASE,GPIO_PIN_0,output);
 			SysTick_Wait10ms(1);
