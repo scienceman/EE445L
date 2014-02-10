@@ -7,6 +7,9 @@
 #include "switch.h"
 #include "SysTickInts.h"
 #include "lm3s1968.h"
+#include "math.h"
+
+#define PI 3.14159265
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -39,22 +42,24 @@ void WaitForInterrupt(void);  // low power mode
 int main(void){
 	// Initializations
 	//int i = 0;
+	int a;
 	Switch_Init();
     SysTick_IE_Init(50000000);
   	Output_Init();
 	Output_Color(15);
 	 // Hardcoded clock example
-	 
+    //printf("%lf\r",cos(PI/30)*15);	
 
 	 //DisplayTimeNumeric();
-	 
+	 #define HOUR 1
 	 //Hour hand
 	 //RIT128x96x4_Line(64,48,72,60,15);
-	 RIT128x96x4_Line(66,46,48,36,15);
+	 RIT128x96x4_Line(66,46,(66+(15*(cos(HOUR*(PI/6))))),46+(HOUR*sin(PI/6)*15),15);
 	 //RIT128x96x4_Line(66,49,86,69,15);
 	 //RIT128x96x4_Line(62,47,82,67,15);
 	 //Minute hand
-	 RIT128x96x4_Line(66,46,66,21,15);
+	 //RIT128x96x4_Line(66,46,66,21,15);
+	 RIT128x96x4_Line(66,46,(66+(25*(cos(HOUR*(PI/30))))),46+(HOUR*sin(PI/30)*25),15);
 	 RIT128x96x4_ShowImage();
 	 EnableInterrupts();	  
 //	 printf("(1) Set Time\r");
