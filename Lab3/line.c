@@ -79,5 +79,5 @@ void RIT128x96x4_ClearImage(void) {
 	for(i=0;i<size;i++) {
 	    lineBuff[i]=0;
 	}
-	RIT128x96x4ImageDraw(lineBuff,0,0,128,96);
+	//RIT128x96x4ImageDraw(lineBuff,0,0,128,96);
 }
