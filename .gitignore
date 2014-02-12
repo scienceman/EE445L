@@ -1,3 +1,5 @@
+/driverlib
+/inc
 *.bak
 *.a
 *.o
