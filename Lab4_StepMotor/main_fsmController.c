@@ -15,10 +15,18 @@
 
 //******************************************************************
 /*	Finite State Machine Data Structure -> FSM
- *
- *
- *
+ *	Linked List Data Structure
+ * 		- Output (unsigned int)
+ *		- Delay (unsigned long)
+ *		- Next State Pointer (FSM*)
  */
+ #define NUM_OUTPUTS 4
+ #define NUM_STATES 8
+typedef struct tState {
+   unsigned int Output[NUM_OUTPUTS];
+   unsigned long Delay;
+   struct tState* Next[NUM_STATES];
+} tState;
 
 //******************************************************************
 /*	System Initilizations 
