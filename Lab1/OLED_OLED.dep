@@ -1,6 +1,0 @@
-Dependencies for Project 'OLED', Target 'OLED': (DO NOT MODIFY !)
-F (.\OLEDTestMain.c)(0x51006990)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I D:\Keil\ARM\RV31\Inc -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\Luminary -o "oledtestmain.o" --omf_browse "oledtestmain.crf" --depend "oledtestmain.d")
-F (.\Output.c)(0x51006990)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "output.o" --omf_browse "output.crf" --depend "output.d")
-F (.\rit128x96x4.c)(0x51006991)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" -o "rit128x96x4.o" --omf_browse "rit128x96x4.crf" --depend "rit128x96x4.d")
-F (.\Startup.s)(0x51006990)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" -I "C:\Keil\ARM\CMSIS\Include" -I "C:\Keil\ARM\INC\Luminary" --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
-F (..\driverlib\rvmdk\driverlib.lib)(0x00000000)()
