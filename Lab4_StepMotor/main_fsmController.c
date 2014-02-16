@@ -37,6 +37,7 @@ void system_Init() {
 	// Port Inits
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
+	GPIO_PORTC_AFSEL_R &= ~0x1C;
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	// Switch Inits
 	GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
@@ -55,7 +56,7 @@ int main(void){
 	 // Initialize states
 	 states_init();
 	 // Initialize FSM driver
-	 SysTick_IE_Init(50000);
+	 SysTick_IE_Init(5000000);
 	 EnableInterrupts();
 
 	 while(1);

@@ -84,11 +84,12 @@ unsigned int nextState;
 unsigned char input; 
 
 void SysTick_Handler(void){
-    GPIO_PORTG_DATA_R ^= 0x04;
+    //GPIO_PORTG_DATA_R ^= 0x04;
 	state = getCurrentState();
-	GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, state->Output);
+	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, state->Output);
 	input = GPIOPinRead(GPIO_PORTC_BASE,GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4)&0x1C;
 	input = input >> 2;
+	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2, input);
 	setCurrentState(state->nextState[input]);
 }
 
