@@ -15,8 +15,8 @@ char* statePrint, stateOut;
 
 void setCurrentState(tState* state) {
 	currentState = state;
-	printf("state: %s\r",(*state).name);
-	printf("Output: %d\r",(*state).Output);
+	printf("state: %s\n",(*state).name);
+	printf("Output: %d\n",(*state).Output);
 }
 
 tState* getCurrentState(void) {
@@ -242,11 +242,11 @@ void states_init(void) {
 
 	s19.name = "s19";
 	s19.Output = 5;
-	s19.nextState[0] = &s0; // 000
+	s19.nextState[0] = &start; // 000
 	s19.nextState[1] = &s19; // 001
-	s19.nextState[2] = &s0; // 010
+	s19.nextState[2] = &start; // 010
 	s19.nextState[3] = &s19; // 011
-	s19.nextState[4] = &s0; // 100
+	s19.nextState[4] = &start; // 100
 	s19.nextState[5] = &s19; // 101
 	s19.nextState[6] = &s4; // 110
 	s19.nextState[7] = &s19; // 111
