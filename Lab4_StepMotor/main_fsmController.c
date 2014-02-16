@@ -13,20 +13,8 @@
 #include "../driverlib/sysctl.h"
 #include "../driverlib/interrupt.h"
 
-//******************************************************************
-/*	Finite State Machine Data Structure -> FSM
- *	Linked List Data Structure
- * 		- Output (unsigned int)
- *		- Delay (unsigned long)
- *		- Next State Pointer (FSM*)
- */
- #define NUM_OUTPUTS 4
- #define NUM_STATES 8
-typedef struct tState {
-   unsigned int Output[NUM_OUTPUTS];
-   unsigned long Delay;
-   struct tState* Next[NUM_STATES];
-} tState;
+#include "fsm.h"
+#include "SysTickInts.h"
 
 //******************************************************************
 /*	System Initilizations 
@@ -37,6 +25,11 @@ typedef struct tState {
  */
 // Function declaration
 void system_Init(void);
+void DisableInterrupts(void);
+void EnableInterrupts(void);
+void StartCritical(void);
+void EndCritical(void);
+void WaitForInterrupt(void);
 
 void system_Init() {
   	// 50Mhz Clock
@@ -44,11 +37,11 @@ void system_Init() {
 	// Port Inits
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	// Switch Inits
 	GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
-	GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5); // PC2-5 Input switches
-  	// SysTick Init
-	SysTick_Init();
+	GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);  // PA0-3 stepper output
+	GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4); // PC2-4 Input switches
 }
 
 int main(void){
@@ -59,6 +52,11 @@ int main(void){
 	 *	Pointer and data structure init
 	 *	Updates occur in background
 	 */
+	 // Initialize states
+	 states_init();
+	 // Initialize FSM driver
+	 SysTick_IE_Init(50000);
+	 EnableInterrupts();
 
-	while(1);
+	 while(1);
 }
