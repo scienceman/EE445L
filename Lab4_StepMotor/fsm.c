@@ -25,7 +25,7 @@ tState* getCurrentState(void) {
 void states_init(void) {
 	currentState = &start;
 
-	start.Output = 5;
+	start.Output = 0xFF;
 	start.nextState[0] = &start; // 000
 	start.nextState[1] = &s1; // 001
 	start.nextState[2] = &s1; // 010
@@ -33,10 +33,10 @@ void states_init(void) {
 	start.nextState[4] = &s1; // 100
 	start.nextState[5] = &s1; // 101
 	start.nextState[6] = &s1; // 110
-	start.nextState[7] = &s1; // 111
+	start.nextState[7] = &start; // 111
 
-	s1.Output = 6;
-	s1.nextState[0] = &s1; // 000
+	s1.Output = 0x00;
+	s1.nextState[0] = &start; // 000
 	s1.nextState[1] = &s1; // 001
 	s1.nextState[2] = &s1; // 010
 	s1.nextState[3] = &s1; // 011
