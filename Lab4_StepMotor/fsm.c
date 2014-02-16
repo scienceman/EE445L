@@ -15,8 +15,8 @@ char* statePrint, stateOut;
 
 void setCurrentState(tState* state) {
 	currentState = state;
-	printf("state: %s\n",(*state).name);
-	printf("Output: %d\n",(*state).Output);
+	printf("state: %s\r",(*state).name);
+	printf("Output: %d\r",(*state).Output);
 }
 
 tState* getCurrentState(void) {
