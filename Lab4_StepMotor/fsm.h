@@ -5,6 +5,7 @@
  */
  #define NUM_STATES 8
 typedef struct tState {
+   char* name;
    unsigned char Output;
    struct tState* nextState[NUM_STATES];
 } tState;

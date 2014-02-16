@@ -14,6 +14,7 @@
 #include "../driverlib/interrupt.h"
 
 #include "fsm.h"
+#include "Output.h"
 #include "SysTickInts.h"
 
 //******************************************************************
@@ -33,16 +34,17 @@ void WaitForInterrupt(void);
 
 void system_Init() {
   	// 50Mhz Clock
-	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
+	//SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	// Port Inits
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
-	GPIO_PORTC_AFSEL_R &= ~0x1C;
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	// Switch Inits
 	GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
 	GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);  // PA0-3 stepper output
 	GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4); // PC2-4 Input switches
+	Output_Init();
+	Output_Color(15);
 }
 
 int main(void){
@@ -56,7 +58,7 @@ int main(void){
 	 // Initialize states
 	 states_init();
 	 // Initialize FSM driver
-	 SysTick_IE_Init(5000000);
+	 SysTick_IE_Init(50000000);
 	 EnableInterrupts();
 
 	 while(1);
