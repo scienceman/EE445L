@@ -34,14 +34,15 @@ void WaitForInterrupt(void);
 
 void system_Init() {
   	// 50Mhz Clock
-	//SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
+	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	// Port Inits
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+
 	// Switch Inits
 	GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
-	GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);  // PA0-3 stepper output
+	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);  // PA0-3 stepper output
 	GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4); // PC2-4 Input switches
 	Output_Init();
 	Output_Color(15);
@@ -58,7 +59,7 @@ int main(void){
 	 // Initialize states
 	 states_init();
 	 // Initialize FSM driver
-	 SysTick_IE_Init(50000000);
+	 SysTick_IE_Init(500000);
 	 EnableInterrupts();
 
 	 while(1);

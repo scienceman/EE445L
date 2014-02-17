@@ -32,6 +32,8 @@
 #include "SysTickInts.h"
 #include "fsm.h"
 
+#include <stdio.h>
+
 #define NVIC_SYS_PRI3_R         (*((volatile unsigned long *)0xE000ED20))  // Sys. Handlers 12 to 15 Priority
 #define NVIC_ST_CTRL_R          (*((volatile unsigned long *)0xE000E010))
 #define NVIC_ST_RELOAD_R        (*((volatile unsigned long *)0xE000E014))
@@ -86,7 +88,7 @@ unsigned char input;
 void SysTick_Handler(void){
     GPIO_PORTG_DATA_R ^= 0x04;
 	state = getCurrentState();
-	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, state->Output);
+	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, state->Output);		
 	input = GPIOPinRead(GPIO_PORTC_BASE,GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4)&0x1C;
 	input = input >> 2;
 	setCurrentState(state->nextState[input]);
