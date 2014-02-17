@@ -62,11 +62,11 @@ int main(void){
 	/*	Finite state machine
 	 *	Pointer and data structure init
 	 *	Updates occur in background
-	 */
+	 */												    
 	 // Initialize states
 	 states_init();
 	 // Initialize FSM driver
-	 Timer0A_Init(&fsmDriver,10000);  // period in usec. 10000Hz
+	 Timer0A_Init(&fsmDriver,10000);  // period in usec. 100Hz
 	 EnableInterrupts();
 
 	 while(1);

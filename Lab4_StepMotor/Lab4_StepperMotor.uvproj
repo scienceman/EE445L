@@ -446,11 +446,6 @@
               <FilePath>.\Startup.s</FilePath>
             </File>
             <File>
-              <FileName>SysTick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SysTick.c</FilePath>
-            </File>
-            <File>
               <FileName>main_fsmController.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main_fsmController.c</FilePath>
@@ -461,9 +456,24 @@
               <FilePath>.\fsm.c</FilePath>
             </File>
             <File>
-              <FileName>SysTickInts.c</FileName>
+              <FileName>Output.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\SysTickInts.c</FilePath>
+              <FilePath>.\Output.c</FilePath>
+            </File>
+            <File>
+              <FileName>rit128x96x4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rit128x96x4.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timer0A.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Timer0A.c</FilePath>
+            </File>
+            <File>
+              <FileName>switch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\switch.c</FilePath>
             </File>
           </Files>
         </Group>
