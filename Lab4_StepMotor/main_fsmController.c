@@ -6,6 +6,7 @@
 
 #include "lm3s1968.h"
 #include "SysTick.h"
+#include "switch.h"
 #include "../inc/hw_types.h"
 #include "../inc/hw_gpio.h"
 #include "../inc/hw_memmap.h"
@@ -36,15 +37,7 @@ void WaitForInterrupt(void);
 void system_Init() {
   	// 50Mhz Clock
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
-	// Port Inits
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-
-	// Switch Inits
-	GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
-	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);  // PA0-3 stepper output
-	GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4); // PC2-4 Input switches
+    Switch_Init();
 	Output_Init();
 	Output_Color(15);
 }
