@@ -16,6 +16,7 @@
 #include "fsm.h"
 #include "Output.h"
 #include "SysTickInts.h"
+#include "Timer0A.h"
 
 //******************************************************************
 /*	System Initilizations 
@@ -48,6 +49,19 @@ void system_Init() {
 	Output_Color(15);
 }
 
+tState* state;
+unsigned int nextState;
+unsigned char input; 
+
+void fsmDriver(void) {
+    GPIO_PORTG_DATA_R ^= 0x04;
+	state = getCurrentState();
+	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, state->Output);		
+	input = GPIOPinRead(GPIO_PORTC_BASE,GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4)&0x1C;
+	input = input >> 2;
+	setCurrentState(state->nextState[input]);
+}
+
 int main(void){
 	// Call system init function
 	system_Init();
@@ -59,7 +73,7 @@ int main(void){
 	 // Initialize states
 	 states_init();
 	 // Initialize FSM driver
-	 SysTick_IE_Init(500000);
+	 Timer0A_Init(&fsmDriver,10000);  // period in usec. 10000Hz
 	 EnableInterrupts();
 
 	 while(1);
