@@ -392,14 +392,29 @@
               <FilePath>.\Startup.s</FilePath>
             </File>
             <File>
-              <FileName>PeriodicTimer0AInts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\PeriodicTimer0AInts.c</FilePath>
-            </File>
-            <File>
               <FileName>Timer0A.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Timer0A.c</FilePath>
+            </File>
+            <File>
+              <FileName>main_Lab5DAC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\main_Lab5DAC.c</FilePath>
+            </File>
+            <File>
+              <FileName>music.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\music.c</FilePath>
+            </File>
+            <File>
+              <FileName>rit128x96x4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rit128x96x4.c</FilePath>
+            </File>
+            <File>
+              <FileName>system.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\system.c</FilePath>
             </File>
           </Files>
         </Group>
