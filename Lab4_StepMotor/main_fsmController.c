@@ -5,7 +5,6 @@
 // February 12, 2014
 
 #include "lm3s1968.h"
-#include "SysTick.h"
 #include "switch.h"
 #include "../inc/hw_types.h"
 #include "../inc/hw_gpio.h"
@@ -13,10 +12,10 @@
 #include "../driverlib/gpio.h"
 #include "../driverlib/sysctl.h"
 #include "../driverlib/interrupt.h"
+#include <stdio.h>
 
 #include "fsm.h"
 #include "Output.h"
-#include "SysTickInts.h"
 #include "Timer0A.h"
 
 //******************************************************************
@@ -55,6 +54,8 @@ void fsmDriver(void) {
 	setCurrentState(state->nextState[input]);
 }
 
+//#define DEBUG
+
 int main(void){
 	// Call system init function
 	system_Init();
@@ -66,8 +67,14 @@ int main(void){
 	 // Initialize states
 	 states_init();
 	 // Initialize FSM driver
-	 Timer0A_Init(&fsmDriver,10000);  // period in usec. 100Hz
+	 Timer0A_Init(&fsmDriver,10000);  // period in usec. 100Hz (10000 usec)
+	 state = getCurrentState();
 	 EnableInterrupts();
 
-	 while(1);
+	 while(1) {
+	 #ifdef DEBUG
+		printf("state: %s\r",(*state).name);
+		printf("Output: %d\r",(*state).Output);
+	 #endif
+	 }
 }
