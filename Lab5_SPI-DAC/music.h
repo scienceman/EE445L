@@ -5,14 +5,12 @@
  * 19 February 2014
  ******************************************************/
 
- struct Musicstruct{
-    char* begin;
-    char* current;
+ typedef struct{
+    const unsigned short* begin;
+    const unsigned short* current;
     int length;
- };
-
- typedef struct Music_struct Music;
+ } Music;
 
  void Rewind(void);
- void Play(char*);
+ void Play(unsigned short);
  void Stop(void);
