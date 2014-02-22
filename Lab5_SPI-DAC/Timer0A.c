@@ -21,33 +21,16 @@
  For more information about my classes, my research, and my books, see
  http://users.ece.utexas.edu/~valvano/
  */
+ 
+ #include "system.h"
+ #include "lm3s1968.h"
 
+const unsigned short Wave[32]= {
+2048,2438,2813,3159,3462,3711,3896,4010,4048,4010,3896,
+3711,3462,3159,2813,2438,2048,1658,1283,937,634,385,
+200,86,48,86,200,385,634,937,1283,1658};
+unsigned short I;
 
-#define NVIC_EN0_INT19          0x00080000  // Interrupt 19 enable
-#define NVIC_EN0_R              (*((volatile unsigned long *)0xE000E100))  // IRQ 0 to 31 Set Enable Register
-#define NVIC_PRI4_R             (*((volatile unsigned long *)0xE000E410))  // IRQ 16 to 19 Priority Register
-#define TIMER0_CFG_R            (*((volatile unsigned long *)0x40030000))
-#define TIMER0_TAMR_R           (*((volatile unsigned long *)0x40030004))
-#define TIMER0_CTL_R            (*((volatile unsigned long *)0x4003000C))
-#define TIMER0_IMR_R            (*((volatile unsigned long *)0x40030018))
-#define TIMER0_MIS_R            (*((volatile unsigned long *)0x40030020))
-#define TIMER0_ICR_R            (*((volatile unsigned long *)0x40030024))
-#define TIMER0_TAILR_R          (*((volatile unsigned long *)0x40030028))
-#define TIMER0_TAPR_R           (*((volatile unsigned long *)0x40030038))
-#define TIMER0_TAR_R            (*((volatile unsigned long *)0x40030048))
-#define TIMER_CFG_16_BIT        0x00000004  // 16-bit timer configuration,
-                                            // function is controlled by bits
-                                            // 1:0 of GPTMTAMR and GPTMTBMR
-#define TIMER_TAMR_TAMR_PERIOD  0x00000002  // Periodic Timer mode
-#define TIMER_CTL_TAEN          0x00000001  // GPTM TimerA Enable
-#define TIMER_IMR_TATOIM        0x00000001  // GPTM TimerA Time-Out Interrupt
-                                            // Mask
-#define TIMER_ICR_TATOCINT      0x00000001  // GPTM TimerA Time-Out Raw
-                                            // Interrupt
-#define TIMER_TAILR_TAILRL_M    0x0000FFFF  // GPTM TimerA Interval Load
-                                            // Register Low
-#define SYSCTL_RCGC1_R          (*((volatile unsigned long *)0x400FE104))
-#define SYSCTL_RCGC1_TIMER0     0x00010000  // timer 0 Clock Gating Control
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
@@ -75,6 +58,8 @@ void Timer0A_Init(void(*task)(void), unsigned short period){
   EnableInterrupts();
 }
 void Timer0A_Handler(void){
-  TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
-  (*PeriodicTask)();                // execute user task
+  TIMER0_TAILR_R = 3551; // 71us
+	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge
+	I = (I+1)&0x1F; // 0 to 31
+	DAC_Out(Wave[I]);
 }
