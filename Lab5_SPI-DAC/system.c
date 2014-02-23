@@ -9,13 +9,14 @@
 #include "../inc/hw_types.h"
 #include "../driverlib/gpio.h"
 #include "../inc/hw_gpio.h"
-#include "../driverlib/interrupt.h" 
 #include "../inc/hw_memmap.h"
 #include "../driverlib/sysctl.h"
 #include "../driverlib/interrupt.h"
+#include "../inc/hw_timer.h"
+#include "../driverlib/timer.h"
 #include "rit128x96x4.h"
+#include "../inc/hw_ints.h"
 #include "Output.h"
-#include <stdio.h>
 
 #include "system.h"
 #include "music.h"
@@ -41,16 +42,16 @@ void Switch_Init(void){
 	GPIO_PORTC_IEV_R |= 0x1C; // PC4 falling edge event
 	GPIO_PORTC_ICR_R = 0x1C; // clear flag4
 	GPIO_PORTC_IM_R |= 0x1C; // arm interrupt on PC4
-  /*GPIO_PORTG_DIR_R |= 0x04;        // make PG2 out (PG2 built-in LED)
-  GPIO_PORTG_DEN_R |= 0x04;        // enable digital I/O on PG2
-  GPIO_PORTG_DATA_R &= ~0x04;              // clear PG2		  */
+    GPIO_PORTG_DIR_R |= 0x04;        // make PG2 out (PG2 built-in LED)
+    GPIO_PORTG_DEN_R |= 0x04;        // enable digital I/O on PG2
+	GPIO_PORTG_AFSEL_R &= ~0x04;
+    GPIO_PORTG_DATA_R &= ~0x04;              // clear PG2		  */
 	NVIC_PRI0_R = (NVIC_PRI0_R&0xFF00FFFF)|0x00A00000;
 	// priority 5
 	NVIC_EN0_R |= 4; // enable int 2 in NVIC 
-	GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
+	//GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
 }
 
-int data = 0;
 unsigned short receive;
 
 void SPI_Init(void) {
@@ -66,7 +67,7 @@ void SPI_Init(void) {
 	SSI1_CR0_R &= ~(SSI_CR0_SCR_M | SSI_CR0_SPH | SSI_CR0_SPO);   // Clear SCR, SPH, SPO
 	SSI1_CR0_R = (SSI1_CR0_R & ~SSI_CR0_FRF_M)+SSI_CR0_FRF_MOTO;  //freescale
 	SSI1_CR0_R = (SSI1_CR0_R & ~SSI_CR0_DSS_M)+SSI_CR0_DSS_16;    // 16 bit data
-	SSI1_CR0_R = data;
+	SSI1_DR_R = 0;
 	SSI1_CR1_R |= SSI_CR1_SSE;    // Enable SSI
 }
 
@@ -83,8 +84,8 @@ void GPIOPortC_Handler(void) {
 					Rewind();
           break;
 				case(0x08): //(2) button Play/Pause
-					if(pause){ Play(0); }
-					else{ Stop(); }
+					if(pause){ IntEnable(INT_TIMER0A); Play(0); }
+					else{ IntDisable(INT_TIMER0A); Stop(); }
 					break;
 				case(0x04):  //(3) button Mode (idk what it does yet) ABBBBBBBBBK(
 					break;

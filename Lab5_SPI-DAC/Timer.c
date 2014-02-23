@@ -33,6 +33,7 @@
  #include "../inc/hw_memmap.h"
  #include "../driverlib/debug.h"
  #include "../driverlib/gpio.h"
+ #include <stdio.h>
 
 const unsigned short Wave[32]= {
 2048,2438,2813,3159,3462,3711,3896,4010,4048,4010,3896,
@@ -67,14 +68,7 @@ void (*PeriodicTask)(void);  // user function
   EnableInterrupts();
 }	*/
 
-//Interrupt period is 50000000/32/440 = 3551 counts = 71É s
-void Timer0A_Handler(void){
-    //TIMER0_TAILR_R = 50000000/32/A; // 71us
-	//TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge
-	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
-	I = (I+1)&0x1F; // 0 to 31
-	DAC_Out(Wave[I]);
-}
+
 
 void Timer0_Init(void(*task)(void), unsigned short period) {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
@@ -92,8 +86,20 @@ void Timer0_Init(void(*task)(void), unsigned short period) {
 	IntEnable(INT_TIMER0A);
 }
 
+//Interrupt period is 50000000/32/440 = 3551 counts = 71É s
+void Timer0A_Handler(void){
+    //TIMER0_TAILR_R = 50000000/32/A; // 71us
+	//TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge
+	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
+	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
+	//GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,1);
+	I = (I+1)&0x1F; // 0 to 31
+	DAC_Out(Wave[I]);
+	//printf("%d\r",Wave[I]);
+}
+
 void Timer0B_Handler(void) {
 	  	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
- 	  GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
+ 	  //GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
 }
 

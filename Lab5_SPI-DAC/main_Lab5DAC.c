@@ -37,7 +37,7 @@ void UserTask(void){
 int main(void){ 
   System_Init();                   // initialize system
   //Timer0A_Init(&UserTask,50);      // initialize timer0A (20,000 Hz)
-  Timer0_Init(&UserTask, 500);
+  Timer0_Init(&UserTask, 2273);
   EnableInterrupts();
   while(1){
 
