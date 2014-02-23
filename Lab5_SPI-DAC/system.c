@@ -18,6 +18,7 @@
 #include <stdio.h>
 
 #include "system.h"
+#include "music.h"
 
 tBoolean pause;
 
@@ -75,4 +76,21 @@ unsigned short DAC_Out(unsigned short code){
 	while((SSI1_SR_R & SSI_SR_RNE) == 0);
 	receive = SSI1_DR_R;
 	return receive;
+}
+
+void GPIOPortC_Handler(void) {
+	GPIO_PORTC_ICR_R = 0x3C;
+	    switch(GPIO_PORTC_DATA_R&0x3C){
+        case(0x10): //(1) button (closest to board) Rewind
+					Rewind();
+          break;
+				case(0x08): //(2) button Play/Pause
+					if(pause){ Play(0); }
+					else{ Stop(); }
+					break;
+				case(0x04):  //(3) button Mode (idk what it does yet)
+					break;
+				default:
+					break;
+    }
 }
