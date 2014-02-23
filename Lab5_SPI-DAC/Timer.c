@@ -24,7 +24,15 @@
  
  #include "system.h"
  #include "music.h"
- #include "lm3s1968.h"
+ #include "../inc/hw_types.h"
+ #include "../driverlib/interrupt.h"
+ #include "../inc/hw_ints.h"
+ #include "../driverlib/timer.h"
+ #include "../inc/hw_timer.h"
+ #include "../driverlib/sysctl.h"
+ #include "../inc/hw_memmap.h"
+ #include "../driverlib/debug.h"
+ #include "../driverlib/gpio.h"
 
 const unsigned short Wave[32]= {
 2048,2438,2813,3159,3462,3711,3896,4010,4048,4010,3896,
@@ -43,7 +51,7 @@ void (*PeriodicTask)(void);  // user function
 // Inputs:  task is a pointer to a user function
 //          period in usec
 // Outputs: none
-void Timer0A_Init(void(*task)(void), unsigned short period){ 
+/*void Timer0A_Init(void(*task)(void), unsigned short period){ 
   SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0; // 0) activate timer0
   PeriodicTask = task;             // user function 
   TIMER0_CTL_R &= ~0x00000001;     // 1) disable timer0A during setup
@@ -57,12 +65,35 @@ void Timer0A_Init(void(*task)(void), unsigned short period){
   NVIC_EN0_R |= NVIC_EN0_INT19;    // 9) enable interrupt 19 in NVIC
   TIMER0_CTL_R |= 0x00000001;      // 10) enable timer0A
   EnableInterrupts();
-}
+}	*/
 
 //Interrupt period is 50000000/32/440 = 3551 counts = 71É s
 void Timer0A_Handler(void){
-  TIMER0_TAILR_R = 50000000/32/A; // 71us
-	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge
+    //TIMER0_TAILR_R = 50000000/32/A; // 71us
+	//TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge
+	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
 	I = (I+1)&0x1F; // 0 to 31
 	DAC_Out(Wave[I]);
 }
+
+void Timer0_Init(void(*task)(void), unsigned short period) {
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
+	// 16 bits Timer, | TIMER0_CGF_R to not clobber timerA.
+  	TimerConfigure(TIMER0_BASE, TIMER_CFG_B_PERIODIC | TIMER_CFG_A_PERIODIC | TIMER_CFG_SPLIT_PAIR);  
+	TimerLoadSet(TIMER0_BASE, TIMER_B, period-1);
+	TimerLoadSet(TIMER0_BASE, TIMER_B, period-1);
+	//TimerIntRegister(TIMER0_BASE, TIMER_B, &Timer0B_Handler);    // Registering  isr 
+	//TimerIntRegister(TIMER0_BASE, TIMER_A, &Timer0A_Handler);
+	TimerEnable(TIMER0_BASE, TIMER_B);
+	TimerEnable(TIMER0_BASE, TIMER_A);
+	TimerIntEnable(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
+	TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+	IntEnable(INT_TIMER0B);
+	IntEnable(INT_TIMER0A);
+}
+
+void Timer0B_Handler(void) {
+	  	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
+ 	  GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
+}
+

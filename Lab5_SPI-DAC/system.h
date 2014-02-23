@@ -3,4 +3,4 @@
 void System_Init(void);
 void Switch_Init(void);
 void SPI_Init(void);
-unsigned short DAC_Out(unsigned short);
+void DAC_Out(unsigned short);

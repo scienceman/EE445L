@@ -41,9 +41,9 @@ void Switch_Init(void){
 	GPIO_PORTC_IEV_R |= 0x1C; // PC4 falling edge event
 	GPIO_PORTC_ICR_R = 0x1C; // clear flag4
 	GPIO_PORTC_IM_R |= 0x1C; // arm interrupt on PC4
-  GPIO_PORTG_DIR_R |= 0x04;        // make PG2 out (PG2 built-in LED)
+  /*GPIO_PORTG_DIR_R |= 0x04;        // make PG2 out (PG2 built-in LED)
   GPIO_PORTG_DEN_R |= 0x04;        // enable digital I/O on PG2
-  GPIO_PORTG_DATA_R &= ~0x04;              // clear PG2
+  GPIO_PORTG_DATA_R &= ~0x04;              // clear PG2		  */
 	NVIC_PRI0_R = (NVIC_PRI0_R&0xFF00FFFF)|0x00A00000;
 	// priority 5
 	NVIC_EN0_R |= 4; // enable int 2 in NVIC 
@@ -70,12 +70,10 @@ void SPI_Init(void) {
 	SSI1_CR1_R |= SSI_CR1_SSE;    // Enable SSI
 }
 
-unsigned short DAC_Out(unsigned short code){
+
+void DAC_Out(unsigned short code){
 	while((SSI1_SR_R & SSI_SR_TNF) == 0){};
 	SSI1_DR_R = code;
-	while((SSI1_SR_R & SSI_SR_RNE) == 0);
-	receive = SSI1_DR_R;
-	return receive;
 }
 
 void GPIOPortC_Handler(void) {
