@@ -26,5 +26,6 @@ Music song;
 	 
  void Stop(void){
 	 pause = true;
+	 
  }
  

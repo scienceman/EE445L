@@ -57,6 +57,8 @@ void Timer0A_Init(void(*task)(void), unsigned short period){
   TIMER0_CTL_R |= 0x00000001;      // 10) enable timer0A
   EnableInterrupts();
 }
+
+//Interrupt period is 50000000/32/440 = 3551 counts = 71É s
 void Timer0A_Handler(void){
   TIMER0_TAILR_R = 3551; // 71us
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge
