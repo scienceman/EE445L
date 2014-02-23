@@ -88,7 +88,7 @@ void GPIOPortC_Handler(void) {
 					if(pause){ Play(0); }
 					else{ Stop(); }
 					break;
-				case(0x04):  //(3) button Mode (idk what it does yet)
+				case(0x04):  //(3) button Mode (idk what it does yet) ABBBBBBBBBK(
 					break;
 				default:
 					break;

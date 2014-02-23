@@ -23,6 +23,7 @@
  */
  
  #include "system.h"
+ #include "music.h"
  #include "lm3s1968.h"
 
 const unsigned short Wave[32]= {
@@ -60,7 +61,7 @@ void Timer0A_Init(void(*task)(void), unsigned short period){
 
 //Interrupt period is 50000000/32/440 = 3551 counts = 71É s
 void Timer0A_Handler(void){
-  TIMER0_TAILR_R = 3551; // 71us
+  TIMER0_TAILR_R = 50000000/32/A; // 71us
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge
 	I = (I+1)&0x1F; // 0 to 31
 	DAC_Out(Wave[I]);
