@@ -25,4 +25,5 @@
 *.xls
 *.hex
 *._ia
+*.tmp
 .DS_Store
