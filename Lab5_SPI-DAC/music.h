@@ -27,6 +27,11 @@
     int length;
  } Music;
 
+ typedef struct {
+	int frequency;
+	int duration;
+ } tNote;
+
  void Rewind(void);
  void Play(unsigned short);
  void Stop(void);

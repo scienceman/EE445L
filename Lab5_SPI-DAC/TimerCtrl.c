@@ -66,8 +66,10 @@ void Timer0_Init(unsigned short period) {
 unsigned int noteIndex = 0;
 unsigned int changeNote = 0;
 unsigned int intCounter = 0;
-unsigned int notes[SONGLEN] = {B,B,B,0,A,A,A,A,G,G,G,G,B,B,B,B,A,A,A,A,G,G,G,G};
+unsigned int notes1[SONGLEN] = {B,B,B,0,0,0,0,0,G,G,G,0,B,B,B,0,A,A,A,0,G,G,G,0};
+tNote notes[8] = {{B,3},{0,5},{G,3},{0,1},{A,3},{0,1},{G,3},{0,1}};
 
+int dur = 1;									 
 //Interrupt period is 50000000/32/440 = 3551 counts = 71ƒÊs
 void Timer0A_Handler(void){
 	long critSection;
@@ -76,10 +78,13 @@ void Timer0A_Handler(void){
     critSection = StartCritical();
 	I = (I+1)%32; // 0 to 31
 	EndCritical(critSection);
-	DAC_Out(Wave[I]*Volume);
+	if(notes[noteIndex].frequency) DAC_Out(Wave[I]*Volume); 
 	if(changeNote) {
-	 	TimerLoadSet(TIMER0_BASE, TIMER_A, notes[noteIndex]);
-		noteIndex = (noteIndex + 1) % SONGLEN;
+	 	TimerLoadSet(TIMER0_BASE, TIMER_A, notes[noteIndex].frequency ? notes[noteIndex].frequency : 2);
+		if(dur >= notes[noteIndex].duration) {
+			noteIndex = (noteIndex + 1) % 8;
+			dur=1;
+		} else { dur++; }
 		changeNote = 0;
 	}
 }
@@ -88,7 +93,19 @@ void Timer0B_Handler(void) {
 	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
 	intCounter = (intCounter + 1) % TEMPO+1;
 	if(intCounter == TEMPO) {
-		changeNote = 1;		
+		changeNote = 1;	
+		if(notes[noteIndex].frequency == 0) {
+			IntDisable(TIMER_A);
+			if(dur >= notes[noteIndex].duration) {
+				noteIndex = (noteIndex + 1) % 8;
+				dur = 1;
+			} else {
+			 	dur++;
+			}
+			I = 0;
+		} else {
+		 	IntEnable(TIMER_A);
+		}	
 	}
 }
 
