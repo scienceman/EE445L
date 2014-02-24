@@ -65,7 +65,7 @@ void Timer0_Init(void(*task)(void), unsigned short period) {
 	// 16 bits Timer, | TIMER0_CGF_R to not clobber timerA.
   	TimerConfigure(TIMER0_BASE, TIMER_CFG_B_PERIODIC | TIMER_CFG_A_PERIODIC | TIMER_CFG_SPLIT_PAIR);  
 	TimerLoadSet(TIMER0_BASE, TIMER_A, period-1);
-	TimerLoadSet(TIMER0_BASE, TIMER_B, 1000000);
+	TimerLoadSet(TIMER0_BASE, TIMER_B, 65000);
 	TimerEnable(TIMER0_BASE, TIMER_B);
 	TimerEnable(TIMER0_BASE, TIMER_A);
 	TimerIntEnable(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
@@ -74,8 +74,13 @@ void Timer0_Init(void(*task)(void), unsigned short period) {
 	IntEnable(INT_TIMER0A);
 }
 
+unsigned int noteIndex = 0;
+unsigned int changeNote = 0;
+unsigned int intCounter = 0;
+unsigned int notes[24] = {B,B,B,B,A,A,A,A,G,G,G,G,B,B,B,B,A,A,A,A,G,G,G,G};
+
 //Interrupt period is 50000000/32/440 = 3551 counts = 71É s
-#define VOLUME 9
+#define VOLUME 10
 void Timer0A_Handler(void){
 	long critSection;
 	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
@@ -84,9 +89,24 @@ void Timer0A_Handler(void){
 	I = (I+1)%32; // 0 to 31
 	EndCritical(critSection);
 	DAC_Out(Wave[I]*VOLUME);
+	if(changeNote) {
+	 	TimerLoadSet(TIMER0_BASE, TIMER_A, notes[noteIndex]);
+		noteIndex = (noteIndex + 1) % 24;
+		changeNote = 0;
+	}
 }
 
+
+														   
 void Timer0B_Handler(void) {
-	  	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
+	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
+	intCounter = (intCounter + 1) % 101;
+	if(intCounter == 100) {
+		changeNote = 1;
+		//TimerDisable(TIMER0_BASE, TIMER_A);
+		//TimerEnable(TIMER0_BASE, TIMER_A);
+		//printf("changing note: %d\r",notes[noteIndex]);
+		
+	}
 }
 
