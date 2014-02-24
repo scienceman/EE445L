@@ -35,10 +35,23 @@
  #include "../driverlib/gpio.h"
  #include <stdio.h>
 
-const unsigned short Wave[32]= {
+const unsigned short Wave[32] = {  
+  125,143,159,175,189,200,208,213,215,213,208,
+  200,189,175,159,143,125,107,91,75,61,50,
+  42,37,35,37,42,50,61,75,91,107
+};  
+
+const unsigned short Wave2[32]= {
 2048,2438,2813,3159,3462,3711,3896,4010,4048,4010,3896,
 3711,3462,3159,2813,2438,2048,1658,1283,937,634,385,
 200,86,48,86,200,385,634,937,1283,1658};
+
+const unsigned short Wave3[32] = {  
+  1250,1430,1590,1750,1890,2000,2080,2130,2150,2130,2080,
+  2000,1890,1750,1590,1430,1250,1070,910,750,610,500,
+  420,370,350,370,420,500,610,750,910,1070
+};  
+
 unsigned short I;
 
 void DisableInterrupts(void); // Disable interrupts
@@ -46,38 +59,13 @@ void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
-void (*PeriodicTask)(void);  // user function
-// ***************** Timer0A_Init ****************
-// Activate Timer0A interrupts to run user task periodically
-// Inputs:  task is a pointer to a user function
-//          period in usec
-// Outputs: none
-/*void Timer0A_Init(void(*task)(void), unsigned short period){ 
-  SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0; // 0) activate timer0
-  PeriodicTask = task;             // user function 
-  TIMER0_CTL_R &= ~0x00000001;     // 1) disable timer0A during setup
-  TIMER0_CFG_R = 0x00000004;       // 2) configure for 16-bit timer mode
-  TIMER0_TAMR_R = 0x00000002;      // 3) configure for periodic mode
-  TIMER0_TAILR_R = period-1;       // 4) reload value
-  TIMER0_TAPR_R = 49;              // 5) 1us timer0A
-  TIMER0_ICR_R = 0x00000001;       // 6) clear timer0A timeout flag
-  TIMER0_IMR_R |= 0x00000001;      // 7) arm timeout interrupt
-  NVIC_PRI4_R = (NVIC_PRI4_R&0x00FFFFFF)|0x40000000; // 8) priority 2
-  NVIC_EN0_R |= NVIC_EN0_INT19;    // 9) enable interrupt 19 in NVIC
-  TIMER0_CTL_R |= 0x00000001;      // 10) enable timer0A
-  EnableInterrupts();
-}	*/
-
-
 
 void Timer0_Init(void(*task)(void), unsigned short period) {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
 	// 16 bits Timer, | TIMER0_CGF_R to not clobber timerA.
   	TimerConfigure(TIMER0_BASE, TIMER_CFG_B_PERIODIC | TIMER_CFG_A_PERIODIC | TIMER_CFG_SPLIT_PAIR);  
-	TimerLoadSet(TIMER0_BASE, TIMER_B, period-1);
-	TimerLoadSet(TIMER0_BASE, TIMER_B, period-1);
-	//TimerIntRegister(TIMER0_BASE, TIMER_B, &Timer0B_Handler);    // Registering  isr 
-	//TimerIntRegister(TIMER0_BASE, TIMER_A, &Timer0A_Handler);
+	TimerLoadSet(TIMER0_BASE, TIMER_A, period-1);
+	TimerLoadSet(TIMER0_BASE, TIMER_B, 1000000);
 	TimerEnable(TIMER0_BASE, TIMER_B);
 	TimerEnable(TIMER0_BASE, TIMER_A);
 	TimerIntEnable(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
@@ -88,18 +76,16 @@ void Timer0_Init(void(*task)(void), unsigned short period) {
 
 //Interrupt period is 50000000/32/440 = 3551 counts = 71É s
 void Timer0A_Handler(void){
-    //TIMER0_TAILR_R = 50000000/32/A; // 71us
-	//TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge
+	long critSection;
 	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
-	//GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,1);
-	I = (I+1)&0x1F; // 0 to 31
+    critSection = StartCritical();
+	I = (I+1)%32; // 0 to 31
+	EndCritical(critSection);
 	DAC_Out(Wave[I]);
-	//printf("%d\r",Wave[I]);
 }
 
 void Timer0B_Handler(void) {
 	  	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
- 	  //GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
 }
 

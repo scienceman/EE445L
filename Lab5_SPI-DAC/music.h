@@ -5,10 +5,10 @@
  * 19 February 2014
  ******************************************************/
  
-#define HIGHC 523
+#define HIGHC 523   
 #define B 494
 #define Bb 466
-#define A 440
+#define A 440	// 2273 uSecond
 #define Ab 415 
 #define G 392 
 #define Gb 370 
