@@ -63,7 +63,7 @@ unsigned int count=0, hours=0, minutes=0;
 void SysTick_IE_Init(unsigned long period){
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD; // activate port D
   index = 0;
-  NVIC_ST_CTRL_R = 0;         // disable SysTick dur2ing setup
+  NVIC_ST_CTRL_R = 0;         // disable SysTick during setup
   NVIC_ST_RELOAD_R = period-1;// reload value
   NVIC_ST_CURRENT_R = 0;      // any write to current clears it
   NVIC_SYS_PRI3_R = (NVIC_SYS_PRI3_R&0x00FFFFFF)|0x40000000; // priority 2
@@ -78,9 +78,8 @@ void SysTick_Period(unsigned long period) {
 // Interrupt service routine
 // Executed every 20ns*(period)
 
-//#define MENU
-
-extern unsigned short DACout;
+//extern unsigned short DACout;
+unsigned short wave2;
 extern unsigned short Volume;
 extern const unsigned short Wave[32];
 extern unsigned int changeNote;
@@ -93,15 +92,12 @@ int noteIndex2=0;
 
 void SysTick_Handler(void){
    	long critSection;
-	//GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
-    critSection = StartCritical();
-	EndCritical(critSection);
-	//if(mario2[noteIndex].frequency) DAC_Out(Wave[I]*Volume); 
 	if(mario2[noteIndex2].frequency) {
 		critSection = StartCritical();
-		DACout = DACout - Wave[(I2)] + Wave[(I2+1)%32]; // Remove old wave component, update new
+		//DACout = DACout - Wave[(I2)] + Wave[(I2+1)%32]; // Remove old wave component, update new
+		wave2 = Wave[I2];
 		EndCritical(critSection);
-		DAC_Out(DACout*Volume);
+		//DAC_Out(DACout*Volume);
 	}
 	I2 = (I2+1)%32; // 0 to 31
 	 

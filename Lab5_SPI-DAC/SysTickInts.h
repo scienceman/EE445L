@@ -22,7 +22,7 @@
  http://users.ece.utexas.edu/~valvano/
  */
 
-extern unsigned int count, hours, minutes;
+extern unsigned short wave2;
 
 // **************SysTick_Init*********************
 // Initialize Systick periodic interrupts

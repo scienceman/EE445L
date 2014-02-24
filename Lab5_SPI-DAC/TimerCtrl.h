@@ -10,7 +10,8 @@
 // Inputs:  task is a pointer to a user function
 //          period in usec
 // Outputs: none
-void Timer0_Init(unsigned short period);
+void Timer0_Init(unsigned short periodA, unsigned short periodB);
+void Timer1_Init(unsigned short periodA, unsigned short periodB);
 
 #define SONGLEN 24
 #define MARIOLEN 78

@@ -12,7 +12,6 @@
  #include "../driverlib/interrupt.h"
  #include "../inc/hw_ints.h"
  #include "../driverlib/timer.h"
- #include "../inc/hw_timer.h"
  #include "../driverlib/sysctl.h"
  #include "../inc/hw_memmap.h"
  #include "../driverlib/debug.h"
@@ -25,17 +24,10 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
-void UserTask(void){
-  //GPIO_PORTC_DATA_R ^= 0x20;
-  	GPIO_PORTG_DATA_R ^= 0x04;
-}
-
 int main(void){ 
   System_Init();                   // initialize system
-  Timer0_Init(D);  // A = 440Hz = 2273 uSec period
-  SysTick_IE_Init(F);
+  Timer0_Init(D,65000);  // A = 440Hz = 2273 uSec period
+  SysTick_IE_Init(D);
   EnableInterrupts();
-  while(1){
-
-  }
+  while(1);
 }

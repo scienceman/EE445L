@@ -40,18 +40,24 @@ const unsigned short Wave3[32] = {
 unsigned short I;
 unsigned short Volume = 1;
 
+unsigned short DACout=300;
+unsigned short wave1;
+unsigned int noteIndex = 0;
+unsigned int changeNote = 0;
+unsigned int intCounter = 0;
+
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
-void Timer0_Init(unsigned short period) {
+void Timer0_Init(unsigned short periodA, unsigned short periodB) {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
 	// 16 bits Timer, | TIMER0_CGF_R to not clobber timerA.
   	TimerConfigure(TIMER0_BASE, TIMER_CFG_B_PERIODIC | TIMER_CFG_A_PERIODIC | TIMER_CFG_SPLIT_PAIR);  
-	TimerLoadSet(TIMER0_BASE, TIMER_A, period-1);
-	TimerLoadSet(TIMER0_BASE, TIMER_B, 65000);
+	TimerLoadSet(TIMER0_BASE, TIMER_A, periodA-1);
+	TimerLoadSet(TIMER0_BASE, TIMER_B, periodB-1);
 	TimerEnable(TIMER0_BASE, TIMER_B);
 	TimerEnable(TIMER0_BASE, TIMER_A);
 	TimerIntEnable(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
@@ -60,13 +66,20 @@ void Timer0_Init(unsigned short period) {
 	IntEnable(INT_TIMER0A);
 }
 
+void Timer1_Init(unsigned short periodA, unsigned short periodB) {
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER1);
+	// 16 bits Timer, | TIMER1_CGF_R to not clobber timerA.
+  	TimerConfigure(TIMER1_BASE, TIMER_CFG_B_PERIODIC | TIMER_CFG_A_PERIODIC | TIMER_CFG_SPLIT_PAIR);  
+	TimerLoadSet(TIMER1_BASE, TIMER_A, periodA-1);
+	TimerLoadSet(TIMER1_BASE, TIMER_B, periodB-1);
+	TimerEnable(TIMER1_BASE, TIMER_B);
+	TimerEnable(TIMER1_BASE, TIMER_A);
+	TimerIntEnable(TIMER1_BASE, TIMER_TIMB_TIMEOUT);
+	TimerIntEnable(TIMER1_BASE, TIMER_TIMA_TIMEOUT);
+	IntEnable(INT_TIMER1B);
+	IntEnable(INT_TIMER1A);
+}
 
-
-unsigned short DACout=300;
-
-unsigned int noteIndex = 0;
-unsigned int changeNote = 0;
-unsigned int intCounter = 0;
 unsigned int notes1[SONGLEN] = {B,B,B,0,0,0,0,0,G,G,G,0,B,B,B,0,A,A,A,0,G,G,G,0};
 tNote notes[8] = {{B,3},{0,5},{G,3},{0,1},{A,3},{0,1},{G,3},{0,1}};
 
@@ -100,21 +113,19 @@ int dur = 1;
 void Timer0A_Handler(void){
 	long critSection;
 	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
-	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
-    critSection = StartCritical();
-	EndCritical(critSection);
-	//if(mario[noteIndex].frequency) DAC_Out(Wave[I]*Volume); 
+	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2))); 
 	if(mario[noteIndex].frequency) {
 		critSection = StartCritical();
-		DACout = DACout - (Wave[I]) + Wave[(I+1)%32]; // Remove old wave component, update new
+		//DACout = DACout - (Wave[I]) + Wave[(I+1)%32]; // Remove old wave component, update new
+		wave1 = Wave[I];
 		EndCritical(critSection);
-		DAC_Out(DACout*Volume);
+		//DAC_Out(DACout*Volume);
+		//DAC_Out(Wave[I]*Volume);
 	}
 	I = (I+1)%32; // 0 to 31
 
 	if(changeNote) {
 		if(mario[noteIndex].frequency == 0) {
-			//IntDisable(TIMER_A);
 			I--;
 		} else {
 		 	TimerLoadSet(TIMER0_BASE, TIMER_A, mario[noteIndex].frequency ? mario[noteIndex].frequency : 2);
@@ -128,12 +139,15 @@ void Timer0A_Handler(void){
 }
 														   
 void Timer0B_Handler(void) {
+	long critSection;
 	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
 	intCounter = (intCounter + 1) % TEMPO+1;
 	if(intCounter == TEMPO) {
-		changeNote = 1;	
+		critSection = StartCritical();
+	    changeNote = 1;
+		EndCritical(critSection);
+	
 		if(mario[noteIndex].frequency == 0) {
-			//IntDisable(TIMER_A);
 			I--;
 			if(dur > mario[noteIndex].duration) {
 				noteIndex = (noteIndex + 1) % MARIOLEN;
@@ -141,9 +155,14 @@ void Timer0B_Handler(void) {
 			} else {
 			 	dur++;
 			}
-		} else {
-		 	//IntEnable(TIMER_A);
-		}	
+		} 	
 	}
+}
+
+extern unsigned short wave2;
+
+void Timer1A_Handler(void) {
+	TimerIntClear(TIMER1_BASE, TIMER_TIMA_TIMEOUT);  // acknowledge
+	DAC_Out(((wave1 + wave2)/2)*Volume);
 }
 
