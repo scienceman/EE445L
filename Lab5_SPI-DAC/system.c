@@ -20,6 +20,7 @@
 
 #include "system.h"
 #include "music.h"
+#include <stdio.h>
 
 tBoolean pause;
 
@@ -27,7 +28,7 @@ void System_Init() {
   	// 50Mhz Clock
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
     Switch_Init();
-	SPI_Init();
+	SSI_Init();
 	Output_Init();
 	Output_Color(15);
 }
@@ -54,7 +55,7 @@ void Switch_Init(void){
 
 unsigned short receive;
 
-void SPI_Init(void) {
+void SSI_Init(void) {
  	int delay;
 	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_SSI1;   // Activate SSI1
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOE;
@@ -77,6 +78,8 @@ void DAC_Out(unsigned short code){
 	SSI1_DR_R = code;
 }
 
+extern unsigned short Volume;
+
 void GPIOPortC_Handler(void) {
 	GPIO_PORTC_ICR_R = 0x3C;
 	    switch(GPIO_PORTC_DATA_R&0x3C){
@@ -88,7 +91,9 @@ void GPIOPortC_Handler(void) {
 					else{ IntDisable(INT_TIMER0A); Stop(); }
 					break;
 				case(0x04):  //(3) button Mode (idk what it does yet) ABBBBBBBBBK(
-					TimerLoadSet(TIMER0_BASE, TIMER_A, A);
+					//TimerLoadSet(TIMER0_BASE, TIMER_A, A);
+					Volume = (Volume + 1) % 10;
+					printf("Volume: %02d\n",Volume);
 					break;
 				default:
 					break;

@@ -38,6 +38,7 @@ const unsigned short Wave3[32] = {
 };  
 
 unsigned short I;
+unsigned short Volume = 9;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -65,10 +66,9 @@ void Timer0_Init(unsigned short period) {
 unsigned int noteIndex = 0;
 unsigned int changeNote = 0;
 unsigned int intCounter = 0;
-unsigned int notes[SONGLEN] = {B,B,B,B,A,A,A,A,G,G,G,G,B,B,B,B,A,A,A,A,G,G,G,G};
+unsigned int notes[SONGLEN] = {B,B,B,0,A,A,A,A,G,G,G,G,B,B,B,B,A,A,A,A,G,G,G,G};
 
 //Interrupt period is 50000000/32/440 = 3551 counts = 71É s
-#define VOLUME 10
 void Timer0A_Handler(void){
 	long critSection;
 	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
@@ -76,7 +76,7 @@ void Timer0A_Handler(void){
     critSection = StartCritical();
 	I = (I+1)%32; // 0 to 31
 	EndCritical(critSection);
-	DAC_Out(Wave[I]*VOLUME);
+	DAC_Out(Wave[I]*Volume);
 	if(changeNote) {
 	 	TimerLoadSet(TIMER0_BASE, TIMER_A, notes[noteIndex]);
 		noteIndex = (noteIndex + 1) % SONGLEN;

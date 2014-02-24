@@ -7,7 +7,7 @@
  #include "system.h"
  #include "music.h"
  #include "lm3s1968.h"
- #include "Timer.h"
+ #include "TimerCtrl.h"
  #include "../inc/hw_types.h"
  #include "../driverlib/interrupt.h"
  #include "../inc/hw_ints.h"
@@ -36,7 +36,7 @@ void UserTask(void){
 
 int main(void){ 
   System_Init();                   // initialize system
-  Timer0_Init(&UserTask, HIGHC);  // A = 440Hz = 2273 uSec period
+  Timer0_Init(HIGHC);  // A = 440Hz = 2273 uSec period
   EnableInterrupts();
   while(1){
 

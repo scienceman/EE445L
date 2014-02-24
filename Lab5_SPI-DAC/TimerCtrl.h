@@ -12,4 +12,6 @@
 // Outputs: none
 void Timer0_Init(unsigned short period);
 
+extern unsigned short Volume;
+
 
