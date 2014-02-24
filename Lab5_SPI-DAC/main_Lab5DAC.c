@@ -30,11 +30,6 @@ void UserTask(void){
   	GPIO_PORTG_DATA_R ^= 0x04;
 }
 
-/*void Timer0B_Handler(void) {
-	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
-	GPIO_PORTG_DATA_R ^= 0x04;
-}*/
-
 int main(void){ 
   System_Init();                   // initialize system
   Timer0_Init(D);  // A = 440Hz = 2273 uSec period

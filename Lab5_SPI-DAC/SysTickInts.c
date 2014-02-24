@@ -83,37 +83,39 @@ void SysTick_Period(unsigned long period) {
 extern unsigned short DACout;
 extern unsigned short Volume;
 extern const unsigned short Wave[32];
+extern unsigned int changeNote;
 extern tNote mario[MARIOLEN];
+extern tNote mario2[MARIOLEN2];
 unsigned int I2=0;
 int dur2 = 1;
 int noteIndex2=0;
-unsigned int changeNote2 = 0;
+
 
 void SysTick_Handler(void){
    	long critSection;
 	//GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
     critSection = StartCritical();
 	EndCritical(critSection);
-	//if(mario[noteIndex2].frequency) DAC_Out(Wave[I]*Volume); 
-	if(mario[noteIndex2].frequency) {
+	//if(mario2[noteIndex].frequency) DAC_Out(Wave[I]*Volume); 
+	if(mario2[noteIndex2].frequency) {
 		critSection = StartCritical();
-		DACout = DACout - Wave[((I2)%32)] + Wave[(I2+1)%32]; // Remove old wave component, update new
+		DACout = DACout - Wave[(I2)] + Wave[(I2+1)%32]; // Remove old wave component, update new
 		EndCritical(critSection);
 		DAC_Out(DACout*Volume);
 	}
 	I2 = (I2+1)%32; // 0 to 31
 	 
-	if(changeNote2) {
-		if(mario[noteIndex2].frequency == 0) {
+	if(changeNote) {
+		if(mario2[noteIndex2].frequency == 0) {
 			I2--;
 		} else {
-		 	 SysTick_Period(mario[noteIndex2].frequency);
+		 	 SysTick_Period(mario2[noteIndex2].frequency);
 		}
-		if(dur2 > mario[noteIndex2].duration) {
-			noteIndex2 = (noteIndex2 + 1) % MARIOLEN;
+		if(dur2 > mario2[noteIndex2].duration) {
+			noteIndex2 = (noteIndex2 + 1) % MARIOLEN2;
 			dur2=1;
 		} else { dur2++; }
-		changeNote2 = 0;
+		changeNote = 0;
 	}
 }
 

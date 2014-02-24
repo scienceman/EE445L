@@ -62,7 +62,7 @@ void Timer0_Init(unsigned short period) {
 
 
 
-unsigned short DACout=200;
+unsigned short DACout=300;
 
 unsigned int noteIndex = 0;
 unsigned int changeNote = 0;
@@ -106,7 +106,7 @@ void Timer0A_Handler(void){
 	//if(mario[noteIndex].frequency) DAC_Out(Wave[I]*Volume); 
 	if(mario[noteIndex].frequency) {
 		critSection = StartCritical();
-		DACout = DACout - Wave[I] + Wave[(I+1)%32]; // Remove old wave component, update new
+		DACout = DACout - (Wave[I]) + Wave[(I+1)%32]; // Remove old wave component, update new
 		EndCritical(critSection);
 		DAC_Out(DACout*Volume);
 	}

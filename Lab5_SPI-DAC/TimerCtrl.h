@@ -21,3 +21,4 @@ extern unsigned short Volume;
 extern unsigned short DACout;
 extern const unsigned short Wave[32];
 extern tNote mario[MARIOLEN];
+extern tNote mario2[MARIOLEN2];
