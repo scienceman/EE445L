@@ -12,6 +12,11 @@
 // Outputs: none
 void Timer0_Init(unsigned short period);
 
+#define SONGLEN 24
+#define MARIOLEN 78
+#define TEMPO 80
+
 extern unsigned short Volume;
-
-
+extern unsigned short DACout;
+extern const unsigned short Wave[32];
+extern tNote mario[MARIOLEN];

@@ -33,8 +33,7 @@ Music song;
 	 //DAC_Out(note);
 	 IntEnable(INT_TIMER0A);
 }
-	 
-	 
+	 	 
  void Stop(void){
 	 pause = true;
 	 IntDisable(INT_TIMER0A);	 	 

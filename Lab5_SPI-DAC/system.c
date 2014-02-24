@@ -79,6 +79,7 @@ void DAC_Out(unsigned short code){
 }
 
 extern unsigned short Volume;
+#define MAXVOL 9
 
 void GPIOPortC_Handler(void) {
 	GPIO_PORTC_ICR_R = 0x3C;
@@ -92,7 +93,7 @@ void GPIOPortC_Handler(void) {
 					break;
 				case(0x04):  //(3) button Mode (idk what it does yet) ABBBBBBBBBK(
 					//TimerLoadSet(TIMER0_BASE, TIMER_A, A);
-					Volume = (Volume + 1) % 10;
+					Volume = (Volume + 1) % MAXVOL;
 					printf("Volume: %02d\n",Volume);
 					break;
 				default:

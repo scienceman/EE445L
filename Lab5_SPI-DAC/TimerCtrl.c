@@ -38,7 +38,7 @@ const unsigned short Wave3[32] = {
 };  
 
 unsigned short I;
-unsigned short Volume = 5;
+unsigned short Volume = 1;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -60,9 +60,9 @@ void Timer0_Init(unsigned short period) {
 	IntEnable(INT_TIMER0A);
 }
 
-#define SONGLEN 24
-#define MARIOLEN 78
-#define TEMPO 80
+
+
+unsigned short DACout=200;
 
 unsigned int noteIndex = 0;
 unsigned int changeNote = 0;
@@ -85,9 +85,16 @@ void Timer0A_Handler(void){
 	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2)));
     critSection = StartCritical();
-	I = (I+1)%32; // 0 to 31
 	EndCritical(critSection);
-	if(mario[noteIndex].frequency) DAC_Out(Wave[I]*Volume); 
+	//if(mario[noteIndex].frequency) DAC_Out(Wave[I]*Volume); 
+	if(mario[noteIndex].frequency) {
+		critSection = StartCritical();
+		DACout = DACout - Wave[I] + Wave[(I+1)%32]; // Remove old wave component, update new
+		EndCritical(critSection);
+		DAC_Out(DACout*Volume);
+	}
+	I = (I+1)%32; // 0 to 31
+
 	if(changeNote) {
 		if(mario[noteIndex].frequency == 0) {
 			//IntDisable(TIMER_A);
