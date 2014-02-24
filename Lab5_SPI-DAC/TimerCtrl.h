@@ -14,6 +14,7 @@ void Timer0_Init(unsigned short period);
 
 #define SONGLEN 24
 #define MARIOLEN 78
+#define MARIOLEN2 126
 #define TEMPO 80
 
 extern unsigned short Volume;
