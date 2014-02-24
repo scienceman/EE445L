@@ -75,6 +75,7 @@ void Timer0_Init(void(*task)(void), unsigned short period) {
 }
 
 //Interrupt period is 50000000/32/440 = 3551 counts = 71É s
+#define VOLUME 9
 void Timer0A_Handler(void){
 	long critSection;
 	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
@@ -82,7 +83,7 @@ void Timer0A_Handler(void){
     critSection = StartCritical();
 	I = (I+1)%32; // 0 to 31
 	EndCritical(critSection);
-	DAC_Out(Wave[I]);
+	DAC_Out(Wave[I]*VOLUME);
 }
 
 void Timer0B_Handler(void) {

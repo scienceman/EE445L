@@ -4,20 +4,22 @@
  *	Kevin Gilbert, Gilberto Rodriguez
  * 19 February 2014
  ******************************************************/
+
+//Interrupt period is 50000000/32/440 = 3551 counts = 71us
  
-#define HIGHC 523   
-#define B 494
-#define Bb 466
-#define A 440	// 2273 uSecond
-#define Ab 415 
-#define G 392 
-#define Gb 370 
-#define F 349
-#define E 330
-#define Eb 311
-#define D 294 
-#define Db 277
-#define C 262
+#define HIGHC 2988 // 523 Hz   
+#define B 3163  // 494 Hz
+#define Bb 3353 // 466 Hz
+#define A 3551	// 440 Hz
+#define Ab 3765 // 415 Hz
+#define G 3986  // 392 Hz
+#define Gb 4223 // 370 Hz 
+#define F 4477  // 349 Hz
+#define E 4735  // 330 Hz
+#define Eb 5024 // 311 Hz
+#define D 5315  // 294 Hz
+#define Db 5641 // 277 Hz
+#define C 5964  // 262 Hz
 
  typedef struct{
     const unsigned short* begin;

@@ -36,7 +36,7 @@ void UserTask(void){
 
 int main(void){ 
   System_Init();                   // initialize system
-  Timer0_Init(&UserTask, 3551);  // A = 440Hz = 2273 uSec period
+  Timer0_Init(&UserTask, HIGHC);  // A = 440Hz = 2273 uSec period
   EnableInterrupts();
   while(1){
 
