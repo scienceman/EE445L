@@ -87,8 +87,8 @@ void GPIOPortC_Handler(void) {
 					Rewind();
           break;
 				case(0x08): //(2) button Play/Pause
-					if(pause){ IntEnable(INT_TIMER0A); Play(0); }
-					else{ IntDisable(INT_TIMER0A); Stop(); }
+					if(pause){ Play(0); }
+					else{ Stop(); }
 					break;
 				case(0x04):  //(3) button Mode (idk what it does yet) ABBBBBBBBBK(
 					//TimerLoadSet(TIMER0_BASE, TIMER_A, A);

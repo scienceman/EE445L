@@ -38,7 +38,7 @@ const unsigned short Wave3[32] = {
 };  
 
 unsigned short I;
-unsigned short Volume = 9;
+unsigned short Volume = 5;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -61,13 +61,22 @@ void Timer0_Init(unsigned short period) {
 }
 
 #define SONGLEN 24
-#define TEMPO 100
+#define MARIOLEN 78
+#define TEMPO 80
 
 unsigned int noteIndex = 0;
 unsigned int changeNote = 0;
 unsigned int intCounter = 0;
 unsigned int notes1[SONGLEN] = {B,B,B,0,0,0,0,0,G,G,G,0,B,B,B,0,A,A,A,0,G,G,G,0};
 tNote notes[8] = {{B,3},{0,5},{G,3},{0,1},{A,3},{0,1},{G,3},{0,1}};
+tNote mario[MARIOLEN] = { {D,4},{E,4},{Gb,4},{G,4},{A,4},{Bb,4},{B,2},{0,1},{B,2},{0,1},{B,4},{0,1},{B,4},{0,1},
+						  {B,8},{0,1},{G,4},{E/2,12},{Eb/2,12},{E/2,12},{0,2},{G,2},{A,2},{B,2},{HIGHC,2},{D/2,2},
+						  {E/2,12}, {Eb/2, 8}, {F/2, 4}, {E/2, 12}, {0, 10}, {G, 2}, {D/2, 12}, {Db/2, 12}, {D/2, 12},
+						  {0,2}, {G, 2}, {A, 2}, {B, 2}, {HIGHC, 2}, {Db/2, 2}, {D/2, 12}, {G, 8}, {F/2, 4}, {E/2, 12},
+						  {0, 10}, {G, 2}, {G/2, 12}, {0, 1}, {G/2, 12}, {0, 1}, {G/2, 12}, {0, 1}, {G, 4}, {A/2, 4},
+						  {0, 2}, {G/2, 2}, {F/2, 12}, {0, 1}, {F/2, 12}, {0, 1}, {F/2, 12}, {0, 1}, {F/2, 4}, {G/2, 4},
+						  {0, 2}, {F/2, 2}, {D/2, 12}, {A, 4}, {B, 4}, {F/2, 4}, {E/2, 2}, {0, 1}, {E/2, 2}, {0, 1},
+						  {E/2, 6}, {G, 2}, {A, 12}};
 
 int dur = 1;									 
 //Interrupt period is 50000000/32/440 = 3551 counts = 71ƒÊs
@@ -78,11 +87,16 @@ void Timer0A_Handler(void){
     critSection = StartCritical();
 	I = (I+1)%32; // 0 to 31
 	EndCritical(critSection);
-	if(notes[noteIndex].frequency) DAC_Out(Wave[I]*Volume); 
+	if(mario[noteIndex].frequency) DAC_Out(Wave[I]*Volume); 
 	if(changeNote) {
-	 	TimerLoadSet(TIMER0_BASE, TIMER_A, notes[noteIndex].frequency ? notes[noteIndex].frequency : 2);
-		if(dur >= notes[noteIndex].duration) {
-			noteIndex = (noteIndex + 1) % 8;
+		if(mario[noteIndex].frequency == 0) {
+			//IntDisable(TIMER_A);
+			I--;
+		} else {
+		 	TimerLoadSet(TIMER0_BASE, TIMER_A, mario[noteIndex].frequency ? mario[noteIndex].frequency : 2);
+		}
+		if(dur > mario[noteIndex].duration) {
+			noteIndex = (noteIndex + 1) % MARIOLEN;
 			dur=1;
 		} else { dur++; }
 		changeNote = 0;
@@ -94,17 +108,17 @@ void Timer0B_Handler(void) {
 	intCounter = (intCounter + 1) % TEMPO+1;
 	if(intCounter == TEMPO) {
 		changeNote = 1;	
-		if(notes[noteIndex].frequency == 0) {
-			IntDisable(TIMER_A);
-			if(dur >= notes[noteIndex].duration) {
-				noteIndex = (noteIndex + 1) % 8;
+		if(mario[noteIndex].frequency == 0) {
+			//IntDisable(TIMER_A);
+			I--;
+			if(dur > mario[noteIndex].duration) {
+				noteIndex = (noteIndex + 1) % MARIOLEN;
 				dur = 1;
 			} else {
 			 	dur++;
 			}
-			I = 0;
 		} else {
-		 	IntEnable(TIMER_A);
+		 	//IntEnable(TIMER_A);
 		}	
 	}
 }
