@@ -2,12 +2,12 @@ Design Consistency Status Report
 --------------------------------
 
 Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert (PCB - Design Consistency Status Report).txt
-Report Written : Wednesday, February 26, 2014
+Report Written : Saturday, March 01, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 10:58:24 AM
-Last Saved     : 2/26/2014 3:54:32 PM
-Editing Time   : 3794 min
+Last Saved     : 3/1/2014 9:34:20 PM
+Editing Time   : 3939 min
 Units          : mil (precision 0)
 
 

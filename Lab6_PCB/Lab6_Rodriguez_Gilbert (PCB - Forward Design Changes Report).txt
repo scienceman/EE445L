@@ -2,16 +2,33 @@ Forward Design Changes Report
 -----------------------------
 
 Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
-Report Written : Wednesday, February 26, 2014
+Report Written : Saturday, March 01, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 10:58:24 AM
-Last Saved     : 2/26/2014 3:54:32 PM
-Editing Time   : 3794 min
+Last Saved     : 3/1/2014 9:34:20 PM
+Editing Time   : 3939 min
 Units          : mil (precision 0)
 
-Renamed component reference "PwrSW" to "PwrSW".
+Disconnected pin "SW4-1" from net "+3V3".
+Disconnected pin "C1-1" from net "+3V3".
+Disconnected pin "U5-8" from net "+3V3".
 
+Deleted net "+3V3".
+
+Renamed component reference "SW1" to "SW1".
+
+
+Connected pin "SW1-2" to net "GND".
+Connected pin "SW1-4" to net "RST".
+Connected pin "U1-37" to net "PC3".
+Connected pin "J1-13" to net "PC3".
+Connected pin "U2-3" to net "+3.3".
+Connected pin "SW2-1" to net "+3.3".
+Connected pin "SW3-1" to net "+3.3".
+Connected pin "SW4-1" to net "+3.3".
+Connected pin "C1-1" to net "+3.3".
+Connected pin "U5-8" to net "+3.3".
 
 
 End Of Report.
