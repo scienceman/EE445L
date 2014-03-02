@@ -1,0 +1,40 @@
+Measure Report
+--------------
+
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert (PCB - Measure Report).txt
+Report Written : Saturday, March 01, 2014
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert.pcb
+Design Title   : 
+Created        : 9/11/2009 10:58:24 AM
+Last Saved     : 3/1/2014 11:09:55 PM
+Editing Time   : 4039 min
+Units          : mil (precision 0)
+
+    Units: mil
+    Layer: [Through Hole]
+
+
+From:  Via  on net PB0
+======================
+
+Width:  25
+Height: 25
+Drill Hole Size: 15
+Layer:  [Through Hole]
+
+To:  Point
+==========
+
+X: 10400
+Y: 10355
+
+Distance
+========
+
+  Distance: 0
+         X: 0
+         Y: 0
+     Angle:  0.0
+
+
+End Of Report.

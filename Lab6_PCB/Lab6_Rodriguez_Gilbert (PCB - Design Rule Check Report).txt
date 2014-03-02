@@ -2,78 +2,20 @@ Design Rule Check Report
 ------------------------
 
 Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert (PCB - Design Rule Check Report).txt
-Report Written : Saturday, March 01, 2014
+Report Written : Sunday, March 02, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 10:58:24 AM
-Last Saved     : 3/1/2014 9:14:43 PM
-Editing Time   : 3916 min
+Last Saved     : 3/2/2014 12:11:22 AM
+Editing Time   : 4095 min
 Units          : mil (precision 0)
 
 
 Results
 =======
 
-Track to Pad Error (T-P) between (10245 10344) and (10258 10344) on Layer "Top Copper".
-    Error between Component Pad U1.23 (Net '+3.3') and Track (Net 'GND'), Gap is 5 needs to be 7.
-Track to Pad Error (T-P) between (9895 11385) and (9895 11400) on Layer "Bottom Copper".
-    Error between Component Pad J1.1 (Net '+3.3') and Track (Net 'GND'), Gap is 5 needs to be 7.
-Track to Pad Error (T-P) between (9895 11415) and (9895 11400) on Layer "Bottom Copper".
-    Error between Component Pad J1.2 and Track (Net 'GND'), Gap is 5 needs to be 7.
-Track to Pad Error (T-P) between (10420 11375) and (10428 11383) on Layer "Top Copper".
-    Error between Component Pad J1.11 and Track (Net 'PC2'), Gap is 6 needs to be 7.
-Track to Pad Error (T-P) between (11267 9949) and (11279 9961) on Layer "Bottom Copper".
-    Error between Component Pad Box1.2 and Track (Net '+3V3'), Gap is 6 needs to be 7.
-Track to Track Error (T-T) between (10258 10344) and (10239 10344) on Layer "Top Copper".
-    Error between Track (Net 'GND') and Track (Net '+3.3'), Gap is 6 needs to be 7.
-Track to Track Error (T-T) between (10357 10562) and (10369 10549) on Layer "Top Copper".
-    Error between Track (Net 'PB2') and Track (Net '+3.3'), Gap is 7 needs to be 7.
-Track to Track Error (T-T) between (10239 10724) and (10225 10725) on Layer "Top Copper".
-    Error between Track (Net 'PC2') and Track (Net 'PC1'), Gap is 4 needs to be 7.
-Gap in Net "+3V3" between (6430,9720) and (10910,10095) 
-    +3V3.
-Gap in Net "+3.3" between (10239,10344) and (10081,10344) 
-    +3.3.
-Gap in Net "+3.3" between (10081,10344) and (9982,10503) 
-    +3.3.
-Gap in Net "+3.3" between (9982,10503) and (9825,10600) 
-    +3.3.
-Gap in Net "+3.3" between (10239,10344) and (10318,10542) 
-    +3.3.
-Gap in Net "DebounceCap1" between (6730,9720) and (11155,10305) 
-    DebounceCap1.
-Gap in Net "DebounceCap2" between (6730,9360) and (8065,10685) 
-    DebounceCap2.
-Gap in Net "DebounceCap3" between (6730,9000) and (8065,10365) 
-    DebounceCap3.
-Gap in Net "GND" between (10101,10344) and (10258,10344) 
-    GND.
-Gap in Net "GND" between (10258,10344) and (10318,10522) 
-    GND.
-Gap in Net "GND" between (10325,9460) and (10290,8895) 
-    GND.
-Gap in Net "LDO" between (9982,10522) and (9980,10790) 
-    LDO.
-Gap in Net "OSC0" between (9825,10425) and (9982,10463) 
-    OSC0.
-Gap in Net "OSC1" between (9825,10288) and (9982,10444) 
-    OSC1.
-Gap in Net "PB0" between (10318,10483) and (10050,9920) 
-    PB0.
-Gap in Net "PB0" between (10050,9920) and (6430,9180) 
-    PB0.
-Gap in Net "PB1" between (10318,10503) and (9390,9855) 
-    PB1.
-Gap in Net "PB1" between (9390,9855) and (6430,9540) 
-    PB1.
-Gap in Net "PB2" between (10318,10562) and (6430,9900) 
-    PB2.
-Gap in Net "RST" between (9540,9610) and (9990,8715) 
-    RST.
-Gap in Net "RST" between (9540,9610) and (9982,10542) 
-    RST.
 
-Number of errors found : 29
+No errors found
 
 
 Settings
