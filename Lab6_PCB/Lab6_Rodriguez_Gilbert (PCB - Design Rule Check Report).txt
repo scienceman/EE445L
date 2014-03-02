@@ -2,164 +2,92 @@ Design Rule Check Report
 ------------------------
 
 Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert (PCB - Design Rule Check Report).txt
-Report Written : Wednesday, February 26, 2014
+Report Written : Saturday, March 01, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 10:58:24 AM
-Last Saved     : 2/26/2014 4:35:18 PM
-Editing Time   : 3834 min
+Last Saved     : 3/1/2014 8:24:35 PM
+Editing Time   : 3866 min
 Units          : mil (precision 0)
 
 
 Results
 =======
 
-Gap in Net "+3V3" between (6430,9000) and (6430,9360) 
+Gap in Net "+3V3" between (6430,9720) and (10885,10110) 
     +3V3.
-Gap in Net "+3V3" between (6430,9360) and (6430,9720) 
-    +3V3.
-Gap in Net "+3V3" between (6430,9720) and (10645,10145) 
-    +3V3.
-Gap in Net "+3V3" between (10645,10145) and (11415,9860) 
-    +3V3.
-Gap in Net "+3.3" between (9730,9840) and (10000,10200) 
+Gap in Net "+3.3" between (10000,10200) and (10081,10344) 
     +3.3.
-Gap in Net "+3.3" between (10688,10713) and (10925,10670) 
+Gap in Net "+3.3" between (10081,10344) and (10239,10344) 
     +3.3.
-Gap in Net "+3.3" between (9813,10663) and (9550,10905) 
+Gap in Net "+3.3" between (10239,10344) and (10315,10200) 
     +3.3.
-Gap in Net "+3.3" between (9550,10905) and (9895,11330) 
+Gap in Net "+3.3" between (10081,10344) and (9982,10503) 
     +3.3.
-Gap in Net "+3.3" between (9550,10905) and (8850,11430) 
+Gap in Net "+3.3" between (9982,10503) and (9825,10600) 
     +3.3.
-Gap in Net "+7.4" between (11030,11225) and (9385,10095) 
-    +7.4.
-Gap in Net "C11" between (9285,9795) and (11510,10025) 
-    C11.
-Gap in Net "C14" between (10760,10395) and (8280,10335) 
-    C14.
-Gap in Net "DACout" between (10760,10295) and (10745,10145) 
-    DACout.
+Gap in Net "+3.3" between (10239,10344) and (10318,10542) 
+    +3.3.
+Gap in Net "+3.3" between (10318,10542) and (10570,10585) 
+    +3.3.
 Gap in Net "DebounceCap1" between (6730,9720) and (11155,10305) 
     DebounceCap1.
-Gap in Net "DebounceCap2" between (6730,9360) and (7990,10110) 
+Gap in Net "DebounceCap2" between (6730,9360) and (8065,10685) 
     DebounceCap2.
-Gap in Net "DebounceCap3" between (6730,9000) and (7990,9865) 
+Gap in Net "DebounceCap3" between (6730,9000) and (8065,10365) 
     DebounceCap3.
-Gap in Net "FB" between (9465,11215) and (9050,11165) 
-    FB.
-Gap in Net "FB" between (9050,11165) and (8880,11160) 
-    FB.
-Gap in Net "GND" between (9615,11215) and (9638,10775) 
+Gap in Net "GND" between (9825,10525) and (9982,10483) 
     GND.
-Gap in Net "GND" between (9638,10775) and (9713,10663) 
+Gap in Net "GND" between (9982,10483) and (10101,10344) 
     GND.
-Gap in Net "GND" between (9713,10663) and (9825,10525) 
+Gap in Net "GND" between (10101,10344) and (10100,10275) 
     GND.
-Gap in Net "GND" between (10100,10200) and (9825,10188) 
+Gap in Net "GND" between (10101,10344) and (10258,10344) 
     GND.
-Gap in Net "GND" between (9713,10663) and (9980,10890) 
+Gap in Net "GND" between (10258,10344) and (10318,10522) 
     GND.
-Gap in Net "GND" between (10550,10445) and (10925,10470) 
+Gap in Net "GND" between (10258,10344) and (10415,10200) 
     GND.
-Gap in Net "GND" between (10925,10470) and (10945,10145) 
-    GND.
-Gap in Net "GND" between (11410,10025) and (11515,9860) 
-    GND.
-Gap in Net "GND" between (10945,10145) and (10845,9845) 
-    GND.
-Gap in Net "GND" between (10845,9845) and (10765,9455) 
-    GND.
-Gap in Net "GND" between (10765,9455) and (10665,9455) 
-    GND.
-Gap in Net "GND" between (10665,9455) and (10565,9455) 
-    GND.
-Gap in Net "GND" between (10565,9455) and (10465,9455) 
-    GND.
-Gap in Net "GND" between (10465,9455) and (10365,9455) 
-    GND.
-Gap in Net "GND" between (10365,9455) and (10265,9455) 
-    GND.
-Gap in Net "GND" between (10265,9455) and (10165,9455) 
-    GND.
-Gap in Net "GND" between (10165,9455) and (10065,9455) 
-    GND.
-Gap in Net "GND" between (9825,10188) and (9285,10095) 
-    GND.
-Gap in Net "GND" between (9285,10095) and (8845,10060) 
-    GND.
-Gap in Net "GND" between (8845,10060) and (8845,10225) 
-    GND.
-Gap in Net "GND" between (8845,10225) and (8815,10390) 
+Gap in Net "GND" between (10318,10522) and (10570,10485) 
     GND.
 Gap in Net "GND" between (10265,9455) and (10290,8895) 
     GND.
-Gap in Net "GND" between (10290,8895) and (9990,8895) 
-    GND.
-Gap in Net "GND" between (8815,10390) and (8530,11160) 
-    GND.
-Gap in Net "GND" between (8530,11160) and (8300,11315) 
-    GND.
-Gap in Net "GND" between (8845,10060) and (7990,10010) 
-    GND.
-Gap in Net "GND" between (7990,10010) and (7990,9765) 
-    GND.
-Gap in Net "GND" between (7990,9765) and (7995,9570) 
-    GND.
-Gap in Net "LDO" between (9838,10775) and (9980,10790) 
+Gap in Net "LDO" between (9982,10522) and (9980,10790) 
     LDO.
-Gap in Net "PA2" between (10160,10344) and (10745,9845) 
+Gap in Net "OSC0" between (9825,10425) and (9982,10463) 
+    OSC0.
+Gap in Net "OSC1" between (9825,10288) and (9982,10444) 
+    OSC1.
+Gap in Net "PA2" between (10160,10344) and (10585,10010) 
     PA2.
-Gap in Net "PA3" between (10180,10344) and (10945,9845) 
+Gap in Net "PA3" between (10180,10344) and (10585,9810) 
     PA3.
-Gap in Net "PA5" between (10219,10344) and (10645,9845) 
+Gap in Net "PA5" between (10219,10344) and (10585,10110) 
     PA5.
-Gap in Net "PB0" between (10318,10483) and (8845,9710) 
+Gap in Net "PB0" between (10318,10483) and (10050,9920) 
     PB0.
-Gap in Net "PB0" between (8845,9710) and (6430,9180) 
+Gap in Net "PB0" between (10050,9920) and (6430,9180) 
     PB0.
-Gap in Net "PB1" between (10318,10503) and (8495,10225) 
+Gap in Net "PB1" between (10318,10503) and (9390,9855) 
     PB1.
-Gap in Net "PB1" between (8495,10225) and (6430,9540) 
+Gap in Net "PB1" between (9390,9855) and (6430,9540) 
     PB1.
-Gap in Net "PB2" between (10318,10562) and (8465,10390) 
+Gap in Net "PB2" between (10318,10562) and (10785,10870) 
     PB2.
-Gap in Net "PB2" between (8465,10390) and (6430,9900) 
+Gap in Net "PB2" between (10318,10562) and (6430,9900) 
     PB2.
-Gap in Net "PC0" between (10199,10681) and (10295,11330) 
-    PC0.
-Gap in Net "PowerLED" between (8600,11430) and (8300,11415) 
-    PowerLED.
-Gap in Net "RefIn" between (9540,11290) and (9200,10905) 
-    RefIn.
-Gap in Net "RefIn" between (9200,10905) and (9050,10815) 
-    RefIn.
-Gap in Net "RefIn" between (9540,11290) and (10845,10145) 
-    RefIn.
-Gap in Net "RST" between (9730,9590) and (9990,8715) 
+Gap in Net "PB7" between (10180,10681) and (10805,11020) 
+    PB7.
+Gap in Net "PC1" between (10219,10681) and (10195,11350) 
+    PC1.
+Gap in Net "PC2" between (10239,10681) and (10095,11350) 
+    PC2.
+Gap in Net "RST" between (9785,9455) and (9990,8715) 
     RST.
-Gap in Net "RST" between (9990,8715) and (10290,8715) 
+Gap in Net "RST" between (9785,9455) and (9982,10542) 
     RST.
-Gap in Net "RST" between (9730,9590) and (9982,10542) 
-    RST.
-Gap in Net "Speaker+" between (10065,9555) and (9485,9795) 
-    Speaker+.
-Gap in Net "Speaker+" between (9485,9795) and (9485,10095) 
-    Speaker+.
-Gap in Net "Speaker+" between (9485,10095) and (9290,10635) 
-    Speaker+.
-Gap in Net "Speaker+" between (9290,10635) and (8810,10675) 
-    Speaker+.
-Gap in Net "Speaker+" between (8810,10675) and (8460,10675) 
-    Speaker+.
-Gap in Net "Speaker+" between (8460,10675) and (8280,10685) 
-    Speaker+.
-Gap in Net "Speaker-" between (9185,10095) and (9390,10635) 
-    Speaker-.
-Gap in Net "Vminus" between (9385,9795) and (11410,10190) 
-    Vminus.
 
-Number of errors found : 72
+Number of errors found : 36
 
 
 Settings
