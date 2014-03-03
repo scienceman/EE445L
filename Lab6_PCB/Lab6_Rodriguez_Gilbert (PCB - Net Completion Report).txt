@@ -1,0 +1,15 @@
+Net Completion Report
+---------------------
+
+Report File    : C:\users\gilbertorodriguez\Desktop\Programming\C\EE445L\Lab6_PCB\Lab6_Rodriguez_Gilbert (PCB - Net Completion Report).txt
+Report Written : Sunday, March 02, 2014
+Design Path    : C:\users\gilbertorodriguez\Desktop\Programming\C\EE445L\Lab6_PCB\Lab6_Rodriguez_Gilbert.pcb
+Design Title   : 
+Created        : 9/11/2009 10:58:24 AM
+Last Saved     : 3/2/2014 11:00:55 PM
+Editing Time   : 4156 min
+Units          : mil (precision 0)
+
+
+No breaks found, all nets are fully routed.
+End Of Report.

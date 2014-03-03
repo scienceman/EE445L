@@ -6,23 +6,12 @@ Report Written : Sunday, March 02, 2014
 Design Path    : C:\users\gilbertorodriguez\Desktop\Programming\C\EE445L\Lab6_PCB\Lab6_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 10:58:24 AM
-Last Saved     : 3/2/2014 3:26:20 PM
-Editing Time   : 4122 min
+Last Saved     : 3/2/2014 4:07:42 PM
+Editing Time   : 4152 min
 Units          : mil (precision 0)
 
-Disconnected pin "SW2-1" from net "+3V3".
-Disconnected pin "SW3-1" from net "+3V3".
-Disconnected pin "SW4-1" from net "+3V3".
-Disconnected pin "C1-1" from net "+3V3".
-Disconnected pin "U5-8" from net "+3V3".
-
-Deleted net "+3V3".
-
-Connected pin "SW2-1" to net "+3.3".
-Connected pin "SW3-1" to net "+3.3".
-Connected pin "SW4-1" to net "+3.3".
-Connected pin "C1-1" to net "+3.3".
-Connected pin "U5-8" to net "+3.3".
+Connected pin "SW3-2" to net "DebounceCap2".
+Connected pin "C16-2" to net "DebounceCap2".
 
 
 End Of Report.
