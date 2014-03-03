@@ -1,0 +1,62 @@
+Unconnected Pins Report
+-----------------------
+
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert (SCH - Unconnected Pins Report).txt
+Report Written : Monday, March 03, 2014
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert.sch
+Design Title   : 
+Created        : 
+Last Saved     : 3/2/2014 11:01:09 PM
+Editing Time   : 3179 min
+Units          : mil (precision 0)
+
+Component U1 Pin U1-21 (PA4/SSIRx)
+Component U1 Pin U1-18 (PA1/U0Tx)
+Component U1 Pin U1-17 (PA0/U0Rx)
+Component U1 Pin U1-42 (PB6/C0+)
+Component U1 Pin U1-43 (PB5/CCP5)
+Component U1 Pin U1-44 (PB4/C0-)
+Component U1 Pin U1-34 (PB3/I2CSDC)
+Component U1 Pin U1-11 (PC7/CCP4)
+Component U1 Pin U1-12 (PC6/CCP3)
+Component U1 Pin U1-13 (PC5/CCP1)
+Component U1 Pin U1-14 (PC4)
+Component U1 Pin U1-48 (PD7/C0o)
+Component U1 Pin U1-47 (PD6/Fault)
+Component U1 Pin U1-46 (PD5/CCP2)
+Component U1 Pin U1-45 (PD4/CCP0)
+Component U1 Pin U1-28 (PD3/U1Tx)
+Component U1 Pin U1-27 (PD2/U1Rx)
+Component U1 Pin U1-26 (PD1/PWM1)
+Component U1 Pin U1-25 (PD0/PWM0)
+Component U1 Pin U1-36 (PE1/PWM5)
+Component U1 Pin U1-35 (PE0/PWM4)
+Component U1 Pin U1-4 (ADC3)
+Component U1 Pin U1-3 (ADC2)
+Component U1 Pin U1-2 (ADC1)
+Component U1 Pin U1-1 (ADC0)
+Component J1 Pin J1-2
+Component J1 Pin J1-3
+Component J1 Pin J1-11
+Component J1 Pin J1-15
+Component J1 Pin J1-17
+Component J1 Pin J1-19
+Component Box1 Pin Box1-1
+Component Box1 Pin Box1-2
+Component Box1 Pin Box1-3
+Component Box1 Pin Box1-4
+Component J6 Pin J6-15 (Chan1)
+Component J6 Pin J6-14 (Chan2)
+Component J6 Pin J6-13 (Chan3)
+Component J6 Pin J6-12 (Chan4)
+Component J6 Pin J6-11 (Chan5)
+Component J6 Pin J6-10 (Chan6)
+Component J6 Pin J6-9 (Chan7)
+Component SW2 Pin SW2-3
+Component SW3 Pin SW3-3
+Component SW4 Pin SW4-3
+Component U4 Pin U4-1 (CD)
+
+Unconnected pins found : 46
+
+End Of Report.
