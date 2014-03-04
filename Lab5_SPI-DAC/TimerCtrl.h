@@ -16,13 +16,7 @@ void Timer1_Init(unsigned short periodA, unsigned short periodB);
 // Uncomment below to play both sine waves
 #define MAINSINEWAVE
 
-#define SONGLEN 24
-#define MARIOLEN 78
-#define MARIOLEN2 126
 #define TEMPO 80
 
 extern unsigned short Volume;
 extern unsigned short DACout;
-extern const unsigned short Wave[32];
-extern tNote mario[MARIOLEN];
-extern tNote mario2[MARIOLEN2];

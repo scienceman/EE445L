@@ -5,7 +5,6 @@
 // Kevin Gilbert, Gilberto Rodriguez
 // February 19, 2014
  #include "system.h"
- #include "music.h"
  #include "lm3s1968.h"
  #include "TimerCtrl.h"
  #include "../inc/hw_types.h"
@@ -26,8 +25,8 @@ void WaitForInterrupt(void);  // low power mode
 
 int main(void){ 
   System_Init();                   // initialize system
-  Timer0_Init(D,65000);  // A = 440Hz = 2273 uSec period
-  Timer1_Init(D,1000);	
+  Timer0_Init(1500,65000);  // A = 440Hz = 2273 uSec period
+  Timer1_Init(1500,1000);	
   EnableInterrupts();
   while(1);
 }

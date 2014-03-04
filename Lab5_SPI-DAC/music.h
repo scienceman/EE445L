@@ -21,6 +21,10 @@
 #define Db 5641 // 277 Hz
 #define C 5964  // 262 Hz
 
+#define SONGLEN 24
+#define MARIOLEN 78
+#define MARIOLEN2 126
+
  typedef struct{
     const unsigned short* begin;
     const unsigned short* current;
@@ -35,3 +39,10 @@
  void Rewind(void);
  void Play(unsigned short);
  void Stop(void);
+
+extern const unsigned short Wave[32];
+extern const unsigned short Wave2[32];
+extern const unsigned short Wave3[32];
+
+extern tNote mario[MARIOLEN];
+extern tNote mario2[MARIOLEN2];
