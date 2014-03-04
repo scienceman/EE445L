@@ -27,7 +27,7 @@ void WaitForInterrupt(void);  // low power mode
 int main(void){ 
   System_Init();                   // initialize system
   Timer0_Init(D,65000);  // A = 440Hz = 2273 uSec period
-  SysTick_IE_Init(D);
+  Timer1_Init(D,1000);	
   EnableInterrupts();
   while(1);
 }

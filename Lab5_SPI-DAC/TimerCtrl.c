@@ -45,6 +45,10 @@ unsigned short wave1;
 unsigned int noteIndex = 0;
 unsigned int changeNote = 0;
 unsigned int intCounter = 0;
+unsigned short wave2;
+unsigned int I2=0;
+int dur2 = 1;
+int noteIndex2=0;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -116,11 +120,8 @@ void Timer0A_Handler(void){
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2,!(GPIOPinRead(GPIO_PORTG_BASE, GPIO_PIN_2))); 
 	if(mario[noteIndex].frequency) {
 		critSection = StartCritical();
-		//DACout = DACout - (Wave[I]) + Wave[(I+1)%32]; // Remove old wave component, update new
 		wave1 = Wave[I];
 		EndCritical(critSection);
-		//DAC_Out(DACout*Volume);
-		//DAC_Out(Wave[I]*Volume);
 	}
 	I = (I+1)%32; // 0 to 31
 
@@ -159,10 +160,34 @@ void Timer0B_Handler(void) {
 	}
 }
 
-extern unsigned short wave2;
-
 void Timer1A_Handler(void) {
+   	long critSection;
 	TimerIntClear(TIMER1_BASE, TIMER_TIMA_TIMEOUT);  // acknowledge
+	#ifndef MAINSINEWAVE
+	if(mario2[noteIndex2].frequency) {
+		critSection = StartCritical();
+		wave2 = Wave[I2];
+		EndCritical(critSection);
+	}
+	I2 = (I2+1)%32; // 0 to 31
+	 
+	if(changeNote) {
+		if(mario2[noteIndex2].frequency == 0) {
+			I2--;
+		} else {
+		 	 TimerLoadSet(TIMER1_BASE, TIMER_A, mario2[noteIndex2].frequency);
+		}
+		if(dur2 > mario2[noteIndex2].duration) {
+			noteIndex2 = (noteIndex2 + 1) % MARIOLEN2;
+			dur2=1;
+		} else { dur2++; }
+		changeNote = 0;
+	}
+	#endif
+}
+
+void Timer1B_Handler(void) {
+	TimerIntClear(TIMER1_BASE, TIMER_TIMB_TIMEOUT);  // acknowledge
 	DAC_Out(((wave1 + wave2)/2)*Volume);
 }
 

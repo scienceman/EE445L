@@ -30,6 +30,15 @@
 #include "music.h"
 #include "TimerCtrl.h"
 #include "system.h"
+ #include "../inc/hw_types.h"
+ #include "../driverlib/interrupt.h"
+ #include "../inc/hw_ints.h"
+ #include "../driverlib/timer.h"
+ #include "../inc/hw_timer.h"
+ #include "../driverlib/sysctl.h"
+ #include "../inc/hw_memmap.h"
+ #include "../driverlib/debug.h"
+ #include "../driverlib/gpio.h"
 
 #define NVIC_SYS_PRI3_R         (*((volatile unsigned long *)0xE000ED20))  // Sys. Handlers 12 to 15 Priority
 #define NVIC_ST_CTRL_R          (*((volatile unsigned long *)0xE000E010))
@@ -94,10 +103,8 @@ void SysTick_Handler(void){
    	long critSection;
 	if(mario2[noteIndex2].frequency) {
 		critSection = StartCritical();
-		//DACout = DACout - Wave[(I2)] + Wave[(I2+1)%32]; // Remove old wave component, update new
 		wave2 = Wave[I2];
 		EndCritical(critSection);
-		//DAC_Out(DACout*Volume);
 	}
 	I2 = (I2+1)%32; // 0 to 31
 	 

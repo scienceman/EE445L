@@ -29,6 +29,7 @@ void System_Init() {
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
     Switch_Init();
 	SSI_Init();
+	debugGPIO();
 	Output_Init();
 	Output_Color(15);
 }
@@ -53,6 +54,11 @@ void Switch_Init(void){
 	//GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
 }
 
+void debugGPIO(void) {
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);  	 
+}
+
 unsigned short receive;
 
 void SSI_Init(void) {
@@ -74,7 +80,9 @@ void SSI_Init(void) {
 
 
 void DAC_Out(unsigned short code){
+	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 1);
 	while((SSI1_SR_R & SSI_SR_TNF) == 0){};
+	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 0);
 	SSI1_DR_R = code;
 }
 
@@ -92,7 +100,6 @@ void GPIOPortC_Handler(void) {
 					else{ Stop(); }
 					break;
 				case(0x04):  //(3) button Mode (idk what it does yet) ABBBBBBBBBK(
-					//TimerLoadSet(TIMER0_BASE, TIMER_A, A);
 					Volume = (Volume + 1) % MAXVOL;
 					printf("Volume: %02d\n",Volume);
 					break;

@@ -13,6 +13,9 @@
 void Timer0_Init(unsigned short periodA, unsigned short periodB);
 void Timer1_Init(unsigned short periodA, unsigned short periodB);
 
+// Uncomment below to play both sine waves
+#define MAINSINEWAVE
+
 #define SONGLEN 24
 #define MARIOLEN 78
 #define MARIOLEN2 126
