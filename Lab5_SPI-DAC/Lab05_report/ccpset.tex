@@ -1,0 +1,147 @@
+% Template for Carleton problem sets
+% Author: Andrew Gainer-Dewar, 20131
+\documentclass[twoside]{article}
+\usepackage{ccpset}
+\usepackage{graphicx, pdfpages}
+\usepackage{fixltx2e}
+
+% The Latin Modern font is a modernized replacement for the classic
+% Computer Modern. Feel free to replace this with a different font package.
+\usepackage{lmodern}
+
+%\titleformat{\subsection}[runin]{}{}{}{}[]
+
+\title{EE445L - Lab 05 Report}
+\author{Kevin Gilbert\\ Gilberto Rodriguez}
+\date{March 3 2014}
+\prof{Professor Bard}
+\course{Lab: Monday/Wednesday 5-6:15}
+
+\begin{document}
+\raggedbottom
+\maketitle{}
+
+\section*{Requirements Document}
+\subsection*{Overview} 
+\subsubsection*{Objectives} 
+The objectives of this project are to design, build and test a music player. Educationally, students are learning how to interface a DAC, how to design a speaker amplifier, how to store digital music in ROM, and how to perform DAC output in the background. Your goal is to play your favorite song. 
+ 
+\subsubsection*{Process}
+The project will be developed using the LM3S1968 board. There will be three switches that the operator will use to control the music player. The system will be built on a solderless breadboard and run on the usual USB power. The system may use the on board switches or off-board switches. A hardware/software interface will be designed that allows software to control the player. There will be at least three hardware/software modules: switch input, DAC output, and the music player. The process will be to design and test each module independently from the other modules. After each module is tested, the system will be built and tested. 
+ 
+\subsubsection*{Roles and Responsibilities}
+EE445L students are the engineers and the TA is the client. Students are expected to make minor modifications to this document in order to clarify exactly what they plan to build. Students are allowed to divide responsibilities of the project however they wish, but, at the time of demonstration, both students are expected to understand all aspects of the design. 
+ 
+\subsubsection*{Interactions with Existing Systems}
+ The system will use the LM3S1968 board, a solderless breadboard, and the speaker. It will be powered using the USB cable. You may use a +5V power from the lab bench, but please do not power the speaker with a voltage above +5V. 
+ 
+\subsubsection*{Terminology}
+ 	\begin{enumerate}
+    	\item SSI: Synchronous Serial Interface. Communication standard using a shared clock signal, a data signal, and slave select signals.
+        \item Linearity: Used in reference to the audio amplifier, linearity determines how the amplifier's output matches to its input. If discrete increments of the input lead to discrete increments in the output of an equal rate of growth at a larger value, then the amplifier has a linear function.
+        \item Frequency Response: Measure of the audio amplifier's range of inputs to output spectrum.
+        \item Loudness: How loud a tone is. Determined by the amplitude of the output wave, which is in turn determined by the digital value sent to the DAC (larger values provide a higher output voltage).
+        \item Pitch: Frequency of a wave.
+        \item Instrument: Type of sound being played in this lab. Can be adjusted by outputing a non-sine wave. Controlling the voltage over time plot of the wave can create new instrumental sounds.
+        \item Tempo: The speed at which the song is played. Controlled by how often notes are changed.
+        \item Envelope: The exponential drop in amplitude of the sound waves over time to provide smoother signals.
+        \item Melody: The primary sequence of notes to form a song's core.
+        \item Harmony: Accompanying sequence of notes that form a backdrop for a melody.
+	\end{enumerate}
+ 
+\subsubsection*{Security} 
+The system may include software from StellarisWare and from the book. No software written for this project may be transmitted, viewed, or communicated with any other EE445L student past, present, or future (other than the lab partner of course). It is the responsibility of the team to keep its EE445L lab solutions secure. 
+ 
+\subsection*{Function Description} 
+\subsubsection*{Functionality} 
+If the operator presses the play/pause button the music will play or pause. If the operator presses the play/pause button once the music should pause. Hitting the play/pause again causes music to continue. The play/pause button does not restart from the beginning, rather it continues from the position it was paused. If the rewind button is pressed, the music stops and the next play operation will start from the beginning. There is a mode Lab 5 Music Player and Audio Amp switch that allows the operator to control the volume of the music player. There must be a C data structure to hold the music. There must be a music driver that plays songs. The length of the song should be at least 30 seconds and comprise of at least 8 different sounds. Although you will be playing only one song, the song data itself will be stored in a separate place and be easy to change. The player runs in the background using interrupts. The foreground (main) initializes the player, then executes for(;;)\{\} do nothing loop. If you wish to include OLED output, this output should occur in the foreground. The maximum time to execute one instance of the ISR is 1.798 $\mu$s. You will need public functions Rewind, Play and Stop, which perform operations like a cassette tape player. The Play function has an input parameter that defines the song to play. A background thread implemented with output compare will fetch data out of your music structure and send them to the DAC. There must be a C data structure to store the sound waveform, or instrument. You are free to design your own format, as long as it uses a formal data structure (i.e., struct). The generated music must sound beautiful utilizing the SNR of the DAC. Although you only have to implement one instrument, it should be easy to change instruments. 
+ 
+\subsubsection*{Scope} 
+Phase 1 is the preparation; phase 2 is the demonstration; and phase 3 is the lab report. Details can be found in the lab manual. 
+ 
+\subsubsection*{Prototypes}
+A prototype system running on the LM3S1968 board and solderless breadboard will be demonstrated. Progress will be judged by the preparation, demonstration and lab report. 
+ 
+\subsubsection*{Performance} 
+The system will be judged by three qualitative measures. First, the software modules must be easy to understand and well-organized. Second, the system must employ an abstract data structures to hold the sound and the music. There should be a clear and obvious translation from sheet music to the data structure. Backward jumps in the ISR are not allowed. Waiting for SSI output to complete is an acceptable backwards jump. Third, all software will be judged according to style guidelines. Software must follow the style described in Section 3.3 of the book. There are three quantitative measures. First, the SNR of the DAC output of a sine wave should be measured. Second, the maximum time to run one instance of the ISR will be recorded. Third, you will measure power supply current to run the system. There is no particular need to optimize any of these quantitative measures in this system.
+
+\subsubsection*{Usability} 
+There will be three switch inputs. The DAC will be interfaced to a 8-ohm speaker. 
+
+\subsubsection*{Safety} 
+ If you are using headphones, please verify the sound it not too loud before placing the phones next to your ears. 
+ 
+\subsection*{Deliverables} 
+\subsubsection*{Reports} 
+A lab report described below is due by the due date listed in the syllabus. This report includes the final requirements document. 
+ 
+\subsubsection*{Audits} 
+The preparation is due at the beginning of the lab period on the date listed in the syllabus. 
+ 
+\subsubsection*{Outcomes}
+There are three deliverables: preparation, demonstration, and report.
+
+\section*{Hardware Design}
+	\centerline{\includegraphics[width=\textwidth]{hardwareDesign_lab5PNG}}
+    
+\section*{Software Design}
+\subsection*{Music Data Structure}
+tNote is the music data strucutre. An array of tNotes contains a song, with each element containing both the frequency of the note, and the duration that the note lasts.
+\subsection*{Call Graph}
+%\begin{figure}[ht]
+\includegraphics[width=\textwidth]{CallGraph_lab5}
+%\end{figure}
+\subsection*{Data Flow Graph}
+\includegraphics[width=\textwidth]{DataFlowGraph_lab5}
+
+
+\section*{Measurement Data}
+
+DAC percision: 4096 \\
+DAC range: 0 V to 3 V\\
+DAC resolution: 366 $\mu$V\\
+DAC accuracy: 2\%
+
+\noindent Current without music: .102A\\
+Current with music: .145A\\
+
+\noindent ISR Timer0A (sine wave 1): 1.798 $\mu$s\\
+ISR Timer0B  (frequency update/note select): 679 ns\\
+ISR Timer1A (sine wave 2): 1.218 $\mu$s\\
+ISR Timer1B (average sign waves to DAC\_ Out): 938 ns \\
+The ISR lengths can be seen in detail throug the logic analyser results at the end of this document.
+
+\section*{Analysis and Discussion}
+
+
+\begin{pset}
+  \problem{1} Briefly describe three errors in a DAC. \\
+  \emph{Gain error is a shift in the slope of the V\textsubscript{out} versus digital input static response. Offset error is a shift in the V\textsubscript{out} versus digital input static response. A linearity error is formed when the growth of the functions becomes nonmonotonic and begins decrease.\\}
+  \problem{2} Calculate the data available and data required intervals in the SSI/DAC interface. Use these calculations to justify your choice of SSI frequency. \\ 
+  \emph{SSI wait interval: 419ns. Taking a midrange frequency of 440Hz, this would give us $419E-9*440=18.436E-5$. This is the minimum rate at which the SSI must be sending data. Our SSI clock is set to 3MHz, which is well above this value.}\\
+  \centerline{\includegraphics[width=0.75\textwidth]{SSI_waitPeriod}}\\
+  \vskip 0.1in
+  \problem{3} How is the frequency range of a spectrum analyzer determined? \\ 
+  \emph{The spectrum analyer uses a fast Fourier transform (FFT) to compute the discrete Fourier transform (DFT), which transforms a waveform into the components of its frequency spectrum and input signal.}
+  \problem{4} Why did we not simply drive the speaker directly from the DAC? I.e., what purpose is the MC34119? \\
+  \emph{We cannot drive the speaker directly from the DAC because the DAC does not provide enough current to power the speakers.}
+
+\end{pset}
+\section*{Logic Analyser Images}
+\includegraphics[width=\textwidth]{Timer0A_ISR}\\
+\emph{Timer0A\_ISR}\\
+\vskip 0.1in
+
+\includegraphics[width=\textwidth]{Timer0B_ISR}\\
+\emph{Timer0B\_ISR}\\
+\vskip 0.1in
+
+\includegraphics[width=\textwidth]{Timer1A_ISR}\\
+\emph{Timer1A\_ISR}\\
+\vskip 0.1in
+
+\includegraphics[width=\textwidth]{Timer1B_ISR}\\
+\emph{Timer1B\_ISR}\\
+\vskip 0.1in
+
+\end{document}
