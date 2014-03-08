@@ -1,0 +1,20 @@
+Design Consistency Status Report
+--------------------------------
+
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert (PCB - Design Consistency Status Report).txt
+Report Written : Monday, March 03, 2014
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert.pcb
+Design Title   : 
+Created        : 9/11/2009 10:58:24 AM
+Last Saved     : 3/2/2014 11:04:54 PM
+Editing Time   : 4160 min
+Units          : mil (precision 0)
+
+
+Checking integrity of Schematic "C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert.sch" with PCB "C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab6_PCB\Lab6_Rodriguez_Gilbert.pcb"
+======================================================================================================================================================================================================================================
+
+The designs are the same.
+
+
+End Of Report.
