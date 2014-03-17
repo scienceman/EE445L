@@ -1,0 +1,41 @@
+Forward Design Changes Report
+-----------------------------
+
+Report File    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
+Report Written : Sunday, March 16, 2014
+Design Path    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Design Title   : 
+Created        : 9/11/2009 11:58:24 AM
+Last Saved     : 3/16/2014 11:26:39 PM
+Editing Time   : 5131 min
+Units          : mil (precision 0)
+
+Ignoring PCB only pad J3-3 on net "PA2"
+Ignoring PCB only pad J3-4 on net "PA3"
+
+Disconnected pin "U1-17" from net "PA0".
+Disconnected pin "U1-18" from net "PA1".
+Disconnected pin "U1-20" from net "PA3".
+Disconnected pin "J3-1" from net "PA0".
+Disconnected pin "J3-2" from net "PA1".
+Disconnected pin "U3-3" from net "PA0".
+Disconnected pin "U3-6" from net "PA1".
+Disconnected pin "U3-14" from net "PA3".
+
+Changed component reference "J3" from component "Header4", package "SIP" to component "Header2", package "SIP".
+
+Added net "N0596".
+Added net "N0601".
+Added net "N0602".
+
+Connected pin "U1-20" to net "N0596".
+Connected pin "U1-18" to net "N0602".
+Connected pin "U1-17" to net "N0601".
+Connected pin "U3-3" to net "N0596".
+Connected pin "U5-2" to net "N0601".
+Connected pin "U5-3" to net "N0602".
+Connected pin "J3-1" to net "N0596".
+Connected pin "J3-2" to net "PA2".
+
+
+End Of Report.
