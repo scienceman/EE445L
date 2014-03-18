@@ -1,41 +1,76 @@
 Forward Design Changes Report
 -----------------------------
 
-Report File    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
-Report Written : Sunday, March 16, 2014
-Design Path    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
+Report Written : Monday, March 17, 2014
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/16/2014 11:26:39 PM
-Editing Time   : 5131 min
+Last Saved     : 3/16/2014 11:43:05 PM
+Editing Time   : 5132 min
 Units          : mil (precision 0)
 
-Ignoring PCB only pad J3-3 on net "PA2"
-Ignoring PCB only pad J3-4 on net "PA3"
+Disconnected pin "U1-19" from net "PA2".
+Disconnected pin "U1-20" from net "N0596".
+Disconnected pin "J3-2" from net "PA2".
+Disconnected pin "U3-4" from net "GND".
+Disconnected pin "U3-5" from net "GND".
+Disconnected pin "U3-12" from net "GND".
+Disconnected pin "U3-13" from net "GND".
 
-Disconnected pin "U1-17" from net "PA0".
-Disconnected pin "U1-18" from net "PA1".
-Disconnected pin "U1-20" from net "PA3".
-Disconnected pin "J3-1" from net "PA0".
-Disconnected pin "J3-2" from net "PA1".
-Disconnected pin "U3-3" from net "PA0".
-Disconnected pin "U3-6" from net "PA1".
-Disconnected pin "U3-14" from net "PA3".
+Added net "N0605".
+Added net "N0607".
+Added net "N0612".
+Added net "N0613".
+Added net "N0614".
+Added net "N0618".
+Added net "N0620".
+Added net "N0624".
+Added net "N0626".
+Added net "N0628".
 
-Changed component reference "J3" from component "Header4", package "SIP" to component "Header2", package "SIP".
+Added component reference "U6" of component "ADXL202", package "SM".
+Added component reference "C14" of component "Ceramic", package "C".
+Changed value "V" on component reference "C14" to "0.1uF".
 
-Added net "N0596".
-Added net "N0601".
-Added net "N0602".
+Added component reference "C15" of component "Ceramic", package "C".
+Changed value "V" on component reference "C15" to "0.1uF".
 
-Connected pin "U1-20" to net "N0596".
-Connected pin "U1-18" to net "N0602".
-Connected pin "U1-17" to net "N0601".
-Connected pin "U3-3" to net "N0596".
-Connected pin "U5-2" to net "N0601".
-Connected pin "U5-3" to net "N0602".
-Connected pin "J3-1" to net "N0596".
-Connected pin "J3-2" to net "PA2".
+Added component reference "C16" of component "Ceramic", package "C".
+Changed value "V" on component reference "C16" to "0.1uF".
+
+Added component reference "R4" of component "0.125Wresistor", package "DIL".
+Changed value "V" on component reference "R4" to "125k".
+
+Added component reference "J7" of component "Header2", package "SIP".
+
+Connected pin "U1-41" to net "N0624".
+Connected pin "U1-42" to net "N0626".
+Connected pin "U3-4" to net "N0618".
+Connected pin "U3-5" to net "N0618".
+Connected pin "U3-12" to net "N0618".
+Connected pin "U3-13" to net "N0618".
+Connected pin "J3-2" to net "N0628".
+Connected pin "U6-3" to net "N0607".
+Connected pin "U6-4" to net "N0607".
+Connected pin "U6-5" to net "N0620".
+Connected pin "U6-7" to net "N0607".
+Connected pin "U6-9" to net "N0626".
+Connected pin "U6-10" to net "N0624".
+Connected pin "U6-11" to net "N0613".
+Connected pin "U6-12" to net "N0612".
+Connected pin "U6-13" to net "N0605".
+Connected pin "U6-14" to net "N0605".
+Connected pin "C14-1" to net "N0605".
+Connected pin "C14-2" to net "N0607".
+Connected pin "C15-1" to net "N0614".
+Connected pin "C15-2" to net "N0613".
+Connected pin "C16-1" to net "N0614".
+Connected pin "C16-2" to net "N0612".
+Connected pin "R4-1" to net "N0607".
+Connected pin "R4-2" to net "N0620".
+Connected pin "J7-1" to net "PA2".
+Connected pin "J7-2" to net "N0628".
 
 
 End Of Report.
