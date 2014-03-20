@@ -2,69 +2,15 @@ Forward Design Changes Report
 -----------------------------
 
 Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
-Report Written : Wednesday, March 19, 2014
+Report Written : Thursday, March 20, 2014
 Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/19/2014 2:44:13 PM
-Editing Time   : 5156 min
+Last Saved     : 3/20/2014 2:05:05 PM
+Editing Time   : 5239 min
 Units          : mil (precision 0)
 
-Disconnected pin "J3-2" from net "N0628".
-Disconnected pin "U3-4" from net "N0618".
-Disconnected pin "U3-5" from net "N0618".
-Disconnected pin "U3-12" from net "N0618".
-Disconnected pin "U3-13" from net "N0618".
-Disconnected pin "U6-3" from net "N0607".
-Disconnected pin "U6-4" from net "N0607".
-Disconnected pin "U6-7" from net "N0607".
-Disconnected pin "U6-13" from net "N0605".
-Disconnected pin "U6-14" from net "N0605".
-Disconnected pin "C14-1" from net "N0605".
-Disconnected pin "C14-2" from net "N0607".
-Disconnected pin "C15-1" from net "N0614".
-Disconnected pin "C16-1" from net "N0614".
-Disconnected pin "R4-1" from net "N0607".
-Disconnected pin "J7-2" from net "N0628".
-
-Deleted net "N0605".
-Deleted net "N0607".
-Deleted net "N0614".
-Deleted net "N0618".
-Deleted net "N0628".
-
-Added component reference "C17" of component "Ceramic", package "C".
-Changed value "V" on component reference "C17" to "0.1uF".
-
-
-Connected pin "U3-4" to net "GND".
-Connected pin "U3-5" to net "GND".
-Connected pin "U3-12" to net "GND".
-Connected pin "U3-13" to net "GND".
-Connected pin "J3-2" to net "GND".
-Connected pin "U6-3" to net "GND".
-Connected pin "U6-4" to net "GND".
-Connected pin "U6-7" to net "GND".
-Connected pin "U6-13" to net "+5".
-Connected pin "U6-14" to net "+5".
-Connected pin "C14-1" to net "+5".
-Connected pin "C14-2" to net "GND".
-Connected pin "C15-1" to net "GND".
-Connected pin "C16-1" to net "GND".
-Connected pin "R4-1" to net "GND".
-Connected pin "J7-2" to net "GND".
-Connected pin "C17-1" to net "+3.3".
-Connected pin "C17-2" to net "GND".
-
-Net PA2 renamed to motorBOut
-Net N0596 renamed to motorAOut
-Net N0601 renamed to XBeeOut
-Net N0602 renamed to XBeeIn
-Net N0612 renamed to Xfilt
-Net N0613 renamed to Yfilt
-Net N0620 renamed to T2
-Net N0624 renamed to Xout
-Net N0626 renamed to Yout
+The designs are the same, so no design changes to forward.
 
 
 End Of Report.

@@ -2,12 +2,12 @@ Design Consistency Status Report
 --------------------------------
 
 Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Consistency Status Report).txt
-Report Written : Wednesday, March 19, 2014
+Report Written : Thursday, March 20, 2014
 Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/19/2014 2:44:13 PM
-Editing Time   : 5156 min
+Last Saved     : 3/20/2014 2:05:05 PM
+Editing Time   : 5239 min
 Units          : mil (precision 0)
 
 
