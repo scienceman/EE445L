@@ -6,54 +6,16 @@ Report Written : Thursday, March 20, 2014
 Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/20/2014 2:25:10 PM
-Editing Time   : 5253 min
+Last Saved     : 3/20/2014 4:38:17 PM
+Editing Time   : 5381 min
 Units          : mil (precision 0)
 
 
 Results
 =======
 
-Track to Via Error (T-V) between (10063 10740) and (10075 10740) on Layer "Bottom Copper".
-    Error between Via (Net 'GND') and Track (Net '+3.3'), Gap is 7 needs to be 7.
-Gap in Net "+3.3" between (10433,10360) and (10416,10599) 
-    +3.3.
-Gap in Net "+3.3" between (10416,10599) and (10259,10599) 
-    +3.3.
-Gap in Net "+3.3" between (10416,10599) and (10496,10797) 
-    +3.3.
-Gap in Net "GND" between (10278,10599) and (10436,10599) 
-    GND.
-Gap in Net "GND" between (10436,10599) and (10496,10777) 
-    GND.
-Gap in Net "PA4" between (10377,10599) and (10705,9780) 
-    PA4.
-Gap in Net "PA5" between (10396,10599) and (11205,9480) 
-    PA5.
-Gap in Net "PD1" between (10496,10679) and (9475,9495) 
-    PD1.
-Gap in Net "PD2" between (10496,10699) and (9575,9495) 
-    PD2.
-Gap in Net "PD3" between (10496,10718) and (9675,9495) 
-    PD3.
-Gap in Net "PD4" between (10278,10936) and (9775,9495) 
-    PD4.
-Gap in Net "PD5" between (10259,10936) and (9875,9495) 
-    PD5.
-Gap in Net "PD6" between (10239,10936) and (9975,9495) 
-    PD6.
-Gap in Net "PD7" between (10219,10936) and (10075,9495) 
-    PD7.
-Gap in Net "PE0" between (10496,10856) and (11205,9780) 
-    PE0.
-Gap in Net "XBeeOut" between (10298,10599) and (9365,10430) 
-    XBeeOut.
-Gap in Net "Xout" between (10357,10936) and (10991,10010) 
-    Xout.
-Gap in Net "Yout" between (10337,10936) and (10991,9960) 
-    Yout.
 
-Number of errors found : 19
+No errors found
 
 
 Settings

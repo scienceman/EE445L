@@ -6,11 +6,16 @@ Report Written : Thursday, March 20, 2014
 Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/20/2014 2:05:05 PM
-Editing Time   : 5239 min
+Last Saved     : 3/20/2014 3:24:55 PM
+Editing Time   : 5308 min
 Units          : mil (precision 0)
 
-The designs are the same, so no design changes to forward.
+Connected pin "U1-22" to net "PA5".
+Connected pin "U3-15" to net "PA5".
+
+Net "PC0" changed from net class "Ground" to net class "Signal".
+Net "PC3" changed from net class "Ground" to net class "Signal".
+Net "PowerLED" changed from net class "Ground" to net class "Signal".
 
 
 End Of Report.
