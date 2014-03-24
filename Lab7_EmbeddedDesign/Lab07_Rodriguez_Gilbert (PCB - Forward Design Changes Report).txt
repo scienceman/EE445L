@@ -1,21 +1,16 @@
 Forward Design Changes Report
 -----------------------------
 
-Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
-Report Written : Thursday, March 20, 2014
-Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Report File    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
+Report Written : Monday, March 24, 2014
+Design Path    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/20/2014 3:24:55 PM
-Editing Time   : 5308 min
+Last Saved     : 3/24/2014 4:31:14 PM
+Editing Time   : 5485 min
 Units          : mil (precision 0)
 
-Connected pin "U1-22" to net "PA5".
-Connected pin "U3-15" to net "PA5".
-
-Net "PC0" changed from net class "Ground" to net class "Signal".
-Net "PC3" changed from net class "Ground" to net class "Signal".
-Net "PowerLED" changed from net class "Ground" to net class "Signal".
+Connected pin "U3-15" to net "PB0".
 
 
 End Of Report.
