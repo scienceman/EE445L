@@ -2,12 +2,12 @@ Design Rule Check Report
 ------------------------
 
 Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Rule Check Report).txt
-Report Written : Thursday, March 20, 2014
+Report Written : Monday, March 24, 2014
 Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/20/2014 4:38:17 PM
-Editing Time   : 5381 min
+Last Saved     : 3/20/2014 4:38:31 PM
+Editing Time   : 5386 min
 Units          : mil (precision 0)
 
 
