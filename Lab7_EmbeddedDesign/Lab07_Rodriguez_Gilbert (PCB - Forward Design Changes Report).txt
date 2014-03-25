@@ -1,16 +1,20 @@
 Forward Design Changes Report
 -----------------------------
 
-Report File    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
 Report Written : Monday, March 24, 2014
-Design Path    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/24/2014 4:31:14 PM
-Editing Time   : 5485 min
+Last Saved     : 3/24/2014 5:27:14 PM
+Editing Time   : 5506 min
 Units          : mil (precision 0)
 
-Connected pin "U3-15" to net "PB0".
+Added component reference "R1" of component "0.125Wresistor", package "DIL".
+
+Connected pin "U1-41" to net "PB7".
+Connected pin "R1-1" to net "PB7".
+Connected pin "R1-2" to net "+3.3".
 
 
 End Of Report.

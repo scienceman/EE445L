@@ -1,0 +1,15 @@
+Net Completion Report
+---------------------
+
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Net Completion Report).txt
+Report Written : Monday, March 24, 2014
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Design Title   : 
+Created        : 9/11/2009 11:58:24 AM
+Last Saved     : 3/24/2014 5:32:21 PM
+Editing Time   : 5509 min
+Units          : mil (precision 0)
+
+
+No breaks found, all nets are fully routed.
+End Of Report.
