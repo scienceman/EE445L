@@ -1,20 +1,20 @@
 Forward Design Changes Report
 -----------------------------
 
-Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
-Report Written : Monday, March 24, 2014
-Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
+Report Written : Tuesday, March 25, 2014
+Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/24/2014 5:27:14 PM
-Editing Time   : 5506 min
+Last Saved     : 3/24/2014 5:35:08 PM
+Editing Time   : 5512 min
 Units          : mil (precision 0)
 
-Added component reference "R1" of component "0.125Wresistor", package "DIL".
+Error: Unable to change component reference "R1" because Cannot find symbol "" in any library..
+Deleted value "V" from component reference "R1".
 
-Connected pin "U1-41" to net "PB7".
-Connected pin "R1-1" to net "PB7".
-Connected pin "R1-2" to net "+3.3".
+Added value "R=10K" to component reference "R1".
+
 
 
 End Of Report.
