@@ -2,138 +2,20 @@ Design Rule Check Report
 ------------------------
 
 Report File    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Rule Check Report).txt
-Report Written : Sunday, March 16, 2014
+Report Written : Monday, March 24, 2014
 Design Path    : C:\Users\Gilberto Rodriguez\Documents\ValvanoWare_1968\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/3/2014 6:01:36 PM
-Editing Time   : 5095 min
+Last Saved     : 3/24/2014 4:36:11 PM
+Editing Time   : 5493 min
 Units          : mil (precision 0)
 
 
 Results
 =======
 
-Pad to Via Error (P-V) between (10038 9548) and (10034 9551) on Layer "[All]".
-    Error between Component Pad J6.1 (Net 'GND') and Via (Net 'Speaker+'), Gap is 5 needs to be 7.
-Pad to Board error (P-B) at (7835 9546) on layer "[All]".
-    Error between Component Pad J5.2 (Net '+5') and Board, Gap is 0 needs to be 10.
-Gap in Net "+3.3" between (10239,10344) and (10318,10542) 
-    +3.3.
-Gap in Net "+3.3" between (10850,10210) and (11085,10210) 
-    +3.3.
-Gap in Net "+3.3" between (9813,10663) and (9900,10900) 
-    +3.3.
-Gap in Net "+3.3" between (10980,10975) and (10850,11400) 
-    +3.3.
-Gap in Net "+5" between (7425,10300) and (7125,10300) 
-    +5.
-Gap in Net "+5" between (7125,10300) and (7125,11000) 
-    +5.
-Gap in Net "+5" between (7125,11000) and (7425,11000) 
-    +5.
-Gap in Net "+5" between (7425,10300) and (7330,9590) 
-    +5.
-Gap in Net "+5" between (7330,9590) and (7750,9580) 
-    +5.
-Gap in Net "+5" between (7750,9580) and (7850,9580) 
-    +5.
-Gap in Net "+5" between (7850,9580) and (7950,9580) 
-    +5.
-Gap in Net "+5" between (7950,9580) and (8050,9580) 
-    +5.
-Gap in Net "+5" between (8050,9580) and (8150,9580) 
-    +5.
-Gap in Net "+5" between (8150,9580) and (8250,9580) 
-    +5.
-Gap in Net "+5" between (8250,9580) and (8350,9580) 
-    +5.
-Gap in Net "+5" between (8350,9580) and (8450,9580) 
-    +5.
-Gap in Net "+5" between (8450,9580) and (11360,10190) 
-    +5.
-Gap in Net "+5" between (11360,10190) and (12205,10645) 
-    +5.
-Gap in Net "+7.4" between (11460,10770) and (12005,10645) 
-    +7.4.
-Gap in Net "+7.4" between (11460,10770) and (11360,10025) 
-    +7.4.
-Gap in Net "GND" between (10940,10595) and (10510,10490) 
-    GND.
-Gap in Net "GND" between (10318,10522) and (10258,10344) 
-    GND.
-Gap in Net "GND" between (10258,10344) and (10120,10270) 
-    GND.
-Gap in Net "GND" between (10800,9900) and (10925,9845) 
-    GND.
-Gap in Net "GND" between (10101,10344) and (9982,10483) 
-    GND.
-Gap in Net "GND" between (11350,10600) and (11560,10190) 
-    GND.
-Gap in Net "GND" between (11525,10920) and (12105,10645) 
-    GND.
-Gap in Net "GND" between (9638,10775) and (9000,10550) 
-    GND.
-Gap in Net "GND" between (8020,10550) and (7425,10600) 
-    GND.
-Gap in Net "GND" between (7425,10600) and (7425,10700) 
-    GND.
-Gap in Net "GND" between (7425,10700) and (7125,10700) 
-    GND.
-Gap in Net "GND" between (7125,10700) and (7125,10600) 
-    GND.
-Gap in Net "PA0" between (10120,10344) and (10900,10405) 
-    PA0.
-Gap in Net "PA0" between (10120,10344) and (7425,10500) 
-    PA0.
-Gap in Net "PA1" between (10140,10344) and (11000,10405) 
-    PA1.
-Gap in Net "PA1" between (10140,10344) and (7425,10800) 
-    PA1.
-Gap in Net "PA2" between (10720,10070) and (11100,10405) 
-    PA2.
-Gap in Net "PA2" between (10160,10344) and (7125,10800) 
-    PA2.
-Gap in Net "PA3" between (10760,10035) and (11200,10405) 
-    PA3.
-Gap in Net "PA3" between (10180,10344) and (7125,10500) 
-    PA3.
-Gap in Net "PA4" between (10199,10344) and (7425,10900) 
-    PA4.
-Gap in Net "PA5" between (10219,10344) and (7125,10400) 
-    PA5.
-Gap in Net "PB1" between (9225,10075) and (11005,9815) 
-    PB1.
-Gap in Net "PD0" between (10318,10404) and (7720,9260) 
-    PD0.
-Gap in Net "PD1" between (10318,10424) and (7820,9260) 
-    PD1.
-Gap in Net "PD2" between (10318,10444) and (7920,9260) 
-    PD2.
-Gap in Net "PD3" between (10318,10463) and (8020,9260) 
-    PD3.
-Gap in Net "PD4" between (10101,10681) and (8120,9260) 
-    PD4.
-Gap in Net "PD5" between (10081,10681) and (8220,9260) 
-    PD5.
-Gap in Net "PD6" between (10061,10681) and (8320,9260) 
-    PD6.
-Gap in Net "PD7" between (10042,10681) and (8420,9260) 
-    PD7.
-Gap in Net "PE0" between (10318,10601) and (7425,10400) 
-    PE0.
-Gap in Net "PE1" between (10318,10621) and (7125,10900) 
-    PE1.
-Gap in Net "Speaker+" between (10935,10260) and (10950,10525) 
-    Speaker+.
-Dangling Track from (11350,10775) to (11360,10770) on layer Bottom Copper
-Dangling Track from (11425,10985) to (11460,10770) on layer Bottom Copper
-Dangling Track from (8800,9650) to (8800,10025) on layer Bottom Copper
-Dangling Track from (11560,10525) to (11560,10770) on layer Bottom Copper
-Dangling Track from (11050,10775) to (11260,10770) on layer Top Copper
-Dangling Track from (11605,9635) to (11560,10470) on layer Top Copper
 
-Number of errors found : 62
+No errors found
 
 
 Settings
