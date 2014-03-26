@@ -1,22 +1,21 @@
 Design Rule Check Report
 ------------------------
 
-Report File    : \\austin.utexas.edu\disk\engrstu\ECE\gr7547\Desktop\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Rule Check Report).txt
+Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Rule Check Report).txt
 Report Written : Wednesday, March 26, 2014
-Design Path    : \\austin.utexas.edu\disk\engrstu\ECE\gr7547\Desktop\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/26/2014 5:51:24 PM
-Editing Time   : 5529 min
+Last Saved     : 3/26/2014 6:50:24 PM
+Editing Time   : 5563 min
 Units          : mil (precision 0)
 
 
 Results
 =======
 
-Single pin net Xout on TP8.1 at 11800,10550
 
-Number of errors found : 1
+No errors found
 
 
 Settings
