@@ -1,20 +1,16 @@
 Forward Design Changes Report
 -----------------------------
 
-Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
-Report Written : Tuesday, March 25, 2014
-Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Report File    : \\austin.utexas.edu\disk\engrstu\ECE\gr7547\Desktop\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Forward Design Changes Report).txt
+Report Written : Wednesday, March 26, 2014
+Design Path    : \\austin.utexas.edu\disk\engrstu\ECE\gr7547\Desktop\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/24/2014 5:35:08 PM
-Editing Time   : 5512 min
+Last Saved     : 3/26/2014 5:51:24 PM
+Editing Time   : 5529 min
 Units          : mil (precision 0)
 
-Error: Unable to change component reference "R1" because Cannot find symbol "" in any library..
-Deleted value "V" from component reference "R1".
-
-Added value "R=10K" to component reference "R1".
-
+The designs are the same, so no design changes to forward.
 
 
 End Of Report.

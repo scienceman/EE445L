@@ -1,25 +1,18 @@
 Design Consistency Status Report
 --------------------------------
 
-Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Consistency Status Report).txt
-Report Written : Tuesday, March 25, 2014
-Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Report File    : \\austin.utexas.edu\disk\engrstu\ECE\gr7547\Desktop\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Consistency Status Report).txt
+Report Written : Wednesday, March 26, 2014
+Design Path    : \\austin.utexas.edu\disk\engrstu\ECE\gr7547\Desktop\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/24/2014 5:35:08 PM
-Editing Time   : 5513 min
+Last Saved     : 3/26/2014 5:51:24 PM
+Editing Time   : 5529 min
 Units          : mil (precision 0)
 
 
-Checking integrity of Schematic "Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.sch" with PCB "Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb"
-======================================================================================================================================================================================================================================
-
-The PCB and Schematic designs do not match.
-To bring them into line, you will need to make the following changes to the PCB design:
-
-Change component reference "R1" to use component "Resistor (Z shape)", package "SPICE" instead of component "0.125Wresistor", package "DIL".
-Value "R1" on component instance "V" caused by library item mismatch.
-Add value "SpiceDevice=R" to component reference "R1".
+Checking integrity of Schematic "\\austin.utexas.edu\disk\engrstu\ECE\gr7547\Desktop\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.sch" with PCB "\\austin.utexas.edu\disk\engrstu\ECE\gr7547\Desktop\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb"
+==================================================================================================================================================================================================================================================================
 
 
 End Of Report.
