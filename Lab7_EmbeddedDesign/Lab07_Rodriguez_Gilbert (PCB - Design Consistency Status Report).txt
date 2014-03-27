@@ -6,13 +6,15 @@ Report Written : Thursday, March 27, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/27/2014 1:26:29 AM
-Editing Time   : 5829 min
+Last Saved     : 3/27/2014 1:54:15 AM
+Editing Time   : 5853 min
 Units          : mil (precision 0)
 
 
 Checking integrity of Schematic "C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.sch" with PCB "C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb"
 ==============================================================================================================================================================================================================================================================
+
+The designs are the same.
 
 
 End Of Report.

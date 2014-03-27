@@ -6,12 +6,22 @@ Report Written : Thursday, March 27, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/27/2014 1:26:29 AM
-Editing Time   : 5829 min
+Last Saved     : 3/27/2014 1:43:37 AM
+Editing Time   : 5848 min
 Units          : mil (precision 0)
 
-Connected pin "R8-2" to net "motorBOut2LED".
-Connected pin "D4-2" to net "motorBOut2LED".
+Disconnected pin "U1-11" from net "heartBeat".
+Disconnected pin "Q1-2" from net "heartBeat".
+Disconnected pin "R11-2" from net "PowerLEG".
+Disconnected pin "D7-2" from net "PowerLEG".
+
+Added net "PowerLEH".
+Added net "N0653".
+
+Connected pin "U1-1" to net "N0653".
+Connected pin "R11-2" to net "PowerLEH".
+Connected pin "Q1-2" to net "N0653".
+Connected pin "D7-2" to net "PowerLEH".
 
 
 End Of Report.
