@@ -6,72 +6,12 @@ Report Written : Thursday, March 27, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/27/2014 12:43:38 AM
-Editing Time   : 5814 min
+Last Saved     : 3/27/2014 1:26:29 AM
+Editing Time   : 5829 min
 Units          : mil (precision 0)
 
-Added net "PowerLEE".
-Added net "motorAOut2LED".
-Added net "motorBOut2LED".
-Added net "MotorAOutLED".
-Added net "motorBOutLED".
-Added net "heartBeat".
-Added net "PowerLEG".
-
-Added component reference "R6" of component "0.125Wresistor", package "DIL".
-Changed value "V" on component reference "R6" to "1k".
-
-Added component reference "D2" of component "LEDT1.75", package "SIP".
-Added component reference "R7" of component "0.125Wresistor", package "DIL".
-Changed value "V" on component reference "R7" to "1.5k".
-
-Added component reference "D3" of component "LEDT1.75", package "SIP".
-Added component reference "R8" of component "0.125Wresistor", package "DIL".
-Changed value "V" on component reference "R8" to "1.5k".
-
-Added component reference "D4" of component "LEDT1.75", package "SIP".
-Added component reference "R9" of component "0.125Wresistor", package "DIL".
-Changed value "V" on component reference "R9" to "1.5k".
-
-Added component reference "D5" of component "LEDT1.75", package "SIP".
-Added component reference "R10" of component "0.125Wresistor", package "DIL".
-Changed value "V" on component reference "R10" to "1.5k".
-
-Added component reference "D6" of component "LEDT1.75", package "SIP".
-Added component reference "Q1" of component "2N2222", package "TO92".
-Added component reference "R11" of component "0.125Wresistor", package "DIL".
-Changed value "V" on component reference "R11" to "1k".
-
-Added component reference "D7" of component "LEDT1.75", package "SIP".
-
-Connected pin "U1-11" to net "heartBeat".
-Connected pin "R6-1" to net "+5".
-Connected pin "R6-2" to net "PowerLEE".
-Connected pin "D2-2" to net "PowerLEE".
-Connected pin "D2-1" to net "GND".
-Connected pin "R7-1" to net "motorAOut2".
-Connected pin "R7-2" to net "motorAOut2LED".
-Connected pin "D3-2" to net "motorAOut2LED".
-Connected pin "D3-1" to net "GND".
-Connected pin "R8-1" to net "motorBOut2".
 Connected pin "R8-2" to net "motorBOut2LED".
 Connected pin "D4-2" to net "motorBOut2LED".
-Connected pin "D4-1" to net "GND".
-Connected pin "R9-1" to net "motorAOut".
-Connected pin "R9-2" to net "MotorAOutLED".
-Connected pin "D5-2" to net "MotorAOutLED".
-Connected pin "D5-1" to net "GND".
-Connected pin "R10-1" to net "motorBOut".
-Connected pin "R10-2" to net "motorBOutLED".
-Connected pin "D6-2" to net "motorBOutLED".
-Connected pin "D6-1" to net "GND".
-Connected pin "Q1-2" to net "heartBeat".
-Connected pin "Q1-3" to net "GND".
-Connected pin "Q1-1" to net "GND".
-Connected pin "R11-1" to net "+5".
-Connected pin "R11-2" to net "PowerLEG".
-Connected pin "D7-2" to net "PowerLEG".
-Connected pin "D7-1" to net "GND".
 
 
 End Of Report.
