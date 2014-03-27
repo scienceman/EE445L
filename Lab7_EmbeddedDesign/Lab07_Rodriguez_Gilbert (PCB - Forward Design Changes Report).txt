@@ -6,11 +6,11 @@ Report Written : Wednesday, March 26, 2014
 Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/26/2014 5:52:37 PM
-Editing Time   : 5534 min
+Last Saved     : 3/26/2014 7:37:49 PM
+Editing Time   : 5771 min
 Units          : mil (precision 0)
 
-Connected pin "TP9-1" to net "Yout".
+The designs are the same, so no design changes to forward.
 
 
 End Of Report.
