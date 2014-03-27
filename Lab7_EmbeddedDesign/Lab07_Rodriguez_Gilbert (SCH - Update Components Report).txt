@@ -1,0 +1,182 @@
+Update Components Report
+------------------------
+
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (SCH - Update Components Report).txt
+Report Written : Wednesday, March 26, 2014
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.sch
+Design Title   : 
+Created        : 
+Last Saved     : 3/24/2014 4:45:58 PM
+Editing Time   : 3381 min
+Units          : mil (precision 0)
+
+
+Library Files:
+==============
+
+C:\Users\Public\Documents\PCB Artist\Library\74hc.cml
+C:\Users\Public\Documents\PCB Artist\Library\74hct.cml
+C:\Users\Public\Documents\PCB Artist\Library\74ls.cml
+C:\Users\Public\Documents\PCB Artist\Library\4000.cml
+C:\Users\Public\Documents\PCB Artist\Library\actel.cml
+C:\Users\Public\Documents\PCB Artist\Library\ad.cml
+C:\Users\Public\Documents\PCB Artist\Library\altera.cml
+C:\Users\Public\Documents\PCB Artist\Library\atmel.cml
+C:\Users\Public\Documents\PCB Artist\Library\avx.cml
+C:\Users\Public\Documents\PCB Artist\Library\burrbrown.cml
+C:\Users\Public\Documents\PCB Artist\Library\capacitor.cml
+C:\Users\Public\Documents\PCB Artist\Library\connector.cml
+C:\Users\Public\Documents\PCB Artist\Library\csm.cml
+C:\Users\Public\Documents\PCB Artist\Library\cypress.cml
+C:\Users\Public\Documents\PCB Artist\Library\Cypress2.cml
+C:\Users\Public\Documents\PCB Artist\Library\diode.cml
+C:\Users\Public\Documents\PCB Artist\Library\discrete.cml
+C:\Users\Public\Documents\PCB Artist\Library\dsm.cml
+C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+C:\Users\Public\Documents\PCB Artist\Library\fairchild.cml
+C:\Users\Public\Documents\PCB Artist\Library\fairchild1.cml
+C:\Users\Public\Documents\PCB Artist\Library\fiducial.cml
+C:\Users\Public\Documents\PCB Artist\Library\fuse.cml
+C:\Users\Public\Documents\PCB Artist\Library\hamlin.cml
+C:\Users\Public\Documents\PCB Artist\Library\hybrid.cml
+C:\Users\Public\Documents\PCB Artist\Library\ir.cml
+C:\Users\Public\Documents\PCB Artist\Library\lattice.cml
+C:\Users\Public\Documents\PCB Artist\Library\LT.cml
+C:\Users\Public\Documents\PCB Artist\Library\LT2.cml
+C:\Users\Public\Documents\PCB Artist\Library\LT3.cml
+C:\Users\Public\Documents\PCB Artist\Library\ltspice.cml
+C:\Users\Public\Documents\PCB Artist\Library\maxim.cml
+C:\Users\Public\Documents\PCB Artist\Library\Maxim7.cml
+C:\Users\Public\Documents\PCB Artist\Library\microchip.cml
+C:\Users\Public\Documents\PCB Artist\Library\murata.cml
+C:\Users\Public\Documents\PCB Artist\Library\natsemi.cml
+C:\Users\Public\Documents\PCB Artist\Library\NatSemi4.cml
+C:\Users\Public\Documents\PCB Artist\Library\NatSemi5.cml
+C:\Users\Public\Documents\PCB Artist\Library\omron.cml
+C:\Users\Public\Documents\PCB Artist\Library\onsemi.cml
+C:\Users\Public\Documents\PCB Artist\Library\opamps.cml
+C:\Users\Public\Documents\PCB Artist\Library\pcb.cml
+C:\Users\Public\Documents\PCB Artist\Library\qbsm.cml
+C:\Users\Public\Documents\PCB Artist\Library\qcsm.cml
+C:\Users\Public\Documents\PCB Artist\Library\qsm.cml
+C:\Users\Public\Documents\PCB Artist\Library\quicklogic.cml
+C:\Users\Public\Documents\PCB Artist\Library\relay.cml
+C:\Users\Public\Documents\PCB Artist\Library\resistor.cml
+C:\Users\Public\Documents\PCB Artist\Library\rfmicro.cml
+C:\Users\Public\Documents\PCB Artist\Library\schema.cml
+C:\Users\Public\Documents\PCB Artist\Library\sm.cml
+C:\Users\Public\Documents\PCB Artist\Library\st.cml
+C:\Users\Public\Documents\PCB Artist\Library\testpoint.cml
+C:\Users\Public\Documents\PCB Artist\Library\ti.cml
+C:\Users\Public\Documents\PCB Artist\Library\TI3.cml
+C:\Users\Public\Documents\PCB Artist\Library\trans.cml
+C:\Users\Public\Documents\PCB Artist\Library\transistor.cml
+C:\Users\Public\Documents\PCB Artist\Library\vishay.cml
+C:\Users\Public\Documents\PCB Artist\Library\xilinx.cml
+
+Selected items to be updated:
+=============================
+
+
+Components:
+===========
+
+XTAL  C:\Users\Public\Documents\PCB Artist\Library\discrete.cml
+
+Symbols:
+========
+
++V             C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
++Volt          C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+2-jumper       C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+B3F-Button-NO  C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+CapPolar       C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+Ceramic        C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+frame          C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+Grnd           C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+Header20       C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+Jumper8        C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+L293           C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+LEDT1.75       C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+LM7805         C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+PortADC_4      C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+PortA_6pin     C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+PortB          C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+PortC          C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+PortD          C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+PortE_2pin     C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+PortPower_12   C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+Resistor       C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+Testpoint      C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+XBee           C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+XTAL           C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+
+Additional items to be updated:
+===============================
+
+
+Components:
+===========
+
+    (None) 
+
+Symbols:
+========
+
+    (None) 
+
+Selected items not to be updated  (Same version as library)
+===========================================================
+
+
+Components:
+===========
+
++3.3V           C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
++5V             C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+0.125Wresistor  C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+ADXL202         C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+B3F-1050        C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+Ceramic         C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+frame           C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+Gnd             C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+Header2         C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+Header8         C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+JTAG            C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+L293            C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+LEDT1.75        C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+LM3S811         C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+LM2937-5        C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+LM2937ET-3.3    C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+tantalum        C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+testpoint       C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+XBee            C:\Users\Public\Documents\PCB Artist\Library\EE345L.cml
+
+Symbols:
+========
+
+Accelerometer  C:\Users\Public\Documents\PCB Artist\Library\74ls.ssl
+
+
+
+Update Components Summary
+=========================
+
+Updating all components.
+Update component values
+Update component value positions
+
+	Selected for update:			  20  Components
+						  25  Symbols
+
+	Selected items to be updated:		   1  Component 
+						  24  Symbols
+
+	Additional items to be updated:		   0  Components
+						   0  Symbols
+
+	Selected items NOT to be updated:	  19  Components
+	  (Same version as library)		   1  Symbol 
+
+
+End Of Report.

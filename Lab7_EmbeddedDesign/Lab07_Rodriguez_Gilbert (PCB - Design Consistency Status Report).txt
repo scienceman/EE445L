@@ -1,18 +1,18 @@
 Design Consistency Status Report
 --------------------------------
 
-Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Consistency Status Report).txt
-Report Written : Wednesday, March 26, 2014
-Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Consistency Status Report).txt
+Report Written : Thursday, March 27, 2014
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/26/2014 7:37:49 PM
-Editing Time   : 5771 min
+Last Saved     : 3/27/2014 12:43:38 AM
+Editing Time   : 5814 min
 Units          : mil (precision 0)
 
 
-Checking integrity of Schematic "Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.sch" with PCB "Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb"
-======================================================================================================================================================================================================================================
+Checking integrity of Schematic "C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.sch" with PCB "C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb"
+==============================================================================================================================================================================================================================================================
 
 
 End Of Report.
