@@ -6,53 +6,15 @@ Report Written : Thursday, March 27, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/27/2014 1:54:15 AM
-Editing Time   : 5852 min
+Last Saved     : 3/27/2014 2:14:14 AM
+Editing Time   : 5872 min
 Units          : mil (precision 0)
 
 
-Results
-=======
-
+Error Markers currently in design
+=================================
 
 No errors found
-
-
-Settings
-========
-
-
-Spacings
-
-=========
-
-Tracks         Yes
-Pads and Vias  Yes
-Shapes         Yes
-Text           Yes
-Board          Yes
-Drills         Yes
-Components     No
-
-
-Manufacturing
-
-==============
-
-Min Drill Hole Size  Yes
-Min Track Width      Yes
-Min Annular Ring     Yes
-Drill Breakout       Yes
-
-
-Nets
-
-=====
-
-Net Completion                Yes
-Dangling Tracks               Yes
-Net Track Length Differences  No
-
 
 
 End Of Report.

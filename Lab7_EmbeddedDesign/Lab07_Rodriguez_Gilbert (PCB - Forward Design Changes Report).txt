@@ -6,22 +6,24 @@ Report Written : Thursday, March 27, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/27/2014 1:43:37 AM
-Editing Time   : 5848 min
+Last Saved     : 3/27/2014 2:06:16 AM
+Editing Time   : 5871 min
 Units          : mil (precision 0)
 
-Disconnected pin "U1-11" from net "heartBeat".
-Disconnected pin "Q1-2" from net "heartBeat".
-Disconnected pin "R11-2" from net "PowerLEG".
-Disconnected pin "D7-2" from net "PowerLEG".
+Disconnected pin "U1-1" from net "N0653".
+Disconnected pin "Q1-2" from net "N0653".
+Disconnected pin "Q1-1" from net "GND".
+Disconnected pin "Q1-3" from net "GND".
+Disconnected pin "R11-1" from net "+5".
+Disconnected pin "R11-2" from net "PowerLEH".
+Disconnected pin "D7-1" from net "GND".
+Disconnected pin "D7-2" from net "PowerLEH".
 
-Added net "PowerLEH".
-Added net "N0653".
+Deleted component reference "Q1".
+Deleted component reference "R11".
+Deleted component reference "D7".
 
-Connected pin "U1-1" to net "N0653".
-Connected pin "R11-2" to net "PowerLEH".
-Connected pin "Q1-2" to net "N0653".
-Connected pin "D7-2" to net "PowerLEH".
+Deleted net "N0653".
 
 
 End Of Report.
