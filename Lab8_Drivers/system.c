@@ -21,88 +21,56 @@
 #include "system.h"
 #include <stdio.h>
 
-tBoolean pause;
+unsigned long Period; // 16-bit, 125 ns units 
+unsigned long static First; // Timer0A first edge 
+unsigned long Done; // mailbox status set each rising 
 
 void System_Init() {
   	// 50Mhz Clock
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
     Switch_Init();
-	SSI_Init();
-	debugGPIO();
+    PeriodMeasure_Init();
+	//SSI_Init();
+	//debugGPIO();
 	//Output_Init();
 	//Output_Color(15);
 }
 
 void Switch_Init(void){
-	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC+SYSCTL_RCGC2_GPIOG; // activate ports C and G
-	pause = 0;
-	GPIO_PORTC_DIR_R &= ~0x1C; // make PC4 in
-	GPIO_PORTC_DEN_R |= 0x1C; // enable I/O on PC4
-	GPIO_PORTC_IS_R &= ~0x1C; // PC4 is edge-sensitive
-	GPIO_PORTC_IBE_R &= ~0x1C; // PC4 is not both edges
-	GPIO_PORTC_IEV_R |= 0x1C; // PC4 falling edge event
-	GPIO_PORTC_ICR_R = 0x1C; // clear flag4
-	GPIO_PORTC_IM_R |= 0x1C; // arm interrupt on PC4
-    GPIO_PORTG_DIR_R |= 0x04;        // make PG2 out (PG2 built-in LED)
-    GPIO_PORTG_DEN_R |= 0x04;        // enable digital I/O on PG2
-	GPIO_PORTG_AFSEL_R &= ~0x04;
-    GPIO_PORTG_DATA_R &= ~0x04;              // clear PG2		  */
-	NVIC_PRI0_R = (NVIC_PRI0_R&0xFF00FFFF)|0x00A00000;
-	// priority 5
-	NVIC_EN0_R |= 4; // enable int 2 in NVIC 
-	//GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
-}
-
-void debugGPIO(void) {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);  	 
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOH);
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1 || GPIO_PIN_2 || GPIO_PIN_3);
+    GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
+    GPIOPinTypeGPIOOutput(GPIO_PORTH_BASE, GPIO_PIN_0 || GPIO_PIN_1);
 }
 
-unsigned short receive;
+void PeriodMeasure_Init(void){ 
+     SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0 
+     SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB; // activate port B 
+     First = 0; // first will be wrong 
+     Done = 0; // set on subsequent 
+     GPIO_PORTB_DEN_R |= 0x01; // enable digital I/O on PB0 
+     GPIO_PORTB_AFSEL_R |= 0x01; // enable alt function on PB0 
+     TIMER0_CTL_R &= ~TIMER_CTL_TAEN; // disable timer0A during setup 
+     TIMER0_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode 
+                                      // configure for capture mode 
+     TIMER0_TAMR_R = (TIMER_TAMR_TACMR|TIMER_TAMR_TAMR_CAP); 
+                                      // configure for rising edge event 
+     TIMER0_CTL_R &= ~(TIMER_CTL_TAEVENT_POS|0xC); 
+     TIMER0_TAILR_R = 0x0000FFFF; // start value 
+     TIMER0_IMR_R |= TIMER_IMR_CAEIM; // enable capture match interrupt 
+     TIMER0_ICR_R = TIMER_ICR_CAECINT;// clear timer0A capture match flag 
+     TIMER0_CTL_R |= TIMER_CTL_TAEN; // timer0A 16-b, +edge, interrupts 
+     NVIC_PRI4_R = (NVIC_PRI4_R&0x00FFFFFF)|0x40000000; //Timer0A=priority 2 
+     NVIC_EN0_R |= NVIC_EN0_INT19; // enable interrupt 19 in NVIC 
+     EnableInterrupts(); 
+} 
+void Timer0A_Handler(void){ 
+     TIMER0_ICR_R = TIMER_ICR_CAECINT; // acknowledge timer0A capture 
+     Period = (First - TIMER0_TAR_R)&0xFFFF; // 125ns resolution 
+     First = TIMER0_TAR_R; // setup for next 
+     Done = 0xFF; 
+} 
 
-void SSI_Init(void) {
- 	int delay;
-	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_SSI1;   // Activate SSI1
-	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOE;
-	delay = SYSCTL_RCGC2_R;
-	GPIO_PORTE_AFSEL_R |= 0x0B;  // PE0,1,3 Alt function = SSI1Clk, SS11FSS, SSI1Tx
-	GPIO_PORTE_DEN_R |= 0x0B;
-	SSI1_CR1_R &= ~SSI_CR1_SSE;  // Disable SSI for config
-	SSI1_CR1_R &= ~SSI_CR1_MS;   // Master mode
-	SSI1_CPSR_R = (SSI1_CPSR_R & ~SSI_CPSR_CPSDVSR_M)+2;   // SSI clock 3 Mhz  SSIClk = FSysClk / (CPSDVSR * (1 + SCR))
-	SSI1_CR0_R &= ~(SSI_CR0_SCR_M | SSI_CR0_SPH | SSI_CR0_SPO);   // Clear SCR, SPH, SPO
-	SSI1_CR0_R = (SSI1_CR0_R & ~SSI_CR0_FRF_M)+SSI_CR0_FRF_MOTO;  //freescale
-	SSI1_CR0_R = (SSI1_CR0_R & ~SSI_CR0_DSS_M)+SSI_CR0_DSS_16;    // 16 bit data
-	SSI1_DR_R = 0;
-	SSI1_CR1_R |= SSI_CR1_SSE;    // Enable SSI
-}
 
-
-void DAC_Out(unsigned short code){
-	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 1);
-	while((SSI1_SR_R & SSI_SR_TNF) == 0){};
-	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 0);
-	SSI1_DR_R = code;
-}
-
-/*extern unsigned short Volume;
-#define MAXVOL 9
-
-void GPIOPortC_Handler(void) {
-	GPIO_PORTC_ICR_R = 0x3C;
-	    switch(GPIO_PORTC_DATA_R&0x3C){
-        case(0x10): //(1) button (closest to board) Rewind
-					Rewind();
-          break;
-				case(0x08): //(2) button Play/Pause
-					if(pause){ Play(0); }
-					else{ Stop(); }
-					break;
-				case(0x04):  //(3) button Mode (idk what it does yet) ABBBBBBBBBK(
-					Volume = (Volume + 1) % MAXVOL;
-					printf("Volume: %02d\n",Volume);
-					break;
-				default:
-					break;
-    }
-}*/
