@@ -93,10 +93,10 @@ void motor_Init(unsigned long PWM_Generator,
 
 void set_motor(tMotor* motor, signed long speed) {
 	if(speed > 0) {
-		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_POS, speed*160);
+		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_POS, speed*16);
 		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_NEG, 0);
 	} else {
 		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_POS, 0);
-		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_NEG, (-1)*speed*160);
+		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_NEG, (-1)*speed*16);
 	}
 }
