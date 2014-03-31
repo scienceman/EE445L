@@ -18,8 +18,16 @@
 #include "../inc/hw_ints.h"
 //#include "Output.h"
 
+#include "Output.h"
 #include "system.h"
 #include <stdio.h>
+
+// Startup.s Function declaration
+void DisableInterrupts(void);
+void EnableInterrupts(void);
+void StartCritical(void);
+void EndCritical(void);
+void WaitForInterrupt(void);
 
 unsigned long Period; // 16-bit, 125 ns units 
 unsigned long static First; // Timer0A first edge 
@@ -29,11 +37,11 @@ void System_Init() {
   	// 50Mhz Clock
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
     Switch_Init();
+	motorIO_Init();
     PeriodMeasure_Init();
-	//SSI_Init();
 	//debugGPIO();
-	//Output_Init();
-	//Output_Color(15);
+	Output_Init();
+	Output_Color(15);
 }
 
 void Switch_Init(void){
@@ -43,6 +51,16 @@ void Switch_Init(void){
     GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1 || GPIO_PIN_2 || GPIO_PIN_3);
     GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
     GPIOPinTypeGPIOOutput(GPIO_PORTH_BASE, GPIO_PIN_0 || GPIO_PIN_1);
+}
+
+void motorIO_Init(void) {
+	unsigned long period;
+	SYSCTL_RCGC0_R |= SYSCTL_RCGC0_PWM;   // 1)activate PWM
+    SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB;   // GPIOG
+	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOE;
+	period = SysCtlClockGet();
+	GPIO_PORTB_AFSEL_R |= 0x03;        // Enable alt funct on PB0,1(PWM2,3)
+	GPIO_PORTE_AFSEL_R |= 0x03;        // Enable alt funct on PE0,1(PWM4,5)
 }
 
 void PeriodMeasure_Init(void){ 
