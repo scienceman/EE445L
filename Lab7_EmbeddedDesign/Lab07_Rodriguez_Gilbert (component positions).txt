@@ -1,0 +1,66 @@
+Component Positions Report
+--------------------------
+
+Report Written :   Thursday, March 27, 2014  02:46
+Design Path    :   C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Design Title   :
+Created        :   9/11/2009 11:58:24 AM
+Last Saved     :   3/27/2014 2:30:41 AM
+Editing Time   :   5890 min
+Units          :   mil (precision 0)
+
+Name      Component                     Side                    Centre X    Centre Y  Rotation
+----------------------------------------------------------------------------------------------
+R2        0.125Wresistor                Top                         9830       10140    270.00
+R3        0.125Wresistor                Top                         8915       11445    180.00
+R4        0.125Wresistor                Top                        10320       10135      0.00
+R5        0.125Wresistor                Top                        10735       11135      0.00
+R6        0.125Wresistor                Top                         8045       11205      0.00
+R7        0.125Wresistor                Top                         8355       10010     90.00
+R8        0.125Wresistor                Top                         8510       10010     90.00
+R9        0.125Wresistor                Top                         8660       10010     90.00
+R10       0.125Wresistor                Top                         8815       10010     90.00
+U6        ADXL202                       Top                        10800       10060      0.00
+SW1       B3F-1050                      Top                         8090       10950    180.00
+C3        Ceramic                       Top                        10003       10730     90.00
+C4        Ceramic                       Top                        10003       10493    270.00
+C5        Ceramic                       Top                        10688       10795    270.00
+C6        Ceramic                       Top                        10483       10360      0.00
+C7        Ceramic                       Top                         9940       10918    180.00
+C8        Ceramic                       Top                        10228       10355      0.00
+C9        Ceramic                       Top                        10158       11095     90.00
+C14       Ceramic                       Top                        10410        9570     90.00
+C15       Ceramic                       Top                        11245       10005    270.00
+C16       Ceramic                       Top                        11495       10190    180.00
+C17       Ceramic                       Top                        10330        9895      0.00
+J2        Header2                       Top                        11475       10985      0.00
+J3        Header2                       Top                        11525        9920     90.00
+J7        Header2                       Top                        11525        9605     90.00
+J4        Header8                       Top                         9718        9530      0.00
+J5        Header8                       Top                         9718        9655      0.00
+J6        Header8                       Top                         9718        9780      0.00
+J1        JTAG                          Top                        10375       11403      0.00
+U3        L293                          Top                        10955        9630    180.00
+D1        LEDT1.75                      Top                         8470       11399    180.00
+D2        LEDT1.75                      Top                         8465       10807      0.00
+D3        LEDT1.75                      Top                         7994        9915     90.00
+D4        LEDT1.75                      Top                         7994       10140     90.00
+D5        LEDT1.75                      Top                         7994       10360     90.00
+D6        LEDT1.75                      Top                         7994       10585     90.00
+U1        LM3S811                       Top                        10316       10768      0.00
+U2        LM2937ET-3.3                  Top                        11005       11325     90.00
+U7        LM2940CT-5.0_NOPB             Top                        11320       10720      0.00
+C2        tantalum                      Top                        11420       11210      0.00
+C10       tantalum                      Top                         9915       11030    180.00
+C11       tantalum                      Top                        11225       10320      0.00
+C12       tantalum                      Top                        10940       10695    270.00
+C13       tantalum                      Top                        11225       10490      0.00
+GND       testpoint                     Top                         8040       11375      0.00
+TP1       testpoint                     Top                        11315       11400      0.00
+TP2       testpoint                     Top                        10980       10975      0.00
+TP3       testpoint                     Top                        11500       10480      0.00
+TP8       testpoint                     Top                         9030        9930     90.00
+TP9       testpoint                     Top                         9030       10105     90.00
+U5        XBee                          Top                         9090       10780     90.00
+Y1        XTAL                          Top                         9853       10618     90.00
+----------------------------------------------------------------------------------------------

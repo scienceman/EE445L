@@ -6,8 +6,8 @@ Report Written : Thursday, March 27, 2014
 Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/27/2014 2:14:14 AM
-Editing Time   : 5872 min
+Last Saved     : 3/27/2014 2:57:29 AM
+Editing Time   : 5901 min
 Units          : mil (precision 0)
 
 
