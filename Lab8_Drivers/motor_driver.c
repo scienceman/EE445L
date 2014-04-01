@@ -33,6 +33,7 @@ void motor_Init(unsigned long PWM_Generator,
 				tMotor* motor) {
 
 	motor->PWM_GEN = PWM_Generator;
+	motor->PWM_GEN = 0;
 	motor->PWM_OUT_POS = PWM_Out1;
 	motor->PWM_OUT_NEG = PWM_Out2;
 	// __________Stellarisware Document Example___________
@@ -46,23 +47,26 @@ void motor_Init(unsigned long PWM_Generator,
 	PWMGenPeriodSet(PWM_BASE, PWM_Generator, period);
 
 	PWMPulseWidthSet(PWM_BASE, PWM_Out1, dutyCycle);
-	PWMPulseWidthSet(PWM_BASE, PWM_Out2, 0);
+	PWMPulseWidthSet(PWM_BASE, PWM_Out2, 1);
 	// Start the timers in input generator
 	PWMGenEnable(PWM_BASE, PWM_Generator);
 	// Enable the outputs.
 	PWMOutputState(PWM_BASE, (PWM_Out1 | PWM_Out2), true);	
-}
+}									  	
 
 // Using period of 1600, input range for speed of -100 to 100 percent.
 void set_motor(tMotor* motor, signed long speed) {
 	if(speed > 0) {
 		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_POS, speed*16);
-		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_NEG, 0);
+		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_NEG, 1);
 	} else {
-		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_POS, 0);
+		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_POS, 1);
 		PWMPulseWidthSet(PWM_BASE, motor->PWM_OUT_NEG, (-1)*speed*16);
 	}
+	// Enable the outputs.
+	PWMOutputState(PWM_BASE, (motor->PWM_OUT_POS | motor->PWM_OUT_NEG), true);
 }
+
 
 /*************************************************************************************
  *	PWM generation test
@@ -102,5 +106,6 @@ void pwm_test_init(void) {
 	PWMGenEnable(PWM_BASE, PWM_GEN_0);
 	PWMGenEnable(PWM_BASE, PWM_GEN_1);
 	// Enable the outputs.
-	PWMOutputState(PWM_BASE, (PWM_OUT_0_BIT | PWM_OUT_1_BIT | PWM_OUT_2_BIT | PWM_OUT_3_BIT), true);
+	PWMOutputState(PWM_BASE, (PWM_OUT_0_BIT | PWM_OUT_1_BIT | PWM_OUT_2_BIT | PWM_OUT_3_BIT), true);
+
 }
