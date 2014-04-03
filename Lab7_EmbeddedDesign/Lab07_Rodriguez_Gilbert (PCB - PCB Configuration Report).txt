@@ -1,0 +1,116 @@
+PCB Configuration Report
+------------------------
+
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - PCB Configuration Report).txt
+Report Written : Thursday, March 27, 2014
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Design Title   : 
+Created        : 9/11/2009 11:58:24 AM
+Last Saved     : 3/27/2014 2:30:41 AM
+Editing Time   : 5890 min
+Units          : mil (precision 0)
+
+PCB Artist version:       2.0
+
+
+Design Requirement
+------------------
+Design Requirement Name:  2 Layer Standard
+
+
+Board
+-----
+Board Size:               3805 X 2250
+CNC Route Points:         4
+
+
+Layers
+------
+Number of Layers:         2
+Powerplanes:              No
+Solder Mask:              Yes
+    Top Side:             Yes
+    Bottom Side:          Yes
+    Type:                 LPI
+    Color:                Green
+Silkscreen:               Yes
+    Top Side:             Yes
+    Bottom Side:          Yes
+    Color:                White
+
+
+Board Parameters
+----------------
+Material:                 FR4
+Material Thickness:       62 mil
+Finish Plating:           Lead Free Solder
+Copper Weight:            1 oz
+
+Tab Routes:               No
+V-Scoring:                No
+Plated Slots:             No
+Plated Edges:             No
+Dielectric:               No
+Impedance:                No
+Counter Sinks:            No
+Counter Bores:            No
+
+Min Track Width/Gap:      7 mil
+Minimum Hole Size:        15 mil
+Beveled Gold Fingers:     None
+
+
+Additional Requirements
+-----------------------
+Electrical Test:          No
+Component Assembly:       No
+        Unique Component Parts: 16
+        Through Hole:     50
+        Fine Pitch:       1
+        BGA/Leadless:     0
+        Other SMT:        1
+
+Special Requirements: 
+
+                          Student
+
+
+
+Production
+----------
+Board Part Number:        UTX-2014S099
+Revision Number:          1
+Production:               Prototype
+Turnaround Time:          1 Week
+Quantity:                 1
+Array:                    No
+
+Board Unit Price:         $325.24
+Board Subtotal Price:     $325.24
+Test Price:               $0.00
+
+Total Price:              $325.24
+
+
+Design Data
+-----------
+Number of Tracks:         320
+Minimum Track Width Used: 10 mil
+Maximum Track Width Used: 20 mil
+
+Number of Holes:          328
+Number of Hole Sizes:     11
+Minimum Hole Size Used:   15 mil
+Maximum Hole Size Used:   54 mil
+
+Number of Top SMT Pads:   62
+Number of Bottom SMT Pads: 0
+Minimum SMT Pad Pitch:    20 mil
+
+Minimum Track or Space:   7 mil
+
+Fiducials:                No
+
+Number of Design Errors:  0
+
+End Of Report.

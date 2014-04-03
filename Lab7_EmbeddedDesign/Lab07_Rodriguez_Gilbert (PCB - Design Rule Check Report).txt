@@ -1,13 +1,13 @@
 Design Rule Check Report
 ------------------------
 
-Report File    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Rule Check Report).txt
+Report File    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert (PCB - Design Rule Check Report).txt
 Report Written : Thursday, March 27, 2014
-Design Path    : Z:\Users\gilrod\Desktop\Programming\C\EE445L\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
+Design Path    : C:\Users\KGilbert\Documents\EE319K-445L\EE445Lspring2014\Lab7_EmbeddedDesign\Lab07_Rodriguez_Gilbert.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 3/27/2014 2:25:51 AM
-Editing Time   : 5879 min
+Last Saved     : 3/27/2014 2:57:29 AM
+Editing Time   : 5901 min
 Units          : mil (precision 0)
 
 
