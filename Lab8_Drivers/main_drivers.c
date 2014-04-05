@@ -39,7 +39,6 @@ int main(void) {
 			set_motor(&left, i);
 			set_motor(&right, -i);
 			SysCtlDelay(10000000);
-			//printf("Period: %d\rFirst: %d\r",Period,First);
 			printf("Range: %d\r",range);
 		}
 	}
