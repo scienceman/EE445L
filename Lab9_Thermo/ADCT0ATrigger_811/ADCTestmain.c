@@ -32,27 +32,27 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
-
+#include "lm3s1968.h"
 
 //debug code
 //
 // This program periodically samples ADC channel 0 and stores the
 // result to a global variable that can be accessed with the JTAG
 // debugger and viewed with the variable watch feature.
-#define GPIO_PORTC_DATA_R       (*((volatile unsigned long *)0x400063FC))
-#define GPIO_PORTC_DIR_R        (*((volatile unsigned long *)0x40006400))
-#define GPIO_PORTC_DEN_R        (*((volatile unsigned long *)0x4000651C))
-#define SYSCTL_RCGC2_R          (*((volatile unsigned long *)0x400FE108))
-#define SYSCTL_RCGC2_GPIOC      0x00000004  // port C Clock Gating Control
+//#define GPIO_PORTC_DATA_R       (*((volatile unsigned long *)0x400063FC))
+//#define GPIO_PORTC_DIR_R        (*((volatile unsigned long *)0x40006400))
+//#define GPIO_PORTC_DEN_R        (*((volatile unsigned long *)0x4000651C))
+//#define SYSCTL_RCGC2_R          (*((volatile unsigned long *)0x400FE108))
+//#define SYSCTL_RCGC2_GPIOC      0x00000004  // port C Clock Gating Control
 
 
 int main(void){
-  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;    // activate port C
+  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG;    // activate port C
   ADC_InitTimer0ATriggerSeq3(0, 9, 59999); // ADC channel 0, 10 Hz sampling
-  GPIO_PORTC_DIR_R |= 0x20;                // make PC5 out (PC5 built-in LED)
-  GPIO_PORTC_DEN_R |= 0x20;                // enable digital I/O on PC5 (default setting)
+  GPIO_PORTG_DIR_R |= 0x04;                // make PC5 out (PC5 built-in LED)
+  GPIO_PORTG_DEN_R |= 0x04;                // enable digital I/O on PC5 (default setting)
   while(1){
     WaitForInterrupt();
-    GPIO_PORTC_DATA_R ^= 0x20;           // toggle LED
+    GPIO_PORTG_DATA_R ^= 0x04;           // toggle LED
   }
 }

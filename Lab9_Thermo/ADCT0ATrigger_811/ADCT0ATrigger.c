@@ -24,60 +24,60 @@
 
 // Thumbwheel potentiometer with scaling resistor connected to ADC0
 
-#define NVIC_EN0_INT17          0x00020000  // Interrupt 17 enable
-#define NVIC_EN0_R              (*((volatile unsigned long *)0xE000E100))  // IRQ 0 to 31 Set Enable Register
-#define NVIC_PRI4_R             (*((volatile unsigned long *)0xE000E410))  // IRQ 16 to 19 Priority Register
-#define TIMER0_CFG_R            (*((volatile unsigned long *)0x40030000))
-#define TIMER0_TAMR_R           (*((volatile unsigned long *)0x40030004))
-#define TIMER0_CTL_R            (*((volatile unsigned long *)0x4003000C))
-#define TIMER0_IMR_R            (*((volatile unsigned long *)0x40030018))
-#define TIMER0_TAILR_R          (*((volatile unsigned long *)0x40030028))
-#define TIMER0_TAPR_R           (*((volatile unsigned long *)0x40030038))
-#define TIMER_CFG_16_BIT        0x00000004  // 16-bit timer configuration,
-                                            // function is controlled by bits
-                                            // 1:0 of GPTMTAMR and GPTMTBMR
-#define TIMER_TAMR_TAMR_PERIOD  0x00000002  // Periodic Timer mode
-#define TIMER_CTL_TAOTE         0x00000020  // GPTM TimerA Output Trigger
-                                            // Enable
-#define TIMER_CTL_TAEN          0x00000001  // GPTM TimerA Enable
-#define TIMER_IMR_TATOIM        0x00000001  // GPTM TimerA Time-Out Interrupt
-                                            // Mask
-#define TIMER_TAILR_TAILRL_M    0x0000FFFF  // GPTM TimerA Interval Load
-                                            // Register Low
-#define ADC_ACTSS_R             (*((volatile unsigned long *)0x40038000))
-#define ADC0_RIS_R              (*((volatile unsigned long *)0x40038004))
-#define ADC0_IM_R               (*((volatile unsigned long *)0x40038008))
-#define ADC0_ISC_R              (*((volatile unsigned long *)0x4003800C))
-#define ADC0_EMUX_R             (*((volatile unsigned long *)0x40038014))
-#define ADC0_SSPRI_R            (*((volatile unsigned long *)0x40038020))
-#define ADC0_PSSI_R             (*((volatile unsigned long *)0x40038028))
-#define ADC0_SSMUX3_R           (*((volatile unsigned long *)0x400380A0))
-#define ADC0_SSCTL3_R           (*((volatile unsigned long *)0x400380A4))
-#define ADC0_SSFIFO3_R          (*((volatile unsigned long *)0x400380A8))
-#define ADC_ACTSS_ASEN3         0x00000008  // ADC SS3 Enable
-#define ADC_RIS_INR3            0x00000008  // SS3 Raw Interrupt Status
-#define ADC_IM_MASK3            0x00000008  // SS3 Interrupt Mask
-#define ADC_ISC_IN3             0x00000008  // SS3 Interrupt Status and Clear
-#define ADC_EMUX_EM3_M          0x0000F000  // SS3 Trigger Select mask
-#define ADC_EMUX_EM3_TIMER      0x00005000  // Timer
-#define ADC_SSPRI_SS3_4TH       0x00003000  // fourth priority
-#define ADC_SSPRI_SS2_3RD       0x00000200  // third priority
-#define ADC_SSPRI_SS1_2ND       0x00000010  // second priority
-#define ADC_SSPRI_SS0_1ST       0x00000000  // first priority
-#define ADC_PSSI_SS3            0x00000008  // SS3 Initiate
-#define ADC_SSMUX3_MUX0_M       0x00000003  // 1st Sample Input Select mask
-#define ADC_SSMUX3_MUX0_S       0           // 1st Sample Input Select lshift
-#define ADC_SSCTL3_TS0          0x00000008  // 1st Sample Temp Sensor Select
-#define ADC_SSCTL3_IE0          0x00000004  // 1st Sample Interrupt Enable
-#define ADC_SSCTL3_END0         0x00000002  // 1st Sample is End of Sequence
-#define ADC_SSCTL3_D0           0x00000001  // 1st Sample Diff Input Select
-#define ADC_SSFIFO3_DATA_M      0x000003FF  // Conversion Result Data mask
-#define SYSCTL_RCGC0_R          (*((volatile unsigned long *)0x400FE100))
-#define SYSCTL_RCGC1_R          (*((volatile unsigned long *)0x400FE104))
-#define SYSCTL_RCGC0_ADC        0x00010000  // ADC0 Clock Gating Control
-#define SYSCTL_RCGC0_ADCSPD_M   0x00000300  // ADC Sample Speed mask
-#define SYSCTL_RCGC0_ADCSPD125K 0x00000000  // 125K samples/second
-#define SYSCTL_RCGC1_TIMER0     0x00010000  // timer 0 Clock Gating Control
+//#define NVIC_EN0_INT17          0x00020000  // Interrupt 17 enable
+//#define NVIC_EN0_R              (*((volatile unsigned long *)0xE000E100))  // IRQ 0 to 31 Set Enable Register
+//#define NVIC_PRI4_R             (*((volatile unsigned long *)0xE000E410))  // IRQ 16 to 19 Priority Register
+//#define TIMER0_CFG_R            (*((volatile unsigned long *)0x40030000))
+//#define TIMER0_TAMR_R           (*((volatile unsigned long *)0x40030004))
+//#define TIMER0_CTL_R            (*((volatile unsigned long *)0x4003000C))
+//#define TIMER0_IMR_R            (*((volatile unsigned long *)0x40030018))
+//#define TIMER0_TAILR_R          (*((volatile unsigned long *)0x40030028))
+//#define TIMER0_TAPR_R           (*((volatile unsigned long *)0x40030038))
+//#define TIMER_CFG_16_BIT        0x00000004  // 16-bit timer configuration,
+//                                            // function is controlled by bits
+//                                            // 1:0 of GPTMTAMR and GPTMTBMR
+//#define TIMER_TAMR_TAMR_PERIOD  0x00000002  // Periodic Timer mode
+//#define TIMER_CTL_TAOTE         0x00000020  // GPTM TimerA Output Trigger
+//                                            // Enable
+//#define TIMER_CTL_TAEN          0x00000001  // GPTM TimerA Enable
+//#define TIMER_IMR_TATOIM        0x00000001  // GPTM TimerA Time-Out Interrupt
+//                                            // Mask
+//#define TIMER_TAILR_TAILRL_M    0x0000FFFF  // GPTM TimerA Interval Load
+//                                            // Register Low
+//#define ADC_ACTSS_R             (*((volatile unsigned long *)0x40038000))
+//#define ADC0_RIS_R              (*((volatile unsigned long *)0x40038004))
+//#define ADC0_IM_R               (*((volatile unsigned long *)0x40038008))
+//#define ADC0_ISC_R              (*((volatile unsigned long *)0x4003800C))
+//#define ADC0_EMUX_R             (*((volatile unsigned long *)0x40038014))
+//#define ADC0_SSPRI_R            (*((volatile unsigned long *)0x40038020))
+//#define ADC0_PSSI_R             (*((volatile unsigned long *)0x40038028))
+//#define ADC0_SSMUX3_R           (*((volatile unsigned long *)0x400380A0))
+//#define ADC0_SSCTL3_R           (*((volatile unsigned long *)0x400380A4))
+//#define ADC0_SSFIFO3_R          (*((volatile unsigned long *)0x400380A8))
+//#define ADC_ACTSS_ASEN3         0x00000008  // ADC SS3 Enable
+//#define ADC_RIS_INR3            0x00000008  // SS3 Raw Interrupt Status
+//#define ADC_IM_MASK3            0x00000008  // SS3 Interrupt Mask
+//#define ADC_ISC_IN3             0x00000008  // SS3 Interrupt Status and Clear
+//#define ADC_EMUX_EM3_M          0x0000F000  // SS3 Trigger Select mask
+//#define ADC_EMUX_EM3_TIMER      0x00005000  // Timer
+//#define ADC_SSPRI_SS3_4TH       0x00003000  // fourth priority
+//#define ADC_SSPRI_SS2_3RD       0x00000200  // third priority
+//#define ADC_SSPRI_SS1_2ND       0x00000010  // second priority
+//#define ADC_SSPRI_SS0_1ST       0x00000000  // first priority
+//#define ADC_PSSI_SS3            0x00000008  // SS3 Initiate
+//#define ADC_SSMUX3_MUX0_M       0x00000003  // 1st Sample Input Select mask
+//#define ADC_SSMUX3_MUX0_S       0           // 1st Sample Input Select lshift
+//#define ADC_SSCTL3_TS0          0x00000008  // 1st Sample Temp Sensor Select
+//#define ADC_SSCTL3_IE0          0x00000004  // 1st Sample Interrupt Enable
+//#define ADC_SSCTL3_END0         0x00000002  // 1st Sample is End of Sequence
+//#define ADC_SSCTL3_D0           0x00000001  // 1st Sample Diff Input Select
+//#define ADC_SSFIFO3_DATA_M      0x000003FF  // Conversion Result Data mask
+//#define SYSCTL_RCGC0_R          (*((volatile unsigned long *)0x400FE100))
+//#define SYSCTL_RCGC1_R          (*((volatile unsigned long *)0x400FE104))
+//#define SYSCTL_RCGC0_ADC        0x00010000  // ADC0 Clock Gating Control
+//#define SYSCTL_RCGC0_ADCSPD_M   0x00000300  // ADC Sample Speed mask
+//#define SYSCTL_RCGC0_ADCSPD125K 0x00000000  // 125K samples/second
+//#define SYSCTL_RCGC1_TIMER0     0x00010000  // timer 0 Clock Gating Control
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -120,6 +120,9 @@ void WaitForInterrupt(void);  // low power mode
 // SS3 triggering event: Timer0A
 // SS3 1st sample source: programmable using variable 'channelNum' [0:3]
 // SS3 interrupts: enabled and promoted to controller
+
+#include "lm3s1968.h"
+
 void ADC_InitTimer0ATriggerSeq3(unsigned char channelNum, unsigned char prescale, unsigned short period){
   volatile unsigned long delay;
   // channelNum must be 0-3 (inclusive) corresponding to ADC0 through ADC3
