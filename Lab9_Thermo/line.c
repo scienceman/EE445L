@@ -80,7 +80,7 @@ void mergeBuffers(unsigned char* buff1,unsigned char* buff2,unsigned char* resul
 
 void RIT128x96x4_ClearImage(void) {
 	int i,size;
-	size = (128/2)*96;
+	size = (128/2)*96/2;
 	for(i=0;i<size;i++) {
 	    graph[i]=0;
 	}

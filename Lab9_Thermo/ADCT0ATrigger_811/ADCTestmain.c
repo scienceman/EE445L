@@ -73,14 +73,20 @@ void LUTADCtoTemp() {
 
 unsigned long LinRegADCtoTemp(unsigned long adc) {
 	unsigned long i=0;
-	i=adc*(-2);   //Line of Best Fit: T(X)=-2.077+3929.95
-	i+=3930;	
-	Fixed_uDecOut2(i);
+	char temperature[6];
+	const char units[3] = " C";
+	char tempOut[10];
+	i=adc*(-208);   //Line of Best Fit: T(X)=-2.077+3929.95
+	i+=392995;	
+	i /= 100;
+	Fixed_uDecOut2s(i, temperature);
+	sprintf(tempOut, "%s%s", temperature, units);
+	RIT128x96x4StringDraw(tempOut, 40, 25, 15);
 	return i;
 }
 
   volatile int x=0;
-  volatile int y=0;
+  volatile int y=30;
   volatile unsigned long prevADC;
 
 int main(void){
@@ -91,6 +97,9 @@ int main(void){
   Output_Init();
   Output_Color(15);
 
+  RIT128x96x4_Line(0,5,0,45,15);
+  RIT128x96x4_Line(0,45,120,45,15);
+  
   Timer0A_Init(drawGraph_handler, 59999);
 
   RIT128x96x4ImageDraw(graph,0,96/2,128,96/2);   
@@ -98,15 +107,21 @@ int main(void){
     WaitForInterrupt();
     GPIO_PORTG_DATA_R ^= 0x04;           // toggle LED
 	LinRegADCtoTemp(ADCvalue);
+	RIT128x96x4_ShowImageLines();
   }
 }
 
 void drawGraph_handler(void) {
 	static int delay=0;
 	if(delay == 0) {
-		RIT128x96x4_Line(x,(int)(LinRegADCtoTemp(prevADC)/100),++x,(int)(LinRegADCtoTemp(ADCvalue)/100),15);
-		RIT128x96x4_ShowImageLines();		
+		RIT128x96x4_Line(x,(int)(60-(LinRegADCtoTemp(prevADC)/100)),++x,(int)(60-(LinRegADCtoTemp(ADCvalue)/100)),15);
+		if(x>120) {
+			RIT128x96x4_ClearImage();
+		    RIT128x96x4_Line(0,5,0,48,15);
+  			RIT128x96x4_Line(0,48,120,48,15);
+			x=0;
+		}		
 	} 
-	delay = (delay+1)%10;
+	delay = (delay+1)%2;
 	prevADC = ADCvalue;
 }
