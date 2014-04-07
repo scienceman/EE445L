@@ -34,7 +34,7 @@ void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
 unsigned long LinRegADCtoTemp(unsigned long adc);
-void LUTADCtoTemp(void);
+unsigned long LUTADCtoTemp(unsigned long adc);
 
 #include "lm3s1968.h"
 #include "Output.h"
@@ -42,16 +42,18 @@ void LUTADCtoTemp(void);
 #include "rit128x96x4.h"
 #include "line.h"
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
 
 void drawGraph_handler(void);
 
 extern volatile unsigned long ADCvalue;
 
-unsigned long const ADCdata[53]={0,29,40,52,64,76,89,102,115,128,142,
-     156,170,185,200,215,230,246,262,279,296,
-     313,330,348,366,385,404,423,443,463,484,
-     505,526,548,570,592,615,638,662,686,711,
-     736,761,787,814,840,868,895,923,952,981,1010,1024};
+unsigned long const ADCdata[53]={0,19,32,46,60,74,89,103,118,133,148,
+     164,179,195,211,227,243,260,277,294,311,
+     329,347,365,383,401,420,439,458,478,498,
+     518,538,559,579,601,622,644,666,688,711,
+     734,757,781,804,829,853,878,903,929,955,981,1024};
 
 unsigned long const Tdata[53]={4000,4000,3960,3920,3880,3840,3800,3760,3720,3680,3640,
      3600,3560,3520,3480,3440,3400,3360,3320,3280,3240,
@@ -59,16 +61,27 @@ unsigned long const Tdata[53]={4000,4000,3960,3920,3880,3840,3800,3760,3720,3680
      2800,2760,2720,2680,2640,2600,2560,2520,2480,2440,
      2400,2360,2320,2280,2240,2200,2160,2120,2080,2040,2000,2000};
 
-unsigned char graph[(128/2)*96/2] = {0};
 
-void LUTADCtoTemp() {
-	signed long i=0;	
+unsigned char graph[(128/2)*96/2] = {0};
+		 
+unsigned long LUTADCtoTemp(unsigned long adc) {
+	signed long i=0;
+	char temperature[6];
+	const char units[3] = " C";
+	char tempOut[10];	
 	for(i=0;i<53;i++) {
 	  if(ADCvalue < ADCdata[i]) {
-	    break;
+	    if(abs((ADCdata[i]-adc)) > abs((adc-ADCdata[i-1]))) {
+			i--;	
+		}
+		break;
 	  }
 	}
-	Fixed_uDecOut2(Tdata[i]);
+	//Fixed_uDecOut2(Tdata[i]);
+	Fixed_uDecOut2s(Tdata[i], temperature);
+	sprintf(tempOut, "%s%s", temperature, units);
+	RIT128x96x4StringDraw(tempOut, 40, 25, 15);
+	return Tdata[i];
 }
 
 unsigned long LinRegADCtoTemp(unsigned long adc) {
@@ -77,8 +90,21 @@ unsigned long LinRegADCtoTemp(unsigned long adc) {
 	const char units[3] = " C";
 	char tempOut[10];
 	i=adc*(-208);   //Line of Best Fit: T(X)=-2.077+3929.95
-	i+=392995;	
+	i+= 402995;	
 	i /= 100;
+	Fixed_uDecOut2s(i, temperature);
+	sprintf(tempOut, "%s%s", temperature, units);
+	RIT128x96x4StringDraw(tempOut, 40, 25, 15);
+	return i;
+}
+
+unsigned long ExpRegADCtoTemp(unsigned long adc) {
+ 	unsigned long i=0;
+	char temperature[6];
+	const char units[3] = " C";
+	char tempOut[10];
+	// T(X) = 4049.9156 exp(-0.000715*X)
+	i=4049.9156*exp(-0.000715*adc);
 	Fixed_uDecOut2s(i, temperature);
 	sprintf(tempOut, "%s%s", temperature, units);
 	RIT128x96x4StringDraw(tempOut, 40, 25, 15);
@@ -106,7 +132,9 @@ int main(void){
   while(1){
     WaitForInterrupt();
     GPIO_PORTG_DATA_R ^= 0x04;           // toggle LED
-	LinRegADCtoTemp(ADCvalue);
+	//LinRegADCtoTemp(ADCvalue);
+	//LUTADCtoTemp(ADCvalue);
+	ExpRegADCtoTemp(ADCvalue);
 	RIT128x96x4_ShowImageLines();
   }
 }
@@ -114,11 +142,13 @@ int main(void){
 void drawGraph_handler(void) {
 	static int delay=0;
 	if(delay == 0) {
-		RIT128x96x4_Line(x,(int)(60-(LinRegADCtoTemp(prevADC)/100)),++x,(int)(60-(LinRegADCtoTemp(ADCvalue)/100)),15);
+		//RIT128x96x4_Line(x,(int)(60-(LinRegADCtoTemp(prevADC)/100)),++x,(int)(60-(LinRegADCtoTemp(ADCvalue)/100)),15);
+		//RIT128x96x4_Line(x,(int)(60-(LUTADCtoTemp(prevADC)/100)),++x,(int)(60-(LUTADCtoTemp(ADCvalue)/100)),15);
+		RIT128x96x4_Line(x,(int)(60-(ExpRegADCtoTemp(prevADC)/100)),++x,(int)(60-(ExpRegADCtoTemp(ADCvalue)/100)),15);
 		if(x>120) {
 			RIT128x96x4_ClearImage();
-		    RIT128x96x4_Line(0,5,0,48,15);
-  			RIT128x96x4_Line(0,48,120,48,15);
+		    RIT128x96x4_Line(0,5,0,45,15);
+  			RIT128x96x4_Line(0,45,120,45,15);
 			x=0;
 		}		
 	} 
