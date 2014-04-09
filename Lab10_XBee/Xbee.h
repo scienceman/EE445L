@@ -6,7 +6,7 @@
  * XBee Frame Data Structure
  ***********************************************/
 typedef struct {
-	const unsigned char startDelim = 0x7E;
+	unsigned char startDelim; // 0x7E
 	unsigned short length;    // Length=sizeof(API+ID+destination+opt+message)
 	unsigned char API;
 	unsigned char ID;
@@ -21,6 +21,6 @@ typedef struct {
  ***********************************************/
 void Xbee_Init(void);
 void Xbee_CreateTxFrame(int data);
-char Xbee_ReceiveRxFrame(void);
+tXbee_frame Xbee_ReceiveRxFrame(void);
 void Xbee_SendTxFrame(void);
 void Xbee_TxStatus(void);
