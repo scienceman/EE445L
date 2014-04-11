@@ -6,6 +6,7 @@
 // Kevin Gilbert, Gilberto Rodriguez
 // 8 April 2014
 #include "lm3s1968.h"
+#include "system.h"
 #include "UART.h"
 #include "xbee.h"
 
@@ -23,7 +24,13 @@ void WaitForInterrupt(void);  // low power mode
 
 #ifdef TX
 int main(void) {
-
+	char* message;
+	int length;
+	System_Init();
+	message = "penis";
+	length=5;
+	Xbee_CreateTxFrame(message, length);
+	while(1);
 }
 #endif
 
