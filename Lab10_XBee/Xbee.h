@@ -2,6 +2,9 @@
 // Xbee Functions
 // 8 April 2014
 // Kevin Gilbert, Gilberto Rodriguez
+
+#define STARTDELIM 0x7E;
+
 /************************************************
  * XBee Frame Data Structure
  ***********************************************/
