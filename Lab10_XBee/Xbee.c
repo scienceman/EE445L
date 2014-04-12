@@ -26,10 +26,17 @@ void Xbee_CreateTxFrame(char* message, int length) {
 	frame.destination = 0x0000;
 	frame.opt = 0x00;
 	frame.message = message;
-	//frame.length = sizeof(frame)+length-sizeof(frame.length)-sizeof(frame.startDelim)-sizeof(frame.message)-sizeof(frame.checksum);
 	frame.length = 5+length;
 	for(i=0;i<length;i++) {
     	stringSum += message[i];
 	}
 	frame.checksum = 0xFF-(frame.API+frame.ID+frame.destination+frame.opt+stringSum);
+}
+
+tXbee_frame Xbee_ReceiveRxFrame(void) {
+	
+}
+
+void sendATCommand(void) {
+
 }
