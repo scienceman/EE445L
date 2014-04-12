@@ -1,10 +1,9 @@
 // ADCTestmain.c
-// Runs on LM3S811
-// Provide a function that initializes Timer0A to trigger ADC
-// SS3 conversions and request an interrupt when the conversion
-// is complete.
-// Daniel Valvano
-// June 30, 2011
+// Repurposed ADCtest file from Daniel Valvano
+// April 11, 2014
+// Kevin Gilbert, Gilberto Rodriguez
+// EE445L Spring 2014
+// LM3S1968
 
 /* This example accompanies the book
    "Embedded Systems: Real Time Interfacing to the Arm Cortex M3",
