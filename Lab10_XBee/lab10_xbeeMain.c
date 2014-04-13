@@ -10,6 +10,11 @@
 #include "UART.h"
 #include "xbee.h"
 
+#include "../inc/hw_types.h"
+#include "../inc/hw_memmap.h"
+#include "../driverlib/uart.h"
+
+
 // Startup function prototypes
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -36,7 +41,16 @@ int main(void) {
 
 #ifndef TX
 int main(void) {
-	UART_Init();
+	tXbee_frame frame;
+	unsigned long baud; 
+	unsigned long config;
+	System_Init();
+	UART1_Init();
+	UARTConfigGetExpClk(UART1_BASE,SysCtlClockGet(),&baud,&config);
+	printf("baud: %d\r",baud);
 
+	while(1) {
+		//frame = Xbee_ReceiveRxFrame();
+	}
 }
 #endif
