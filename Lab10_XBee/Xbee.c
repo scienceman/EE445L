@@ -29,7 +29,38 @@ void Xbee_Init(void) {
 		UART_InString(response,10);
 	} while(response[0] != 'O' || response[1] != 'K');
 
-  	GPIO_PORTG_DATA_R |= 0x04;	
+  	GPIO_PORTG_DATA_R ^= 0x04;
+	
+	do {
+		UART_OutString("ATDL4\r");
+		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+		UART_InString(response,10);
+	} while(response[0] != 'O' || response[1] != 'K');
+	GPIO_PORTG_DATA_R ^= 0x04;
+	do {
+		UART_OutString("ATDH0\r");
+		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+		UART_InString(response,10);
+	} while(response[0] != 'O' || response[1] != 'K');	
+	GPIO_PORTG_DATA_R ^= 0x04;
+	do {
+		UART_OutString("ATMY4E\r");
+		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+		UART_InString(response,10);
+	} while(response[0] != 'O' || response[1] != 'K');
+	GPIO_PORTG_DATA_R ^= 0x04;
+	do {
+		UART_OutString("ATAP1\r");
+		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+		UART_InString(response,10);
+	} while(response[0] != 'O' || response[1] != 'K');
+	GPIO_PORTG_DATA_R ^= 0x04;
+	do {
+		UART_OutString("ATCN\r");
+		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+		UART_InString(response,10);
+	} while(response[0] != 'O' || response[1] != 'K');	
+	GPIO_PORTG_DATA_R ^= 0x04;
 }
 
 char generate_checksum(tXbee_frame* frame, int messageLen) {
@@ -101,4 +132,5 @@ void sendATCommand(void) {
 	UART_OutString(plusOut);
 	SysCtlDelay(((SysCtlClockGet()/3)));	//1 second delay
 	SysCtlDelay(((SysCtlClockGet()/3)/10));	//100ms delay
+
 }

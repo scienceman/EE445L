@@ -57,7 +57,7 @@ int main(void) {
 		if(frame.length == -1) {
 		 	printf("Dropped Frame [checksum missmatch]\r");
 		} else {
-			printf("%s\r",frame.message);
+			printf("%c",frame.message[0]);
 		}
 	}
 }
