@@ -4,6 +4,7 @@
 // Kevin Gilbert, Gilberto Rodriguez
 
 #define STARTDELIM 0x7E;
+#define ADDR 0x17
 
 /************************************************
  * XBee Frame Data Structure

@@ -65,7 +65,7 @@ void UART_OutString(char *pt);
 //     and converts to a 32-bit unsigned number
 //     valid range is 0 to 4294967295 (2^32-1)
 // Input: none
-// Output: 32-bit unsigned number
+// Output: 32-bit unsigned number			  fin
 // If you enter a number above 4294967295, it will return an incorrect value
 // Backspace will remove last digit typed
 unsigned long UART_InUDec(void);

@@ -14,6 +14,8 @@
 #include "../inc/hw_memmap.h"
 #include "../driverlib/uart.h"
 
+#include <stdio.h>
+
 
 // Startup function prototypes
 void DisableInterrupts(void); // Disable interrupts
@@ -46,11 +48,17 @@ int main(void) {
 	unsigned long config;
 	System_Init();
 	UART1_Init();
+	Xbee_Init();
 	UARTConfigGetExpClk(UART1_BASE,SysCtlClockGet(),&baud,&config);
 	printf("baud: %d\r",baud);
 
 	while(1) {
-		//frame = Xbee_ReceiveRxFrame();
+		frame = Xbee_ReceiveRxFrame();
+		if(frame.length == -1) {
+		 	printf("Dropped Frame [checksum missmatch]\r");
+		} else {
+			printf("%s\r",frame.message);
+		}
 	}
 }
 #endif

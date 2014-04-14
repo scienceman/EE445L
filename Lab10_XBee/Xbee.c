@@ -2,19 +2,26 @@
 // Xbee Functions
 // 8 April 2014
 // Kevin Gilbert, Gilberto Rodriguez
+#include "../inc/hw_types.h"
+#include "../driverlib/timer.h"	
+#include "../driverlib/sysctl.h"
+#include "lm3s1968.h"
 #include "Xbee.h"
 #include "UART.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+
+char X = 0x58;
+char* plusOut = "+++";
 /************************************************
  * Private XBee Function Prototypes
  ***********************************************/
 static void sendATCommand(void);
 
 void Xbee_Init(void) {
-
+	sendATCommand();	
 }
 
 char generate_checksum(tXbee_frame* frame, int messageLen) {
@@ -78,7 +85,19 @@ tXbee_frame Xbee_ReceiveRxFrame(void) {
 	}
 	return frame;
 }
+char buff[10] = {0};
 
 void sendATCommand(void) {
-
+	char* response = &buff[0];
+	GPIO_PORTG_DATA_R &= 0x04;
+	UART_OutChar(X);
+	SysCtlDelay(((SysCtlClockGet()/3)));	//1 second delay
+	SysCtlDelay(((SysCtlClockGet()/3)/10));	//100ms delay
+	UART_OutString(plusOut);
+	SysCtlDelay(((SysCtlClockGet()/3)));	//1 second delay
+	SysCtlDelay(((SysCtlClockGet()/3)/10));	//100ms delay
+	do {
+		UART_InString(response,10);
+	} while(response[0] != 'O' || response[1] != 'K');
+  	GPIO_PORTG_DATA_R |= 0x04;
 }
