@@ -3,8 +3,9 @@
 // 8 April 2014
 // Kevin Gilbert, Gilberto Rodriguez
 
-#define STARTDELIM 0x7E;
-#define ADDR 0x17
+#define STARTDELIM 0x7E
+#define TX_DEST 0x79
+#define RX_DEST 0x64
 
 /************************************************
  * XBee Frame Data Structure
@@ -28,7 +29,7 @@ typedef struct {
 void Xbee_Init(void);
 // Message is non-null terminated string
 // length is the size of the message
-void Xbee_CreateTxFrame(char* message, int length);	   
+tXbee_frame Xbee_CreateTxFrame(char* message, int length);	   
 tXbee_frame Xbee_ReceiveRxFrame(void);
-void Xbee_SendTxFrame(void);
+void Xbee_SendTxFrame(tXbee_frame* frame);
 void Xbee_TxStatus(void);

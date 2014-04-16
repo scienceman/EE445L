@@ -27,16 +27,18 @@ void WaitForInterrupt(void);  // low power mode
 /******************************
  * Comment to enable RX driver
  *****************************/
-//#define TX
+#define TX
 
 #ifdef TX
 int main(void) {
 	char* message;
 	int length;
+	tXbee_frame frame;
 	System_Init();
 	message = "science";
 	length=7;
-	Xbee_CreateTxFrame(message, length);
+	frame = Xbee_CreateTxFrame(message, length);
+	Xbee_SendTxFrame(&frame);
 	while(1);
 }
 #endif

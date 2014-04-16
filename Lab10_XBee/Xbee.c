@@ -16,59 +16,85 @@
 char X = 0x58;
 char* plusOut = "+++";
 char buff[10] = {0};
+//ATDL4 - Sets destination address to 79
+//ATDH0 - Sets destination address high to 0
+//ATMY64 - Sets my address to 100
+//ATAP1 - API mode 1
+//ATCN - Ends Command Mode
+char* cmd_list[5] = {"ATDL4\r","ATDH0\r","ATMY64\r","ATAP1\r","ATCN\r"};
 /************************************************
  * Private XBee Function Prototypes
  ***********************************************/
 static void sendATCommand(void);
 
+void sendATCommand(void) {
+	UART_OutChar(X);
+	SysCtlDelay(((SysCtlClockGet()/3)));	//1 second delay
+	SysCtlDelay(((SysCtlClockGet()/3)/10));	//100ms delay
+	UART_OutString(plusOut);
+	SysCtlDelay(((SysCtlClockGet()/3)));	//1 second delay
+	SysCtlDelay(((SysCtlClockGet()/3)/10));	//100ms delay
+}
+
 void Xbee_Init(void) {
 	char* response = &buff[0];
-	GPIO_PORTG_DATA_R |= 0x04;
+	int i;
+	GPIO_PORTG_DATA_R &= ~0x04;
 	do {
 		sendATCommand();		//Enter Command Mode
 		UART_InString(response,10);
 	} while(response[0] != 'O' || response[1] != 'K');
 
-  	GPIO_PORTG_DATA_R ^= 0x04;
+//  GPIO_PORTG_DATA_R ^= 0x04;
 	
-	do {
-		UART_OutString("ATDL4\r");	 	//Sets destination address to 79
-		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
-		UART_InString(response,10);
-	} while(response[0] != 'O' || response[1] != 'K');
+	for(i=0;i<5;i++) {
+		do {
+			UART_OutString(cmd_list[i]);
+			SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+			UART_InString(response,10);
+		} while(response[0] != 'O' || response[1] != 'K');
 
-	GPIO_PORTG_DATA_R ^= 0x04;
+		GPIO_PORTG_DATA_R ^= 0x04;
+	}
 
-	do {
-		UART_OutString("ATDH0\r"); 		//Sets destination address high to 0
-		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
-		UART_InString(response,10);
-	} while(response[0] != 'O' || response[1] != 'K');	
-
-	GPIO_PORTG_DATA_R ^= 0x04;
-
-	do {
-		UART_OutString("ATMY64\r");		//Sets my address to 78
-		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
-		UART_InString(response,10);
-	} while(response[0] != 'O' || response[1] != 'K');
-
-	GPIO_PORTG_DATA_R ^= 0x04;
-
-	do {
-		UART_OutString("ATAP1\r");	  	//API mode 1
-		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
-		UART_InString(response,10);
-	} while(response[0] != 'O' || response[1] != 'K');
-
-	GPIO_PORTG_DATA_R ^= 0x04;
-
-	do {
-		UART_OutString("ATCN\r");	  	//Ends Command Mode
-		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
-		UART_InString(response,10);
-	} while(response[0] != 'O' || response[1] != 'K');	
-	GPIO_PORTG_DATA_R ^= 0x04;
+//	do {
+//		UART_OutString("ATDL4\r");	 	//Sets destination address to 79
+//		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+//		UART_InString(response,10);
+//	} while(response[0] != 'O' || response[1] != 'K');
+//
+//	GPIO_PORTG_DATA_R ^= 0x04;
+//
+//	do {
+//		UART_OutString("ATDH0\r"); 		//Sets destination address high to 0
+//		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+//		UART_InString(response,10);
+//	} while(response[0] != 'O' || response[1] != 'K');	
+//
+//	GPIO_PORTG_DATA_R ^= 0x04;
+//
+//	do {
+//		UART_OutString("ATMY64\r");		//Sets my address to 100
+//		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+//		UART_InString(response,10);
+//	} while(response[0] != 'O' || response[1] != 'K');
+//
+//	GPIO_PORTG_DATA_R ^= 0x04;
+//
+//	do {
+//		UART_OutString("ATAP1\r");	  	//API mode 1
+//		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+//		UART_InString(response,10);
+//	} while(response[0] != 'O' || response[1] != 'K');
+//
+//	GPIO_PORTG_DATA_R ^= 0x04;
+//
+//	do {
+//		UART_OutString("ATCN\r");	  	//Ends Command Mode
+//		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
+//		UART_InString(response,10);
+//	} while(response[0] != 'O' || response[1] != 'K');	
+//	GPIO_PORTG_DATA_R ^= 0x04;
 }
 
 char generate_checksum(tXbee_frame* frame, int messageLen) {
@@ -80,16 +106,38 @@ char generate_checksum(tXbee_frame* frame, int messageLen) {
 	return 0xFF-((frame->API+frame->ID+frame->destination+frame->opt+stringSum)&0xFF);
 }
 
-void Xbee_CreateTxFrame(char* message, int length) {
+tXbee_frame Xbee_CreateTxFrame(char* message, int length) {
 	tXbee_frame frame;
 	frame.startDelim = STARTDELIM;
 	frame.API = 0x01;
-	frame.ID = 0x00;
-	frame.destination = 0x0000;
+	frame.ID = RX_DEST;
+	frame.destination = 0x0000 + TX_DEST;
 	frame.opt = 0x00;
 	frame.message = message;
 	frame.length = 5+length;
 	frame.checksum = generate_checksum(&frame,length);
+	
+	return frame;
+}
+
+void Xbee_SendTxFrame(tXbee_frame* frame){
+	char frame_str[100];
+	int index=0;
+	int n=0;
+
+	frame_str[index++] = frame->startDelim;
+	frame_str[index++] = frame->length;
+	frame_str[index++] = frame->API;
+	frame_str[index++] = frame->ID;
+	frame_str[index++] = 0x00;
+	frame_str[index++] = (frame->destination&0x00FF); 	
+	frame_str[index++] = frame->opt;
+	for(n=0;n<(frame->length)-5;n++) {
+		frame_str[index++] = frame->message[n];
+	}
+	frame_str[index++] = frame->checksum;
+	frame_str[index] = 0;	 	// Null termination
+	UART_OutString(frame_str);
 }
 
 tXbee_frame Xbee_ReceiveRxFrame(void) {
@@ -133,12 +181,3 @@ tXbee_frame Xbee_ReceiveRxFrame(void) {
 	return frame;
 }
 
-void sendATCommand(void) {
-	UART_OutChar(X);
-	SysCtlDelay(((SysCtlClockGet()/3)));	//1 second delay
-	SysCtlDelay(((SysCtlClockGet()/3)/10));	//100ms delay
-	UART_OutString(plusOut);
-	SysCtlDelay(((SysCtlClockGet()/3)));	//1 second delay
-	SysCtlDelay(((SysCtlClockGet()/3)/10));	//100ms delay
-
-}
