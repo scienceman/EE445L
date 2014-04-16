@@ -27,7 +27,7 @@ void WaitForInterrupt(void);  // low power mode
 /******************************
  * Comment to enable RX driver
  *****************************/
-#define TX
+//#define TX
 
 #ifdef TX
 int main(void) {
