@@ -8,7 +8,7 @@
 #include "lm3s1968.h"
 #include "Xbee.h"
 #include "UART.h"
-#include <stdio.h>
+#include <stdio.h>			 	
 #include <stdlib.h>
 #include <string.h>
 
@@ -23,40 +23,48 @@ static void sendATCommand(void);
 
 void Xbee_Init(void) {
 	char* response = &buff[0];
-	GPIO_PORTG_DATA_R &= 0x04;
+	GPIO_PORTG_DATA_R |= 0x04;
 	do {
-		sendATCommand();
+		sendATCommand();		//Enter Command Mode
 		UART_InString(response,10);
 	} while(response[0] != 'O' || response[1] != 'K');
 
   	GPIO_PORTG_DATA_R ^= 0x04;
 	
 	do {
-		UART_OutString("ATDL4\r");
+		UART_OutString("ATDL4\r");	 	//Sets destination address to 79
 		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
 		UART_InString(response,10);
 	} while(response[0] != 'O' || response[1] != 'K');
+
 	GPIO_PORTG_DATA_R ^= 0x04;
+
 	do {
-		UART_OutString("ATDH0\r");
+		UART_OutString("ATDH0\r"); 		//Sets destination address high to 0
 		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
 		UART_InString(response,10);
 	} while(response[0] != 'O' || response[1] != 'K');	
+
 	GPIO_PORTG_DATA_R ^= 0x04;
+
 	do {
-		UART_OutString("ATMY4E\r");
+		UART_OutString("ATMY64\r");		//Sets my address to 78
 		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
 		UART_InString(response,10);
 	} while(response[0] != 'O' || response[1] != 'K');
+
 	GPIO_PORTG_DATA_R ^= 0x04;
+
 	do {
-		UART_OutString("ATAP1\r");
+		UART_OutString("ATAP1\r");	  	//API mode 1
 		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
 		UART_InString(response,10);
 	} while(response[0] != 'O' || response[1] != 'K');
+
 	GPIO_PORTG_DATA_R ^= 0x04;
+
 	do {
-		UART_OutString("ATCN\r");
+		UART_OutString("ATCN\r");	  	//Ends Command Mode
 		SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
 		UART_InString(response,10);
 	} while(response[0] != 'O' || response[1] != 'K');	
