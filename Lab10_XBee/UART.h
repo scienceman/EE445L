@@ -40,7 +40,7 @@
 // 8 bit word length, no parity bits, one stop bit, FIFOs enabled
 // Input: none
 // Output: none
-void UART_Init(void);
+void UART1_Init(void);
 
 //------------UART_InChar------------
 // Wait for new serial port input
@@ -65,7 +65,7 @@ void UART_OutString(char *pt);
 //     and converts to a 32-bit unsigned number
 //     valid range is 0 to 4294967295 (2^32-1)
 // Input: none
-// Output: 32-bit unsigned number
+// Output: 32-bit unsigned number			  fin
 // If you enter a number above 4294967295, it will return an incorrect value
 // Backspace will remove last digit typed
 unsigned long UART_InUDec(void);
