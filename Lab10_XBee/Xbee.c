@@ -21,7 +21,7 @@ char buff[10] = {0};
 //ATMY64 - Sets my address to 100
 //ATAP1 - API mode 1
 //ATCN - Ends Command Mode
-char* cmd_list[5] = {"ATDL4\r","ATDH0\r","ATMY64\r","ATAP1\r","ATCN\r"};
+char* cmd_list[5] = {"ATDL64\r","ATDH0\r","ATMY79\r","ATAP1\r","ATCN\r"};
 /************************************************
  * Private XBee Function Prototypes
  ***********************************************/
@@ -69,8 +69,8 @@ tXbee_frame Xbee_CreateTxFrame(char* message, int length) {
 	tXbee_frame frame;
 	frame.startDelim = STARTDELIM;
 	frame.API = 0x01;
-	frame.ID = RX_DEST;
-	frame.destination = 0x0000 + TX_DEST;
+	frame.ID = TX_DEST;
+	frame.destination = 0x0000 + 0x64;
 	frame.opt = 0x00;
 	frame.message = message;
 	frame.length = 5+length;
@@ -82,21 +82,27 @@ tXbee_frame Xbee_CreateTxFrame(char* message, int length) {
 void Xbee_SendTxFrame(tXbee_frame* frame){
 	char frame_str[100];
 	int index=0;
+	int i = 0;
 	int n=0;
 
 	frame_str[index++] = frame->startDelim;
-	frame_str[index++] = frame->length;
+	frame_str[index++] = frame->length&0xFF00;
+	frame_str[index++] = frame->length&0x00FF;
 	frame_str[index++] = frame->API;
 	frame_str[index++] = frame->ID;
 	frame_str[index++] = 0x00;
 	frame_str[index++] = (frame->destination&0x00FF); 	
 	frame_str[index++] = frame->opt;
-	for(n=0;n<(frame->length)-5;n++) {
+	for(n=0;n<(frame->length-5);n++) {
 		frame_str[index++] = frame->message[n];
 	}
 	frame_str[index++] = frame->checksum;
 	frame_str[index] = 0;	 	// Null termination
-	UART_OutString(frame_str);
+	//UART_OutString(frame_str);
+	for(i = 0; i < index; i += 1){
+		UART_OutChar(frame_str[i]);
+	}
+	printf("Work dammit!\n");
 }
 
 tXbee_frame Xbee_ReceiveRxFrame(void) {

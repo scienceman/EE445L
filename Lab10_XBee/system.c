@@ -34,7 +34,7 @@ void System_Init() {
   	// 50Mhz Clock
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	//motorIO_1968_Init();
-    //PeriodMeasure_Init();
+  //PeriodMeasure_Init();
 	Switch_Init();
 	Output_Init();
 	Output_Color(15);
