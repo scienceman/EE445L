@@ -13,6 +13,7 @@
 #include "../inc/hw_types.h"
 #include "../inc/hw_memmap.h"
 #include "../driverlib/gpio.h"
+#include "../driverlib/sysctl.h"
 #include "../driverlib/adc.h"
 
 /********************************************************
@@ -27,14 +28,19 @@
 
 extern unsigned long ulValue;
 
+unsigned long adc[2];
+
 int main(void) {
+	int count=0;
 	System_Init();
 	UART1_Init();
 	Xbee_Init();
 
+	printf("ADC channels 1 and 3\r");
+	ADCDualChannel_Init(SYSCTL_PERIPH_ADC0, ADC0_BASE, 0, ADC_CTL_CH1, ADC_CTL_CH3);
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2, 0x04);
-	printf("sciene\r");
-	ADC_Init(ADC0_BASE, ADC_CTL_CH0);
-	printf("%ld\r",ulValue);
-	while(1);
+	while(1) {
+		ADCDualChannel_Read(ADC0_BASE, 0, &adc[0]);
+		printf("1:%ld 3:%ld %d\n",adc[0],adc[1],count++);
+	}
 }

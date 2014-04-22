@@ -17,27 +17,21 @@
 
 unsigned long ulValue;
 
-void ADC_Init(unsigned long base, unsigned long channel) {
+void ADCDualChannel_Init(unsigned long sysctl_base, unsigned long base, unsigned long sequence, unsigned long channel1, unsigned long channel2) {
+	SysCtlPeripheralEnable(sysctl_base);
 	//
-	// Enable the first sample sequencer to capture the value of channel 0 when
+	// Enable the first sample sequencer to capture the value of channel 1 and 3 when
 	// the processor trigger occurs.
 	//
 	ADCSequenceConfigure(base, 0, ADC_TRIGGER_PROCESSOR, 0);
-	ADCSequenceStepConfigure(base, 0, 0, ADC_CTL_IE | ADC_CTL_END | channel);
-	ADCSequenceEnable(base, 0);
-	//
-	// Trigger the sample sequence.
-	//
-	ADCProcessorTrigger(base, 0);
-	//
-	// Wait until the sample sequence has completed.
-	//
-	while(!ADCIntStatus(base, 0, false))
-	{
-	}
-	//
-	// Read the value from the ADC.
-	//
-	ADCSequenceDataGet(base, 0, &ulValue);
+	ADCSequenceStepConfigure(base, sequence, 0, ADC_CTL_IE | channel1);
+	ADCSequenceStepConfigure(base, sequence, 1, ADC_CTL_IE | ADC_CTL_END | channel2);
 
+	ADCSequenceEnable(base, 0);
+}
+
+void ADCDualChannel_Read(unsigned long base, unsigned long sequence, unsigned long *adcBuff) {
+		ADCProcessorTrigger(base, sequence);
+		while(!ADCIntStatus(base, sequence, false));
+		ADCSequenceDataGet(base, sequence, adcBuff);
 }
