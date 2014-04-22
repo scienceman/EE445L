@@ -50,7 +50,7 @@ void WaitForInterrupt(void);  // low power mode
 unsigned short Value1;
 unsigned short Value3;
 unsigned short Size;
-int main(void){
+int mainADCTest(void){
   PLL_Init();                              // set system clock to 50 MHz
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG;    // activate port G
   ADC_Init();                              // ADC channels 1 and 3, 1,000 Hz sampling

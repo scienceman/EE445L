@@ -8,7 +8,7 @@
 //extern unsigned char imageBuff[(128/2)*96];
 //extern unsigned char clock1[];
 
-extern unsigned char graph[(128/2)*96/2];
+unsigned char graph[(128/2)*96/2];
 unsigned char lineBuff[(128/2)*96];
 
 void mergeBuffers(unsigned char* buff1, unsigned char* buff2, unsigned char* result);
