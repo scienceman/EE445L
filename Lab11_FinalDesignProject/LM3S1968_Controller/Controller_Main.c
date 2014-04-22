@@ -33,8 +33,8 @@ int main(void) {
 	Xbee_Init();
 
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2, 0x04);
-	//printf("sciene\r");
+	printf("sciene\r");
 	ADC_Init(ADC0_BASE, ADC_CTL_CH0);
-	//printf("%ld\r",ulValue);
+	printf("%ld\r",ulValue);
 	while(1);
 }

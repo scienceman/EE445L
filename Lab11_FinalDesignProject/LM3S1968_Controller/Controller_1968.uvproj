@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>ADC_TwoChan</TargetName>
+      <TargetName>PeriodicTimer0AInts</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -44,7 +44,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\</OutputDirectory>
-          <OutputName>Controller_1968</OutputName>
+          <OutputName>Lab10_xbee</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -61,6 +61,8 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopU1X>0</nStopU1X>
+            <nStopU2X>0</nStopU2X>
           </BeforeCompile>
           <BeforeMake>
             <RunUserProg1>0</RunUserProg1>
@@ -134,6 +136,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
+            <RestoreTracepoints>0</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>4</TargetSelection>
@@ -162,6 +165,7 @@
             <Capability>1</Capability>
             <DriverSelection>4097</DriverSelection>
           </Flash1>
+          <bUseTDR>0</bUseTDR>
           <Flash2>BIN\lmidk-agdi.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -208,7 +212,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <RoSelD>3</RoSelD>
@@ -342,6 +346,7 @@
             <Rwpi>0</Rwpi>
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
+            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -357,6 +362,7 @@
             <SplitLS>0</SplitLS>
             <SwStkChk>0</SwStkChk>
             <NoWarn>0</NoWarn>
+            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -392,14 +398,9 @@
               <FilePath>.\Startup.s</FilePath>
             </File>
             <File>
-              <FileName>line.c</FileName>
+              <FileName>system.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\line.c</FilePath>
-            </File>
-            <File>
-              <FileName>logo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\logo.c</FilePath>
+              <FilePath>.\system.c</FilePath>
             </File>
             <File>
               <FileName>Output.c</FileName>
@@ -412,16 +413,6 @@
               <FilePath>.\rit128x96x4.c</FilePath>
             </File>
             <File>
-              <FileName>system.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\system.c</FilePath>
-            </File>
-            <File>
-              <FileName>TimerCtrl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\TimerCtrl.c</FilePath>
-            </File>
-            <File>
               <FileName>UART.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\UART.c</FilePath>
@@ -432,24 +423,19 @@
               <FilePath>.\Xbee.c</FilePath>
             </File>
             <File>
-              <FileName>Controller_Main.c</FileName>
+              <FileName>lab10_xbeeMain.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Controller_Main.c</FilePath>
-            </File>
-            <File>
-              <FileName>ADC_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ADC_Driver.c</FilePath>
+              <FilePath>.\lab10_xbeeMain.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Lib</GroupName>
+          <GroupName>Library</GroupName>
           <Files>
             <File>
               <FileName>driverlib.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\driverlib\rvmdk\driverlib.lib</FilePath>
+              <FilePath>..\driverlib\rvmdk\driverlib.lib</FilePath>
             </File>
           </Files>
         </Group>

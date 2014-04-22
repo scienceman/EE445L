@@ -38,5 +38,6 @@ void ADC_Init(unsigned long base, unsigned long channel) {
 	//
 	// Read the value from the ADC.
 	//
-	ADCSequenceDataGet(base, 0, &ulValue);
+	ADCSequenceDataGet(base, 0, &ulValue);
+
 }
