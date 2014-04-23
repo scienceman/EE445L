@@ -402,16 +402,6 @@
               <FilePath>.\motor_driver.c</FilePath>
             </File>
             <File>
-              <FileName>Output.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Output.c</FilePath>
-            </File>
-            <File>
-              <FileName>sonar.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\sonar.c</FilePath>
-            </File>
-            <File>
               <FileName>system.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\system.c</FilePath>
@@ -422,14 +412,19 @@
               <FilePath>.\TimerCtrl.c</FilePath>
             </File>
             <File>
-              <FileName>TimerCtrl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\TimerCtrl.h</FilePath>
-            </File>
-            <File>
               <FileName>Xbee.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Xbee.c</FilePath>
+            </File>
+            <File>
+              <FileName>Sonar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sonar.c</FilePath>
+            </File>
+            <File>
+              <FileName>UART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\UART.c</FilePath>
             </File>
           </Files>
         </Group>

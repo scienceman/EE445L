@@ -41,24 +41,28 @@
 // Input: none
 // Output: none
 void UART1_Init(void);
+void UART0_811Init(void);
 
 //------------UART_InChar------------
 // Wait for new serial port input
 // Input: none
 // Output: ASCII code for key typed
-unsigned char UART_InChar(void);
+unsigned char UART0_InChar(void);
+unsigned char UART1_InChar(void);
 
 //------------UART_OutChar------------
 // Output 8-bit to serial port
 // Input: letter is an 8-bit ASCII character to be transferred
 // Output: none
-void UART_OutChar(unsigned char data);
+void UART0_OutChar(unsigned char data);
+void UART1_OutChar(unsigned char data);
 
 //------------UART_OutString------------
 // Output String (NULL termination)
 // Input: pointer to a NULL-terminated string to be transferred
 // Output: none
-void UART_OutString(char *pt);
+void UART0_OutString(char *pt);
+void UART1_OutString(char *pt);
 
 //------------UART_InUDec------------
 // InUDec accepts ASCII input in unsigned decimal format
@@ -68,14 +72,16 @@ void UART_OutString(char *pt);
 // Output: 32-bit unsigned number			  fin
 // If you enter a number above 4294967295, it will return an incorrect value
 // Backspace will remove last digit typed
-unsigned long UART_InUDec(void);
+unsigned long UART0_InUDec(void);
+unsigned long UART1_InUDec(void);
 
 //-----------------------UART_OutUDec-----------------------
 // Output a 32-bit number in unsigned decimal format
 // Input: 32-bit number to be transferred
 // Output: none
 // Variable format 1-10 digits with no space before or after
-void UART_OutUDec(unsigned long n);
+void UART0_OutUDec(unsigned long n);
+void UART1_OutUDec(unsigned long n);
 
 //---------------------UART_InUHex----------------------------------------
 // Accepts ASCII input in unsigned hexadecimal (base 16) format
@@ -94,7 +100,8 @@ unsigned long UART_InUHex(void);
 // Input: 32-bit number to be transferred
 // Output: none
 // Variable format 1 to 8 digits with no space before or after
-void UART_OutUHex(unsigned long number);
+void UART0_OutUHex(unsigned long number);
+void UART1_OutUHex(unsigned long number);
 
 //------------UART_InString------------
 // Accepts ASCII characters from the serial port
@@ -108,4 +115,5 @@ void UART_OutUHex(unsigned long number);
 // Input: pointer to empty buffer, size of buffer
 // Output: Null terminated string
 // -- Modified by Agustinus Darmawan + Mingjie Qiu --
-void UART_InString(char *bufPt, unsigned short max);
+void UART0_InString(char *bufPt, unsigned short max);
+void UART1_InString(char *bufPt, unsigned short max);

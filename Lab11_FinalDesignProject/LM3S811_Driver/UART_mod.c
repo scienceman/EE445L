@@ -23,12 +23,20 @@
  http://users.ece.utexas.edu/~valvano/
  */
 
+// U0Rx (VCP receive) connected to PA0
+// U0Tx (VCP transmit) connected to PA1
+
 #include "../inc/hw_types.h"
 #include "../inc/hw_memmap.h"
 #include "../driverlib/uart.h"
+#include "../driverlib/gpio.h"
 
 #include "UART.h"
-#include "lm3s811.h"
+#ifdef TX
+	#include "lm3s1968.h"
+#else 
+	#include "lm3s811.h"
+#endif
 
 //------------UART_Init------------
 // Wait for new serial port input
@@ -36,6 +44,38 @@
 // 8 bit word length, no parity bits, one stop bit, FIFOs enabled
 // Input: none
 // Output: none
+void UART0_811Init(void){
+  //SYSCTL_RCGC1_R |= SYSCTL_RCGC1_UART0; // activate UART1  PD2,3 (Rx,Tx respectively)
+  //SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA; // activate port D	   
+  /*UART1_CTL_R &= ~UART_CTL_UARTEN;      // disable UART
+  UART1_IBRD_R = 326;                    // IBRD = int(50,000,000 / (16 * 9600)) = int(325.52)
+  UART1_FBRD_R = 8;                     // FBRD = int(0.1267 * 64 + 0.5) = 8
+                                        // 8 bit word length (no parity bits, one stop bit, FIFOs)
+  UART1_LCRH_R = (UART_LCRH_WLEN_8|UART_LCRH_FEN);
+  UART1_CTL_R |= UART_CTL_UARTEN;       // enable UART
+  */
+  //
+	// Initialize the UART. Set the baud rate, number of data bits, turn off
+	// parity, number of stop bits, and stick mode.
+	//
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1);
+	//GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+
+	UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 9600,
+							(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |
+							UART_CONFIG_PAR_NONE));
+	//
+	// Enable the UART.
+	//
+	UARTEnable(UART0_BASE);
+
+
+  //GPIO_PORTA_AFSEL_R |= 0x03;           // enable alt funct on PA0-1
+  //GPIO_PORTA_DEN_R |= 0x03;             // enable digital I/O on PA0-1
+}
+
 void UART1_Init(void){
   SYSCTL_RCGC1_R |= SYSCTL_RCGC1_UART1; // activate UART1  PD2,3 (Rx,Tx respectively)
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD; // activate port D	   
@@ -63,19 +103,29 @@ void UART1_Init(void){
   GPIO_PORTD_DEN_R |= 0x0c;             // enable digital I/O on PD2-3
 }
 
-//------------UART_InChar------------
+//------------------------
 // Wait for new serial port input
 // Input: none
 // Output: ASCII code for key typed
-unsigned char UART_InChar(void){
+unsigned char UART0_InChar(void){
+  while((UART0_FR_R&UART_FR_RXFE) != 0);
+  return((unsigned char)(UART0_DR_R&0xFF));
+}
+
+unsigned char UART1_InChar(void){
   while((UART1_FR_R&UART_FR_RXFE) != 0);
   return((unsigned char)(UART1_DR_R&0xFF));
 }
-//------------UART_OutChar------------
+//------------------------
 // Output 8-bit to serial port
 // Input: letter is an 8-bit ASCII character to be transferred
 // Output: none
-void UART_OutChar(unsigned char data){
+void UART0_OutChar(unsigned char data){
+  while((UART0_FR_R&UART_FR_TXFF) != 0);
+  UART0_DR_R = data;
+}
+
+void UART1_OutChar(unsigned char data){
   while((UART1_FR_R&UART_FR_TXFF) != 0);
   UART1_DR_R = data;
 }
@@ -85,9 +135,16 @@ void UART_OutChar(unsigned char data){
 // Output String (NULL termination)
 // Input: pointer to a NULL-terminated string to be transferred
 // Output: none
-void UART_OutString(char *pt){
+void UART0_OutString(char *pt){
   while(*pt){
-    UART_OutChar(*pt);
+    UART0_OutChar(*pt);
+    pt++;
+  }
+}
+
+void UART1_OutString(char *pt){
+  while(*pt){
+    UART1_OutChar(*pt);
     pt++;
   }
 }
@@ -100,28 +157,52 @@ void UART_OutString(char *pt){
 // Output: 32-bit unsigned number
 // If you enter a number above 4294967295, it will return an incorrect value
 // Backspace will remove last digit typed
-unsigned long UART_InUDec(void){
-unsigned long number=0, length=0;
+unsigned long UART0_InUDec(void){
+unsigned long number0=0, length0=0;
 char character;
-  character = UART_InChar();
+  character = UART0_InChar();
   while(character != CR){ // accepts until <enter> is typed
 // The next line checks that the input is a digit, 0-9.
 // If the character is not 0-9, it is ignored and not echoed
     if((character>='0') && (character<='9')) {
-      number = 10*number+(character-'0');   // this line overflows if above 4294967295
-      length++;
-      UART_OutChar(character);
+      number0 = 10*number0+(character-'0');   // this line overflows if above 4294967295
+      length0++;
+      UART0_OutChar(character);
     }
 // If the input is a backspace, then the return number is
 // changed and a backspace is outputted to the screen
-    else if((character==BS) && length){
-      number /= 10;
-      length--;
-      UART_OutChar(character);
+    else if((character==BS) && length0){
+      number0 /= 10;
+      length0--;
+      UART0_OutChar(character);
     }
-    character = UART_InChar();
+    character = UART0_InChar();
   }
-  return number;
+  return number0;
+}
+
+unsigned long UART1_InUDec(void){
+unsigned long number1=0, length1=0;
+char character;
+  character = UART1_InChar();
+  while(character != CR){ // accepts until <enter> is typed
+// The next line checks that the input is a digit, 0-9.
+// If the character is not 0-9, it is ignored and not echoed
+    if((character>='0') && (character<='9')) {
+      number1 = 10*number1+(character-'0');   // this line overflows if above 4294967295
+      length1++;
+      UART1_OutChar(character);
+    }
+// If the input is a backspace, then the return number is
+// changed and a backspace is outputted to the screen
+    else if((character==BS) && length1){
+      number1 /= 10;
+      length1--;
+      UART1_OutChar(character);
+    }
+    character = UART1_InChar();
+  }
+  return number1;
 }
 
 //-----------------------UART_OutUDec-----------------------
@@ -129,14 +210,24 @@ char character;
 // Input: 32-bit number to be transferred
 // Output: none
 // Variable format 1-10 digits with no space before or after
-void UART_OutUDec(unsigned long n){
+void UART0_OutUDec(unsigned long n){
 // This function uses recursion to convert decimal number
 //   of unspecified length as an ASCII string
   if(n >= 10){
-    UART_OutUDec(n/10);
+    UART0_OutUDec(n/10);
     n = n%10;
   }
-  UART_OutChar(n+'0'); /* n is between 0 and 9 */
+  UART0_OutChar(n+'0'); /* n is between 0 and 9 */
+}
+
+void UART1_OutUDec(unsigned long n){
+// This function uses recursion to convert decimal number
+//   of unspecified length as an ASCII string
+  if(n >= 10){
+    UART1_OutUDec(n/10);
+    n = n%10;
+  }
+  UART1_OutChar(n+'0'); /* n is between 0 and 9 */
 }
 
 //---------------------UART_InUHex----------------------------------------
@@ -149,10 +240,10 @@ void UART_OutUDec(unsigned long n){
 //     value range is 0 to FFFFFFFF
 // If you enter a number above FFFFFFFF, it will return an incorrect value
 // Backspace will remove last digit typed
-unsigned long UART_InUHex(void){
+unsigned long UART0_InUHex(void){
 unsigned long number=0, digit, length=0;
 char character;
-  character = UART_InChar();
+  character = UART0_InChar();
   while(character != CR){
     digit = 0x10; // assume bad
     if((character>='0') && (character<='9')){
@@ -168,15 +259,47 @@ char character;
     if(digit <= 0xF){
       number = number*0x10+digit;
       length++;
-      UART_OutChar(character);
+      UART0_OutChar(character);
     }
 // Backspace outputted and return value changed if a backspace is inputted
     else if((character==BS) && length){
       number /= 0x10;
       length--;
-      UART_OutChar(character);
+      UART0_OutChar(character);
     }
-    character = UART_InChar();
+    character = UART0_InChar();
+  }
+  return number;
+}
+
+unsigned long UART1_InUHex(void){
+unsigned long number=0, digit, length=0;
+char character;
+  character = UART1_InChar();
+  while(character != CR){
+    digit = 0x10; // assume bad
+    if((character>='0') && (character<='9')){
+      digit = character-'0';
+    }
+    else if((character>='A') && (character<='F')){
+      digit = (character-'A')+0xA;
+    }
+    else if((character>='a') && (character<='f')){
+      digit = (character-'a')+0xA;
+    }
+// If the character is not 0-9 or A-F, it is ignored and not echoed
+    if(digit <= 0xF){
+      number = number*0x10+digit;
+      length++;
+      UART1_OutChar(character);
+    }
+// Backspace outputted and return value changed if a backspace is inputted
+    else if((character==BS) && length){
+      number /= 0x10;
+      length--;
+      UART1_OutChar(character);
+    }
+    character = UART1_InChar();
   }
   return number;
 }
@@ -186,19 +309,36 @@ char character;
 // Input: 32-bit number to be transferred
 // Output: none
 // Variable format 1 to 8 digits with no space before or after
-void UART_OutUHex(unsigned long number){
+void UART0_OutUHex(unsigned long number){
 // This function uses recursion to convert the number of
 //   unspecified length as an ASCII string
   if(number >= 0x10){
-    UART_OutUHex(number/0x10);
-    UART_OutUHex(number%0x10);
+    UART0_OutUHex(number/0x10);
+    UART0_OutUHex(number%0x10);
   }
   else{
     if(number < 0xA){
-      UART_OutChar(number+'0');
+      UART0_OutChar(number+'0');
      }
     else{
-      UART_OutChar((number-0x0A)+'A');
+      UART0_OutChar((number-0x0A)+'A');
+    }
+  }
+}
+
+void UART1_OutUHex(unsigned long number){
+// This function uses recursion to convert the number of
+//   unspecified length as an ASCII string
+  if(number >= 0x10){
+    UART1_OutUHex(number/0x10);
+    UART1_OutUHex(number%0x10);
+  }
+  else{
+    if(number < 0xA){
+      UART1_OutChar(number+'0');
+     }
+    else{
+      UART1_OutChar((number-0x0A)+'A');
     }
   }
 }
@@ -215,25 +355,48 @@ void UART_OutUHex(unsigned long number){
 // Input: pointer to empty buffer, size of buffer
 // Output: Null terminated string
 // -- Modified by Agustinus Darmawan + Mingjie Qiu --
-void UART_InString(char *bufPt, unsigned short max) {
+void UART0_InString(char *bufPt, unsigned short max) {
 int length=0;
 char character;
-  character = UART_InChar();
+  character = UART0_InChar();
   while(character != CR){
     if(character == BS){
       if(length){
         bufPt--;
         length--;
-        UART_OutChar(BS);
+        UART0_OutChar(BS);
       }
     }
     else if(length < max){
       *bufPt = character;
       bufPt++;
       length++;
-      UART_OutChar(character);
+      UART0_OutChar(character);
     }
-    character = UART_InChar();
+    character = UART0_InChar();
+  }
+  *bufPt = 0;
+}
+
+void UART1_InString(char *bufPt, unsigned short max) {
+int length=0;
+char character;
+  character = UART1_InChar();
+  while(character != CR){
+    if(character == BS){
+      if(length){
+        bufPt--;
+        length--;
+        UART1_OutChar(BS);
+      }
+    }
+    else if(length < max){
+      *bufPt = character;
+      bufPt++;
+      length++;
+      UART1_OutChar(character);
+    }
+    character = UART1_InChar();
   }
   *bufPt = 0;
 }

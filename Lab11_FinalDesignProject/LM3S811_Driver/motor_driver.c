@@ -18,11 +18,8 @@
 #include "../inc/hw_pwm.h"
 #include "../driverlib/pwm.h"
 
-#include "lm3s1968.h"
+#include "lm3s811.h"
 #include "motor_driver.h"
-
-#define PART_LM3S1968
-#define PART_IS_LM3S1968
 
 // Motor init
 void motor_Init(unsigned long PWM_Generator,
@@ -33,7 +30,6 @@ void motor_Init(unsigned long PWM_Generator,
 				tMotor* motor) {
 
 	motor->PWM_GEN = PWM_Generator;
-	motor->PWM_GEN = 0;
 	motor->PWM_OUT_POS = PWM_Out1;
 	motor->PWM_OUT_NEG = PWM_Out2;
 	// __________Stellarisware Document Example___________
@@ -71,7 +67,9 @@ void set_motor(tMotor* motor, signed long speed) {
 /*************************************************************************************
  *	PWM generation test
  *	Using PWM0 (LED on PG2)
+ *  LM3S1968
  *************************************************************************************/
+#ifdef PART_LM3S1968
 void pwm_test_init(void) {
     unsigned long period;	
 	// __________Stellarisware Document Example___________
@@ -107,5 +105,5 @@ void pwm_test_init(void) {
 	PWMGenEnable(PWM_BASE, PWM_GEN_1);
 	// Enable the outputs.
 	PWMOutputState(PWM_BASE, (PWM_OUT_0_BIT | PWM_OUT_1_BIT | PWM_OUT_2_BIT | PWM_OUT_3_BIT), true);
-
 }
+#endif
