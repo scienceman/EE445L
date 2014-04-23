@@ -5,6 +5,8 @@
 // Kevin Gilbert, Gilberto Rodriguez
 // February 23, 2014
  #include "TimerCtrl.h"
+ #include "Sonar.h"
+ #include "lm3s1968.h"
 
  #include "../inc/hw_types.h"
  #include "../driverlib/interrupt.h"
@@ -15,8 +17,11 @@
  #include "../inc/hw_memmap.h"
  #include "../driverlib/debug.h"
  #include "../driverlib/gpio.h"
+ #include "../driverlib/pin_map.h"
  #include <stdio.h>  
 
+extern tSonarModule sonar;
+tBoolean newSonar = false;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -52,14 +57,39 @@ void Timer1_Init(unsigned short periodA, unsigned short periodB) {
 	IntEnable(INT_TIMER1A);
 }
 
-int dur = 1;									 
+void Timer1_CaptureInit(void) {
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER1);
+	TimerConfigure(TIMER1_BASE, TIMER_CFG_A_CAP_TIME | TIMER_CFG_B_PERIODIC | TIMER_CFG_SPLIT_PAIR);
+	TimerControlEvent(TIMER1_BASE, TIMER_A, TIMER_EVENT_POS_EDGE);
+	TimerEnable(TIMER1_BASE, TIMER_A); 
+	TimerIntEnable(TIMER1_BASE, TIMER_CAPA_EVENT);
+	IntEnable(INT_TIMER1A);
+}
+									 
 //Interrupt period is 50000000/32/440 = 3551 counts = 71ƒÊs
 void Timer0A_Handler(void){
-	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
+	//static int counter = 0;
+	//if(counter > 59) {
+		TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
+		Sonar_Trigger(&sonar);
+	//}
+	//counter = (counter+1)%60;
 }
 														   
 void Timer0B_Handler(void) {
 	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
+}
+
+void Timer1A_Handler(void) {
+	TimerIntClear(TIMER1_BASE, TIMER_CAPA_EVENT);	// acknowledge
+	GPIO_PORTG_DATA_R ^= 0x04;
+	sonar.echoTime = TIMER1_TAR_R;
+	sonar.distance = (sonar.echoTime - sonar.triggerTime) / 58; 
+	newSonar = true;
+}
+
+void Timer1B_Handler(void) {
+
 }
 
 

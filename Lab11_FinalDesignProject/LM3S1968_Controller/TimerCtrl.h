@@ -12,11 +12,4 @@
 // Outputs: none
 void Timer0_Init(unsigned short periodA, unsigned short periodB);
 void Timer1_Init(unsigned short periodA, unsigned short periodB);
-
-// Uncomment below to play both sine waves
-#define MAINSINEWAVE
-
-#define TEMPO 80
-
-extern unsigned short Volume;
-extern unsigned short DACout;
+void Timer1_CaptureInit(void);
