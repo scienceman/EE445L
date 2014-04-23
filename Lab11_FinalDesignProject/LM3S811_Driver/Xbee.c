@@ -5,7 +5,7 @@
 #include "../inc/hw_types.h"
 #include "../driverlib/timer.h"	
 #include "../driverlib/sysctl.h"
-#include "lm3s1968.h"
+#include "lm3s811.h"
 #include "Xbee.h"
 #include "UART.h"
 #include <stdio.h>			 	
@@ -39,7 +39,6 @@ void sendATCommand(void) {
 void Xbee_Init(void) {
 	char* response = &buff[0];
 	int i;
-	GPIO_PORTG_DATA_R &= ~0x04;
 	do {
 		sendATCommand();		//Enter Command Mode
 		UART_InString(response,10);
@@ -51,8 +50,6 @@ void Xbee_Init(void) {
 			SysCtlDelay(((SysCtlClockGet()/3)/50));	//20ms delay
 			UART_InString(response,10);
 		} while(response[0] != 'O' || response[1] != 'K');
-
-		GPIO_PORTG_DATA_R ^= 0x04;
 	}
 }
 

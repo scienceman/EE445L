@@ -37,8 +37,7 @@ void motor_Init(unsigned long PWM_Generator,
 	// Configure the PWM generator for count down mode with immediate updates
 	// to the parameters.
 	//
-	PWMGenConfigure(PWM_BASE, PWM_Generator,
-		PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
+	PWMGenConfigure(PWM_BASE, PWM_Generator, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
 
 	PWMGenPeriodSet(PWM_BASE, PWM_Generator, period);
 

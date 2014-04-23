@@ -14,7 +14,7 @@
  //		inserting x7D then the byte XOR'd with 0x20
 typedef struct {
 	unsigned char startDelim; // 0x7E
-	unsigned short length;    // Length=sizeof(API+ID+destination+opt+message)
+	signed short length;    // Length=sizeof(API+ID+destination+opt+message)
 	unsigned char API;		   	
 	unsigned char ID;																									   
 	unsigned short destination;

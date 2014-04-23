@@ -14,11 +14,8 @@
 #include "../driverlib/interrupt.h"
 #include "../inc/hw_timer.h"
 #include "../driverlib/timer.h"
-#include "rit128x96x4.h"
 #include "../inc/hw_ints.h"
-#include "Output.h"
 
-#include "Output.h"
 #include "system.h"
 #include <stdio.h>
 

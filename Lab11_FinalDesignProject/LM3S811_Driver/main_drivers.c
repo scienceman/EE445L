@@ -30,7 +30,7 @@ int main(void) {
 	while(1) {
 	    for(i=10;i<99;i++) {
 			set_motor(&left, i);
-			//set_motor(&right, -i);
+			set_motor(&right, -i);
 			SysCtlDelay((SysCtlClockGet()/3)/10);	// 100ms delay
 		}
 	}
