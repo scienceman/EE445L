@@ -34,12 +34,12 @@ void Timer0_Init(unsigned short periodA, unsigned short periodB) {
 	// 16 bits Timer, | TIMER0_CGF_R to not clobber timerA.
   	TimerConfigure(TIMER0_BASE, TIMER_CFG_B_PERIODIC | TIMER_CFG_A_PERIODIC | TIMER_CFG_SPLIT_PAIR);  
 	TimerLoadSet(TIMER0_BASE, TIMER_A, periodA-1);
-	TimerLoadSet(TIMER0_BASE, TIMER_B, periodB-1);
-	TimerEnable(TIMER0_BASE, TIMER_B);
+	//TimerLoadSet(TIMER0_BASE, TIMER_B, periodB-1);
+	//TimerEnable(TIMER0_BASE, TIMER_B);
 	TimerEnable(TIMER0_BASE, TIMER_A);
-	TimerIntEnable(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
+	//TimerIntEnable(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
 	TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
-	IntEnable(INT_TIMER0B);
+	//IntEnable(INT_TIMER0B);
 	IntEnable(INT_TIMER0A);
 }
 
@@ -65,21 +65,17 @@ void Timer1_CaptureInit(void) {
 	TimerIntEnable(TIMER1_BASE, TIMER_CAPA_EVENT);
 	IntEnable(INT_TIMER1A);
 }
-									 
+					 
 //Interrupt period is 50000000/32/440 = 3551 counts = 71ƒÊs
-void Timer0A_Handler(void){
-	//static int counter = 0;
-	//if(counter > 59) {
-		TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
-		Sonar_Trigger(&sonar);
-	//}
-	//counter = (counter+1)%60;
-}
-														   
-void Timer0B_Handler(void) {
-	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);	// acknowledge
+void Timer0A_Handler(void){	  
+	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
+	Sonar_Trigger(&sonar);
 }
 
+void Timer0B_Handler(void) {
+   TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
+}
+														   
 void Timer1A_Handler(void) {
 	TimerIntClear(TIMER1_BASE, TIMER_CAPA_EVENT);	// acknowledge
 	GPIO_PORTG_DATA_R ^= 0x04;
@@ -87,9 +83,3 @@ void Timer1A_Handler(void) {
 	sonar.distance = (sonar.echoTime - sonar.triggerTime) / 58; 
 	newSonar = true;
 }
-
-void Timer1B_Handler(void) {
-
-}
-
-

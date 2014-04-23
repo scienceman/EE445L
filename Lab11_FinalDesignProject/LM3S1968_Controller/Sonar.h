@@ -9,6 +9,7 @@ typedef struct {
 } tSonarModule;
 
 tSonarModule Sonar_Init(unsigned long periph_base_cap, unsigned long base_cap, unsigned long capture,
-							unsigned long periph_base_trig, unsigned long base_trig, unsigned long trigger);
+							unsigned long periph_base_trig, unsigned long base_trig, unsigned long trigger,
+							unsigned long pinConfig);
+							
 void Sonar_Trigger(tSonarModule *sonar);
-void Sonar_GetData(tSonarModule *sonar);
