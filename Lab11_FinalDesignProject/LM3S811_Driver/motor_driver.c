@@ -26,12 +26,12 @@ void motor_Init(unsigned long PWM_Generator,
 			    unsigned long PWM_Out1,
 				unsigned long PWM_Out2, 
 				unsigned long period,
-			    unsigned long dutyCycle,
-				tMotor* motor) {
+			    unsigned long dutyCycle){//,
+//				tMotor* motor) {
 
-	motor->PWM_GEN = PWM_Generator;
-	motor->PWM_OUT_POS = PWM_Out1;
-	motor->PWM_OUT_NEG = PWM_Out2;
+//	motor->PWM_GEN = PWM_Generator;
+//	motor->PWM_OUT_POS = PWM_Out1;
+//	motor->PWM_OUT_NEG = PWM_Out2;
 	// __________Stellarisware Document Example___________
 	//
 	// Configure the PWM generator for count down mode with immediate updates
@@ -48,6 +48,11 @@ void motor_Init(unsigned long PWM_Generator,
 	// Enable the outputs.
 	PWMOutputState(PWM_BASE, (PWM_Out1 | PWM_Out2), true);	
 }									  	
+
+void motor_Set(unsigned long PWM_Out1, unsigned long PWM_Out2, tMotor* motor){
+	motor->PWM_OUT_POS = PWM_Out1;
+	motor->PWM_OUT_NEG = PWM_Out2;
+};
 
 // Using period of 1600, input range for speed of -100 to 100 percent.
 void set_motor(tMotor* motor, signed long speed) {

@@ -24,8 +24,9 @@ void motor_Init(unsigned long PWM_Generator,
 			    unsigned long PWM_Out1,
 				unsigned long PWM_Out2, 
 				unsigned long period,
-			    unsigned long dutyCycle,
-				tMotor* motor);
+			    unsigned long dutyCycle);//,
+//				tMotor* motor);
+void motor_Set(unsigned long PWM_Out1, unsigned long PWM_Out2, tMotor* motor);
 // Sets motor speed and direction
 // INPUTS: -100 to 100
 void set_motor(tMotor* motor, signed long speed);

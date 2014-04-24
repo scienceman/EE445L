@@ -24,8 +24,11 @@ int main(void) {
 	signed long i;
 	System_Init();
 
-	motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,1600,800,&left);
-	motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,1600,800,&right);
+	motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,1600,800);
+	motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,1600,800);
+
+    motor_Set(PWM_OUT_3, PWM_OUT_4, &left);
+    motor_Set(PWM_OUT_2, PWM_OUT_5, &right)
 
 	while(1) {
 	    for(i=10;i<99;i++) {
