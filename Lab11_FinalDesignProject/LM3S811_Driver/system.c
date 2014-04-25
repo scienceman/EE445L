@@ -46,7 +46,9 @@ void motorIO_811_Init(void) {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM);
 	SysCtlPWMClockSet(SYSCTL_PWMDIV_1);
 	SysCtlPeripheralEnable(PWM2_PERIPH);
+	SysCtlPeripheralEnable(PWM3_PERIPH);
 	SysCtlPeripheralEnable(PWM4_PERIPH);
+	SysCtlPeripheralEnable(PWM5_PERIPH);
 	
 	GPIOPinTypePWM(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 	GPIOPinTypePWM(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_1);
