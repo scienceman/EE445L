@@ -41,6 +41,7 @@
 // Input: none
 // Output: none
 void UART1_Init(void);
+void UART0_811Init(void);
 
 //------------UART_InChar------------
 // Wait for new serial port input

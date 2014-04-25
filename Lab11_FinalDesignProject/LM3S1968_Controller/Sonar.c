@@ -1,5 +1,3 @@
-#define PART_LM3S1968
-
 #include "../inc/hw_types.h"
 #include "../inc/hw_memmap.h"
 #include "../driverlib/sysctl.h"
@@ -12,8 +10,8 @@
 #include "timerCtrl.h"
 #include "Sonar.h"
 
-#define GPIO_PB0_CCP0	0x00010001
-#define GPIO_PB1_CCP2   0x00010401
+//#define GPIO_PB0_CCP0	0x00010001
+//#define GPIO_PB1_CCP2   0x00010401
 
 unsigned long sonar_mailbox = 0;
 

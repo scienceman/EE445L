@@ -8,10 +8,6 @@
 #include "lm3s811.h"
 #include "Xbee.h"
 #include "UART.h"
-#include <stdio.h>			 	
-#include <stdlib.h>
-#include <string.h>
-
 
 char X = 0x58;
 char* plusOut = "+++";
@@ -99,7 +95,6 @@ void Xbee_SendTxFrame(tXbee_frame* frame){
 	for(i = 0; i < index; i += 1){
 		UART_OutChar(frame_str[i]);
 	}
-	printf("Work dammit!\n");
 }
 
 tXbee_frame Xbee_ReceiveRxFrame(void) {

@@ -63,21 +63,48 @@ void UART1_Init(void){
   GPIO_PORTD_DEN_R |= 0x0c;             // enable digital I/O on PD2-3
 }
 
+void UART0_811Init(void){
+  SYSCTL_RCGC1_R |= SYSCTL_RCGC1_UART0; // activate UART1  PD2,3 (Rx,Tx respectively)
+  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA; // activate port D	   
+  /*UART1_CTL_R &= ~UART_CTL_UARTEN;      // disable UART
+  UART1_IBRD_R = 326;                    // IBRD = int(50,000,000 / (16 * 9600)) = int(325.52)
+  UART1_FBRD_R = 8;                     // FBRD = int(0.1267 * 64 + 0.5) = 8
+                                        // 8 bit word length (no parity bits, one stop bit, FIFOs)
+  UART1_LCRH_R = (UART_LCRH_WLEN_8|UART_LCRH_FEN);
+  UART1_CTL_R |= UART_CTL_UARTEN;       // enable UART
+  */
+  //
+	// Initialize the UART. Set the baud rate, number of data bits, turn off
+	// parity, number of stop bits, and stick mode.
+	//
+	UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 9600,
+							(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |
+							UART_CONFIG_PAR_NONE));
+	//
+	// Enable the UART.
+	//
+	UARTEnable(UART0_BASE);
+
+
+  GPIO_PORTA_AFSEL_R |= 0x03;           // enable alt funct on PD2-3
+  GPIO_PORTA_DEN_R |= 0x03;             // enable digital I/O on PD2-3
+}
+
 //------------UART_InChar------------
 // Wait for new serial port input
 // Input: none
 // Output: ASCII code for key typed
 unsigned char UART_InChar(void){
-  while((UART1_FR_R&UART_FR_RXFE) != 0);
-  return((unsigned char)(UART1_DR_R&0xFF));
+  while((UART0_FR_R&UART_FR_RXFE) != 0);
+  return((unsigned char)(UART0_DR_R&0xFF));
 }
 //------------UART_OutChar------------
 // Output 8-bit to serial port
 // Input: letter is an 8-bit ASCII character to be transferred
 // Output: none
 void UART_OutChar(unsigned char data){
-  while((UART1_FR_R&UART_FR_TXFF) != 0);
-  UART1_DR_R = data;
+  while((UART0_FR_R&UART_FR_TXFF) != 0);
+  UART0_DR_R = data;
 }
 
 

@@ -21,6 +21,9 @@
 #include "lm3s811.h"
 #include "motor_driver.h"
 
+void PWM1_Init(unsigned short period, unsigned short duty);
+void PWM2_Init(unsigned short period, unsigned short duty);
+
 // Motor init
 void motor_Init(unsigned long PWM_Generator,
 			    unsigned long PWM_Out1,
@@ -48,6 +51,32 @@ void motor_Init(unsigned long PWM_Generator,
 	// Enable the outputs.
 	PWMOutputState(PWM_BASE, (PWM_Out1 | PWM_Out2), true);	
 }									  	
+
+void PWM1_Init(unsigned short period, unsigned short duty){
+  SYSCTL_RCGC0_R |= SYSCTL_RCGC0_PWM;   // 1)activate PWM
+  SYSCTL_RCC_R |= SYSCTL_RCC_USEPWMDIV; // 3) use PWM divider
+  SYSCTL_RCC_R &= ~SYSCTL_RCC_PWMDIV_M; //    clear PWM divider field
+  SYSCTL_RCC_R += SYSCTL_RCC_PWMDIV_2;  //    configure for /2 divider
+  PWM_1_CTL_R = 0;                      // 4) re-loading mode
+  PWM_1_GENA_R = (PWM_X_GENA_ACTCMPAD_ONE|PWM_X_GENA_ACTLOAD_ZERO);
+  PWM_1_LOAD_R = period - 1;       // 5) cycles needed to count down to 0
+  PWM_1_CMPA_R = duty - 1;         // 6) count value when output rises
+  PWM_1_CTL_R |= PWM_X_CTL_ENABLE; // 7) start PWM0
+  PWM_ENABLE_R |= PWM_ENABLE_PWM1EN; // enable PWM0
+}		 	
+
+void PWM2_Init(unsigned short period, unsigned short duty){
+  SYSCTL_RCGC0_R |= SYSCTL_RCGC0_PWM;   // 1)activate PWM
+  SYSCTL_RCC_R |= SYSCTL_RCC_USEPWMDIV; // 3) use PWM divider
+  SYSCTL_RCC_R &= ~SYSCTL_RCC_PWMDIV_M; //    clear PWM divider field
+  SYSCTL_RCC_R += SYSCTL_RCC_PWMDIV_2;  //    configure for /2 divider
+  PWM_2_CTL_R = 0;                      // 4) re-loading mode
+  PWM_2_GENA_R = (PWM_X_GENA_ACTCMPAD_ONE|PWM_X_GENA_ACTLOAD_ZERO);
+  PWM_2_LOAD_R = period - 1;       // 5) cycles needed to count down to 0
+  PWM_2_CMPA_R = duty - 1;         // 6) count value when output rises
+  PWM_2_CTL_R |= PWM_X_CTL_ENABLE; // 7) start PWM0
+  PWM_ENABLE_R |= PWM_ENABLE_PWM2EN; // enable PWM0
+}
 
 // Using period of 1600, input range for speed of -100 to 100 percent.
 void set_motor(tMotor* motor, signed long speed) {

@@ -27,8 +27,9 @@ tSonarModule Sonar_Init(unsigned long periph_base_cap, unsigned long base_cap, u
 // Initialize trigger and capture pins
 	SysCtlPeripheralEnable(periph_base_cap);
 	SysCtlPeripheralEnable(periph_base_trig); 
-	
-	GPIOPinConfigure(pinConfig); 
+#ifndef PART_LM3S811
+	GPIOPinConfigure(pinConfig);
+#endif 
 	GPIOPinTypeTimer(base_cap, capture);
 	GPIOPinTypeGPIOOutput(base_trig, trigger);
 

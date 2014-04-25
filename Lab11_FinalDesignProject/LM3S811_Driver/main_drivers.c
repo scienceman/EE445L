@@ -1,3 +1,15 @@
+/*********************************************************
+ * LM3S811 conrolled autonomous/Teleoperated car
+ * EE445L - Lab11 Spring 2014
+ * 21 April 2014
+ * Kevin Gilbert, Gilberto Rodriguez
+ *
+ * Receives	data through XBee from LM3S1968 controller. Can be
+ *	switched to run in autonmous obstacle avoidance mode
+ ********************************************************/
+/********************************************************
+ * Stellarisware
+ ********************************************************/ 
 #include "../inc/hw_types.h"
 #include "../driverlib/pin_map.h"
 #include "../driverlib/gpio.h"
@@ -9,29 +21,61 @@
 #include "../inc/hw_pwm.h"
 #include "../driverlib/pwm.h"
 #include "stdio.h"
-
+/********************************************************
+ * Peripherial Drivers 
+ ********************************************************/ 
 #include "motor_driver.h"
 #include "sonar.h"
 #include "accel.h"
 #include "Xbee.h"
 #include "system.h"
+#include "UART.h"
 
 #include "lm3s811.h"
+
+//#define MOTORTEST
 				 	
-tMotor left, right;
+tMotor drive, steer;
 
 int main(void) {
+	tXbee_frame cmd_frame;
+	tSonarModule left_sonar, right_sonar;
+	signed int drive_power, steering;
 	signed long i;
+/************************************************************************************************
+ * System Initilizations
+ ***********************************************************************************************/
 	System_Init();
-
-	motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,1600,800,&left);
-	motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,1600,800,&right);
+#ifndef MOTORTEST
+	UART0_811Init();
+	Xbee_Init();
+	left_sonar = Sonar_Init(CCP0_PERIPH, CCP0_PORT, CCP0_PIN, SYSCTL_PERIPH_GPIOD, 
+								GPIO_PORTD_BASE, GPIO_PIN_6, 0);
+	right_sonar = Sonar_Init(CCP2_PERIPH, CCP2_PORT, CCP2_PIN, SYSCTL_PERIPH_GPIOD, 
+								GPIO_PORTD_BASE, GPIO_PIN_7, 0);
+#endif
+	motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,16000,8000,&drive);
+	motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,16000,8000,&steer);
 
 	while(1) {
+	#ifdef MOTORTEST
 	    for(i=10;i<99;i++) {
 			set_motor(&left, i);
 			set_motor(&right, -i);
 			SysCtlDelay((SysCtlClockGet()/3)/10);	// 100ms delay
 		}
+	#else
+		cmd_frame = Xbee_ReceiveRxFrame();
+		if(cmd_frame.message[0] == '*') {
+			// Valid Command
+			drive_power = (cmd_frame.message[2]-0x30)*100;
+			drive_power += (cmd_frame.message[3]-0x30)*10;
+			drive_power	+= (cmd_frame.message[4]-0x30);
+			if(cmd_frame.message[1] == '-') {
+				drive_power *= -1;
+			}
+		}
+
+	#endif
 	}
 }
