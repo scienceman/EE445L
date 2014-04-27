@@ -20,8 +20,6 @@
 /********************************************************
  * Peripherial Drivers 
  ********************************************************/ 
-#define PART_LM3S1968
-#define PART_IS_LM3S1968
 #include "lm3s1968.h"
 #include "Xbee.h"
 #include "UART.h"
@@ -34,40 +32,25 @@
 
 #include <stdio.h>
 
-//#define CCP0_PERIPH		SYSCTL_PERIPH_GPIOB
-//#define CCP0_PORT   	GPIO_PORTB_BASE
-//#define CCP0_PIN        GPIO_PIN_0
-//
-//#define CCP2_PERIPH     SYSCTL_PERIPH_GPIOB
-//#define CCP2_PORT       GPIO_PORTB_BASE
-//#define CCP2_PIN        GPIO_PIN_1
-//
-//#define GPIO_PB1_CCP2   0x00010401
-
-#define ADCTEST
- 
-extern tBoolean newSonar;
-
 unsigned long adc[2];
-tSonarModule sonar;
 
 int main(void) {
-	int count=0;
+/**
+*	XBee Frame variables
+*/
 	tXbee_frame frame;
 	char cmd[20];
+/**
+* 	System Initialization
+*/
 	System_Init();
 	SysTick_Init();
 	UART1_Init();
 	Xbee_Init();
-	//Timer1_CaptureInit();
-	//sonar = Sonar_Init(CCP2_PERIPH, CCP2_PORT, CCP2_PIN, SYSCTL_PERIPH_GPIOF, 
-							//GPIO_PORTF_BASE, GPIO_PIN_5, GPIO_PB1_CCP2);
-	//Timer0_Init(60000, 60000);
-	//printf("ADC channels 1 and 3\r");
 	ADCDualChannel_Init(SYSCTL_PERIPH_ADC0, ADC0_BASE, 0, ADC_CTL_CH1, ADC_CTL_CH3);
+
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2, 0x00);
 	while(1) {
-	#ifdef ADCTEST
 		ADCDualChannel_Read(ADC0_BASE, 0, &adc[0]);
 		cmd[0] = '*';
 		if(adc[1] < 350) {		// FORWARD
@@ -96,16 +79,17 @@ int main(void) {
 				cmd[5] = '0';
 			}
 		}
-		cmd[6] = 0;
-	 	frame = Xbee_CreateTxFrame(&cmd[0], 6);
-		//printf("1:%ld 3:%ld %d\n",adc[0],adc[1],count++);
+
+		cmd[6] = ',';
+		if(GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_0)) {
+			// Autonomous mode
+			cmd[7] = 'a';	// Autonomous
+		} else {
+		 	cmd[7] = 't';	// Tele-operated
+		}
+		cmd[8] = 0;
+	 	frame = Xbee_CreateTxFrame(&cmd[0], 8);
 		printf("cmd: %s\n",cmd);
-		Xbee_SendTxFrame(&frame);
-	#else
-		while(!newSonar); 
-		if(sonar.distance < 1000) 
-			printf("Sonar: %03ld cm\n",sonar.distance);
-		newSonar = false;
-	#endif									  
+		Xbee_SendTxFrame(&frame);								  
 	}
 }

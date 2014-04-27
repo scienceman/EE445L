@@ -84,33 +84,41 @@ int main(void) {
 //			if(cmd_frame.message[6] == '-') {
 //				drive_power *= -1;
 //			}
-
-			if(cmd_frame.message[2] == '1') {
-				if(cmd_frame.message[1] == '-') {
-					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
-					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
+			if(cmd_frame.message[7] == 't') {  	// Tele-operated
+				if(cmd_frame.message[2] == '1') {
+					if(cmd_frame.message[1] == '-') {
+						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
+						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
+					} else {
+						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+					}
 				} else {
-					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
 					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
 				}
-			} else {
-				GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
-				GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
-			}
-			if(cmd_frame.message[5] == '1') {
-				if(cmd_frame.message[4] == '-') {
-					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+				if(cmd_frame.message[5] == '1') {
+					if(cmd_frame.message[4] == '-') {
+						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+					} else {
+					 	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
+						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+					}
 				} else {
-				 	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
+					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 				}
-			} else {
-				GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-				GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+			} else { 		// Autonomous
+			 	if(left_sonar.distance < 500) {
+					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);	
+				} else if(right_sonar.distance < 500) {
+					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
+					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+				}
 			}
 		}
-
 	#endif
 	}
 }

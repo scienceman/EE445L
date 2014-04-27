@@ -5,8 +5,6 @@
 // Kevin Gilbert, Gilberto Rodriguez
 // February 23, 2014
  #include "TimerCtrl.h"
- #include "Sonar.h"
- #include "lm3s1968.h"
 
  #include "../inc/hw_types.h"
  #include "../driverlib/interrupt.h"
@@ -17,11 +15,7 @@
  #include "../inc/hw_memmap.h"
  #include "../driverlib/debug.h"
  #include "../driverlib/gpio.h"
- #include "../driverlib/pin_map.h"
- #include <stdio.h>  
-
-extern tSonarModule sonar;
-tBoolean newSonar = false;
+ #include "../driverlib/pin_map.h"  
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -69,7 +63,7 @@ void Timer1_CaptureInit(void) {
 //Interrupt period is 50000000/32/440 = 3551 counts = 71É s
 void Timer0A_Handler(void){	  
 	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);	// acknowledge
-	Sonar_Trigger(&sonar);
+	//Sonar_Trigger(&sonar);
 }
 
 void Timer0B_Handler(void) {
@@ -78,8 +72,8 @@ void Timer0B_Handler(void) {
 														   
 void Timer1A_Handler(void) {
 	TimerIntClear(TIMER1_BASE, TIMER_CAPA_EVENT);	// acknowledge
-	GPIO_PORTG_DATA_R ^= 0x04;
-	sonar.echoTime = TIMER1_TAR_R;
-	sonar.distance = (sonar.echoTime - sonar.triggerTime) / 58; 
-	newSonar = true;
+	//GPIO_PORTG_DATA_R ^= 0x04;
+	//sonar.echoTime = TIMER1_TAR_R;
+	//sonar.distance = (sonar.echoTime - sonar.triggerTime) / 58; 
+	//newSonar = true;
 }

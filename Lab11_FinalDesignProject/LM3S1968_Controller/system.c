@@ -11,8 +11,6 @@
 #include "../inc/hw_gpio.h"
 #include "../inc/hw_memmap.h"
 #include "../driverlib/sysctl.h"
-#include "../driverlib/interrupt.h"
-#include "../inc/hw_timer.h"
 #include "../driverlib/timer.h"
 #include "rit128x96x4.h"
 #include "../inc/hw_ints.h"
@@ -20,7 +18,6 @@
 
 #include "Output.h"
 #include "system.h"
-#include <stdio.h>
 
 // Startup.s Function declaration
 void DisableInterrupts(void);
@@ -39,12 +36,11 @@ void System_Init() {
 }
 
 void Switch_Init(void){
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOH);
-    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1 || GPIO_PIN_2 || GPIO_PIN_3);
+
+	GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_0);	 //	Autonomous mode switch
     GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
-    GPIOPinTypeGPIOOutput(GPIO_PORTH_BASE, GPIO_PIN_0 || GPIO_PIN_1);
 }
 
 void motorIO_811_Init(void) {

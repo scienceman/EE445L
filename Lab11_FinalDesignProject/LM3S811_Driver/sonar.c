@@ -6,12 +6,9 @@
 #include "../driverlib/gpio.h"
 #include "../driverlib/pin_map.h"
 
-#include "lm3s1968.h"
+#include "lm3s811.h"
 #include "timerCtrl.h"
 #include "Sonar.h"
-
-//#define GPIO_PB0_CCP0	0x00010001
-//#define GPIO_PB1_CCP2   0x00010401
 
 unsigned long sonar_mailbox = 0;
 
