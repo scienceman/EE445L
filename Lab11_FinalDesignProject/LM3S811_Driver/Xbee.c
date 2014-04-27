@@ -17,7 +17,7 @@ char buff[10] = {0};
 //ATMY64 - Sets my address to 100
 //ATAP1 - API mode 1
 //ATCN - Ends Command Mode
-char* cmd_list[5] = {"ATDL64\r","ATDH0\r","ATMY79\r","ATAP1\r","ATCN\r"};
+char* cmd_list[5] = {"ATDL64\r","ATDH0\r","ATMY64\r","ATAP1\r","ATCN\r"};
 /************************************************
  * Private XBee Function Prototypes
  ***********************************************/

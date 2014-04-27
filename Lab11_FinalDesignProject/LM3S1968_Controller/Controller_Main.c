@@ -34,17 +34,17 @@
 
 #include <stdio.h>
 
-#define CCP0_PERIPH		SYSCTL_PERIPH_GPIOB
-#define CCP0_PORT   	GPIO_PORTB_BASE
-#define CCP0_PIN        GPIO_PIN_0
+//#define CCP0_PERIPH		SYSCTL_PERIPH_GPIOB
+//#define CCP0_PORT   	GPIO_PORTB_BASE
+//#define CCP0_PIN        GPIO_PIN_0
+//
+//#define CCP2_PERIPH     SYSCTL_PERIPH_GPIOB
+//#define CCP2_PORT       GPIO_PORTB_BASE
+//#define CCP2_PIN        GPIO_PIN_1
+//
+//#define GPIO_PB1_CCP2   0x00010401
 
-#define CCP2_PERIPH     SYSCTL_PERIPH_GPIOB
-#define CCP2_PORT       GPIO_PORTB_BASE
-#define CCP2_PIN        GPIO_PIN_1
-
-#define GPIO_PB1_CCP2   0x00010401
-
-//#define ADCTEST
+#define ADCTEST
  
 extern tBoolean newSonar;
 
@@ -53,21 +53,54 @@ tSonarModule sonar;
 
 int main(void) {
 	int count=0;
+	tXbee_frame frame;
+	char cmd[20];
 	System_Init();
 	SysTick_Init();
 	UART1_Init();
 	Xbee_Init();
-	Timer1_CaptureInit();
-	sonar = Sonar_Init(CCP2_PERIPH, CCP2_PORT, CCP2_PIN, SYSCTL_PERIPH_GPIOF, 
-							GPIO_PORTF_BASE, GPIO_PIN_5, GPIO_PB1_CCP2);
-	Timer0_Init(60000, 60000);
+	//Timer1_CaptureInit();
+	//sonar = Sonar_Init(CCP2_PERIPH, CCP2_PORT, CCP2_PIN, SYSCTL_PERIPH_GPIOF, 
+							//GPIO_PORTF_BASE, GPIO_PIN_5, GPIO_PB1_CCP2);
+	//Timer0_Init(60000, 60000);
 	//printf("ADC channels 1 and 3\r");
 	ADCDualChannel_Init(SYSCTL_PERIPH_ADC0, ADC0_BASE, 0, ADC_CTL_CH1, ADC_CTL_CH3);
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2, 0x00);
 	while(1) {
 	#ifdef ADCTEST
 		ADCDualChannel_Read(ADC0_BASE, 0, &adc[0]);
-		printf("1:%ld 3:%ld %d\n",adc[0],adc[1],count++);
+		cmd[0] = '*';
+		if(adc[1] < 350) {		// FORWARD
+			cmd[1] = '+';
+			cmd[2] = '1';	
+		} else {
+			if(adc[1] > 650) {
+				cmd[1] = '-';
+				cmd[2] = '1';
+			} else {
+			 	cmd[1] = '+';
+				cmd[2] = '0';
+			}
+		}
+		
+		cmd[3] = ','; 
+		if(adc[0] < 350) {		// LEFT
+			cmd[4] = '+';
+			cmd[5] = '1';		
+		} else {
+		 	if(adc[0] > 725) {
+				cmd[4] = '-';
+				cmd[5] = '1';
+			} else {
+			 	cmd[4] = '+';
+				cmd[5] = '0';
+			}
+		}
+		cmd[6] = 0;
+	 	frame = Xbee_CreateTxFrame(&cmd[0], 6);
+		//printf("1:%ld 3:%ld %d\n",adc[0],adc[1],count++);
+		printf("cmd: %s\n",cmd);
+		Xbee_SendTxFrame(&frame);
 	#else
 		while(!newSonar); 
 		if(sonar.distance < 1000) 

@@ -344,7 +344,7 @@
             <uThumb>0</uThumb>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define></Define>
+              <Define>PART_LM3S1968</Define>
               <Undefine></Undefine>
               <IncludePath>..;..\..\..</IncludePath>
             </VariousControls>
