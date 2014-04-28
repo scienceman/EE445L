@@ -15,7 +15,7 @@
 #include "../driverlib/timer.h"
 #include "../inc/hw_ints.h"
 
-#include "system.h">
+#include "system.h"
 
 // Startup.s Function declaration
 void DisableInterrupts(void);
