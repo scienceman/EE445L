@@ -81,6 +81,7 @@ tXbee_frame Xbee_CreateTxFrame(char* message, int length) {
 
 void Xbee_SendTxFrame(tXbee_frame* frame){
 	char frame_str[100];
+	char trash[8];
 	int index=0;
 	int i = 0;
 	int n=0;
@@ -101,6 +102,10 @@ void Xbee_SendTxFrame(tXbee_frame* frame){
 	//UART_OutString(frame_str);
 	for(i = 0; i < index; i += 1){
 		UART_OutChar(frame_str[i]);
+	}
+	// Receive AK frame
+	for(i = 0; i < 6; i += 1) {
+	 	trash[i] = UART_InChar();
 	}
 }
 

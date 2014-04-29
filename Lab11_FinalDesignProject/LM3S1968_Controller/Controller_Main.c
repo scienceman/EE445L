@@ -32,13 +32,21 @@
 
 #include <stdio.h>
 
+void DisableInterrupts(void); // Disable interrupts
+void EnableInterrupts(void);  // Enable interrupts
+long StartCritical (void);    // previous I bit, disable interrupts
+void EndCritical(long sr);    // restore I bit to previous value
+void WaitForInterrupt(void);  // low power mode
+
 unsigned long adc[2];
+extern int autonomous_flag;
 
 int main(void) {
 /**
 *	XBee Frame variables
 */
 	tXbee_frame frame;
+	tXbee_frame fb_frame;
 	char cmd[20];
 /**
 * 	System Initialization
@@ -49,16 +57,18 @@ int main(void) {
 	Xbee_Init();
 	ADCDualChannel_Init(SYSCTL_PERIPH_ADC0, ADC0_BASE, 0, ADC_CTL_CH1, ADC_CTL_CH3);
 
+	EnableInterrupts();
+
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2, 0x00);
 	while(1) {
 		ADCDualChannel_Read(ADC0_BASE, 0, &adc[0]);
 		cmd[0] = '*';
-		if(adc[1] < 350) {		// FORWARD
-			cmd[1] = '+';
+		if(adc[0] < 350) {		// FORWARD
+			cmd[1] = '-';
 			cmd[2] = '1';	
 		} else {
-			if(adc[1] > 650) {
-				cmd[1] = '-';
+			if(adc[0] > 650) {
+				cmd[1] = '+';
 				cmd[2] = '1';
 			} else {
 			 	cmd[1] = '+';
@@ -67,12 +77,12 @@ int main(void) {
 		}
 		
 		cmd[3] = ','; 
-		if(adc[0] < 350) {		// LEFT
-			cmd[4] = '+';
+		if(adc[1] < 350) {		// LEFT
+			cmd[4] = '-';
 			cmd[5] = '1';		
 		} else {
-		 	if(adc[0] > 725) {
-				cmd[4] = '-';
+		 	if(adc[1] > 725) {
+				cmd[4] = '+';
 				cmd[5] = '1';
 			} else {
 			 	cmd[4] = '+';
@@ -81,15 +91,19 @@ int main(void) {
 		}
 
 		cmd[6] = ',';
-		if(GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_0)) {
-			// Autonomous mode
+		if(autonomous_flag) {
 			cmd[7] = 'a';	// Autonomous
 		} else {
 		 	cmd[7] = 't';	// Tele-operated
 		}
 		cmd[8] = 0;
 	 	frame = Xbee_CreateTxFrame(&cmd[0], 8);
-		printf("cmd: %s\n",cmd);
-		Xbee_SendTxFrame(&frame);								  
+		RIT128x96x4StringDraw(cmd,45,5,15);	 
+		Xbee_SendTxFrame(&frame);
+		
+		fb_frame = Xbee_ReceiveRxFrame();
+		fb_frame.message[fb_frame.length-5]=0;
+		fb_frame.message[4] = 0;
+		RIT128x96x4StringDraw(fb_frame.message,55,20,15);								  
 	}
 }

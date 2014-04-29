@@ -17,7 +17,7 @@ char buff[10] = {0};
 //ATMY64 - Sets my address to 100
 //ATAP1 - API mode 1
 //ATCN - Ends Command Mode
-char* cmd_list[5] = {"ATDL64\r","ATDH0\r","ATMY64\r","ATAP1\r","ATCN\r"};
+char* cmd_list[5] = {"ATDL79\r","ATDH0\r","ATMY64\r","ATAP1\r","ATCN\r"};
 /************************************************
  * Private XBee Function Prototypes
  ***********************************************/
@@ -62,8 +62,8 @@ tXbee_frame Xbee_CreateTxFrame(char* message, int length) {
 	tXbee_frame frame;
 	frame.startDelim = STARTDELIM;
 	frame.API = 0x01;
-	frame.ID = TX_DEST;
-	frame.destination = 0x0000 + 0x64;
+	frame.ID = 0x64;
+	frame.destination = 0x0000 + 0x79;
 	frame.opt = 0x00;
 	frame.message = message;
 	frame.length = 5+length;
@@ -74,6 +74,7 @@ tXbee_frame Xbee_CreateTxFrame(char* message, int length) {
 
 void Xbee_SendTxFrame(tXbee_frame* frame){
 	char frame_str[100];
+	char trash[8];
 	int index=0;
 	int i = 0;
 	int n=0;
@@ -94,6 +95,10 @@ void Xbee_SendTxFrame(tXbee_frame* frame){
 	//UART_OutString(frame_str);
 	for(i = 0; i < index; i += 1){
 		UART_OutChar(frame_str[i]);
+	}
+	// Receive AK frame
+	for(i = 0; i < 6; i += 1) {
+	 	trash[i] = UART_InChar();
 	}
 }
 

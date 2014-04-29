@@ -30,6 +30,7 @@
 #include "Xbee.h"
 #include "system.h"
 #include "UART.h"
+#include <string.h>
 
 #include "lm3s811.h"
 
@@ -39,7 +40,10 @@ tMotor drive, steer;
 
 int main(void) {
 	tXbee_frame cmd_frame;
+	tXbee_frame feedback_frame;
 	tSonarModule left_sonar, right_sonar;
+	char fb_msg[20];
+	int fb_length=0;
 	signed int drive_power, steering;
 	signed long i;
 /************************************************************************************************
@@ -111,13 +115,26 @@ int main(void) {
 				}
 			} else { 		// Autonomous
 			 	if(left_sonar.distance < 500) {
-					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);	
+					if(right_sonar.distance < 500) {
+					// Reverse
+						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
+						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);			
+					// Turn
+						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+					} else {
+						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+					}	
 				} else if(right_sonar.distance < 500) {
 					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 				}
 			}
+			strncpy(fb_msg,"*X,X",sizeof(fb_msg));
+			fb_length = 4;
+			feedback_frame = Xbee_CreateTxFrame(fb_msg, fb_length);
+			Xbee_SendTxFrame(&feedback_frame);
 		}
 	#endif
 	}

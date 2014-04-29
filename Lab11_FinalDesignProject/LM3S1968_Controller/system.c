@@ -26,6 +26,9 @@ void StartCritical(void);
 void EndCritical(void);
 void WaitForInterrupt(void);
 
+void GPIOPortC_Handler(void);
+
+int autonomous_flag = 0;
 
 void System_Init() {
   	// 50Mhz Clock
@@ -39,8 +42,29 @@ void Switch_Init(void){
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
 
-	GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_0);	 //	Autonomous mode switch
     GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2);	 // Heartbeat
+
+	GPIO_PORTC_DIR_R &= ~0x10; // make PC4 in
+	GPIO_PORTC_DEN_R |= 0x10; // enable I/O on PC4
+	GPIO_PORTC_IS_R &= ~0x10; // PC4 is edge-sensitive
+	GPIO_PORTC_IBE_R &= ~0x10; // PC4 is not both edges
+	GPIO_PORTC_IEV_R |= 0x10; // PC4 falling edge event
+	GPIO_PORTC_ICR_R = 0x10; // clear flag4
+	GPIO_PORTC_IM_R |= 0x10; // arm interrupt on PC4
+	NVIC_PRI0_R = (NVIC_PRI0_R&0xFF00FFFF)|0x00A00000;
+	// priority 5
+	NVIC_EN0_R |= 4; // enable int 2 in NVIC 
+//	GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_4);
+//	GPIOIntTypeSet(GPIO_PORTC_BASE, GPIO_PIN_4, GPIO_RISING_EDGE);
+//	//GPIOPadConfigSet(GPIO_PORTG_BASE, GPIO_PIN_7, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD_WPU);
+//	GPIOPortIntRegister(GPIO_PORTC_BASE, &GPIOPortC_Handler);
+//	GPIOPinIntEnable(GPIO_PORTC_BASE, GPIO_PIN_4);
+}
+
+void GPIOPortC_Handler(void) {
+	GPIO_PORTC_ICR_R = 0x10;
+	GPIO_PORTG_DATA_R ^= 0x04;
+	autonomous_flag ^= 1;
 }
 
 void motorIO_811_Init(void) {
