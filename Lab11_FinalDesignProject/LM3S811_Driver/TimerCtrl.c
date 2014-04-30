@@ -80,8 +80,8 @@ void Timer0A_Handler(void){
 	TimerIntClear(TIMER0_BASE, TIMER_CAPA_EVENT);	// acknowledge
 	right_sonar.echoTime = TIMER0_TAR_R;
 	right_sonar.distance = (right_sonar.echoTime - right_sonar.triggerTime) / 58; 
-	if(right_sonar.distance > 9999) {
-		right_sonar.distance = 9999;
+	if(right_sonar.distance > 999) {
+		right_sonar.distance = 999;
 	}
 }
 														   
@@ -93,8 +93,8 @@ void Timer1A_Handler(void){
 	TimerIntClear(TIMER1_BASE, TIMER_CAPA_EVENT);	// acknowledge
 	left_sonar.echoTime = TIMER1_TAR_R;
 	left_sonar.distance = (left_sonar.echoTime - left_sonar.triggerTime) / 58; 
-	if(left_sonar.distance > 9999) {
-	 	left_sonar.distance = 9999;
+	if(left_sonar.distance > 999) {
+	 	left_sonar.distance = 999;
 	}
 }
 														   

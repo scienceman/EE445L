@@ -114,31 +114,21 @@ int main(void) {
 		}
 	#else 
 		cmd_frame = Xbee_ReceiveRxFrame();
+		Sonar_Trigger(&left_sonar);
+		//WaitForInterrupt();
+		//SysCtlDelay((SysCtlClockGet()/3)/10);	//	100ms
+		Sonar_Trigger(&right_sonar);
+		//SysCtlDelay((SysCtlClockGet()/3)/10);	//	100ms
+		//WaitForInterrupt();
+
 		if(cmd_frame.message[0] == '*') {
 			// Valid Command
-//			drive_power = (cmd_frame.message[2]-0x30)*100;
-//			drive_power += (cmd_frame.message[3]-0x30)*10;
-//			drive_power	+= (cmd_frame.message[4]-0x30);
-//			if(cmd_frame.message[1] == '-') {
-//				drive_power *= -1;
-//			}
-//
-//			steering = (cmd_frame.message[7]-0x30)*100;
-//			steering += (cmd_frame.message[8]-0x30)*10;
-//			steering += (cmd_frame.message[9]-0x30);
-//			if(cmd_frame.message[6] == '-') {
-//				drive_power *= -1;
-//			}
 			if(cmd_frame.message[7] == 't') {  	// Tele-operated
 				if(cmd_frame.message[2] == '1') {
 					if(cmd_frame.message[1] == '-') {
 						reverse();
-//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
-//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
 					} else {
 						drive();
-//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
-//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 					}
 				} else {
 					// Stop
@@ -148,12 +138,8 @@ int main(void) {
 				if(cmd_frame.message[5] == '1') {
 					if(cmd_frame.message[4] == '-') {
 						turn_right();
-//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
 					} else {
 						turn_left();
-//					 	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
-//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 					}
 				} else {
 					// Stop
@@ -161,40 +147,20 @@ int main(void) {
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 				}
 			} else { 		// Autonomous
-				Sonar_Trigger(&left_sonar);
-				//WaitForInterrupt();
-				SysCtlDelay((SysCtlClockGet()/3)/10);	//	100ms
-				Sonar_Trigger(&right_sonar);
-				SysCtlDelay((SysCtlClockGet()/3)/10);	//	100ms
-				//WaitForInterrupt();
-
 			 	if(left_sonar.distance < MINRANGE) {
 					if(right_sonar.distance < MINRANGE) {
-					// reverse
-						reverse();
-//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
-//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);			
+						reverse();			
 					// Turn
 						turn_left();
-//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
 					} else {
 						turn_right();
-//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
 						// Drive forward
 						drive();
-//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
-//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 					}	
 				} else if(right_sonar.distance < MINRANGE) {
 					turn_left();
-//					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
-//					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 					// Drive forward
 					drive();
-//					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
-//					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 				}
 			}
 			if(left_sonar.distance < 999) {
@@ -212,7 +178,6 @@ int main(void) {
 			 	strncpy(right_snr_str,"XXX",6);
 			} 
 			fb_msg[0] = '*';
-			//strcat(fb_msg,left_snr_str);
 			for(i=0;i<3;i++) {
 				fb_msg[1+i] = left_snr_str[i];
 			}
@@ -220,7 +185,6 @@ int main(void) {
 			for(i=0;i<3;i++) {
 				fb_msg[5+i] = right_snr_str[i];
 			}
-			//strcat(fb_msg,right_snr_str);
 			fb_length = 8;
 			feedback_frame = Xbee_CreateTxFrame(fb_msg, fb_length);
 			Xbee_SendTxFrame(&feedback_frame);
