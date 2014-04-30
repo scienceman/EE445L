@@ -44,8 +44,35 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 				 	
-tMotor drive, steer;
+tMotor driveMotor, steerMotor;
 tSonarModule left_sonar, right_sonar;
+/**
+* 	Driving Commands
+*/
+void drive(void);
+void reverse(void);
+void turn_left(void);
+void turn_right(void);
+
+void drive(void) {
+	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+}
+
+void reverse(void) {
+	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
+	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
+}
+
+void turn_left(void) {
+	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
+	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+}
+
+void turn_right(void) {
+	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+}
 
 int main(void) {
 	tXbee_frame cmd_frame;
@@ -60,7 +87,7 @@ int main(void) {
  * System Initilizations
  ***********************************************************************************************/
 	System_Init();
-#ifndef MOTORTEST
+#ifndef MOTORTEST													
 	UART0_811Init();
 	Xbee_Init();
 	DisableInterrupts();
@@ -71,8 +98,8 @@ int main(void) {
 	Timer0_CaptureInit();
 	Timer1_CaptureInit(); 
 #else
-	motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,16000,8000,&drive);
-	motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,16000,8000,&steer);
+	motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,16000,8000,&driveMotor);
+	motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,16000,8000,&steerMotor);
 #endif
 
 	GPIOPinWrite(GPIO_PORTB_BASE, (GPIO_PIN_0 | GPIO_PIN_1), 0);
@@ -81,11 +108,11 @@ int main(void) {
 	while(1) {
 	#ifdef MOTORTEST
 	    for(i=10;i<99;i++) {
-			set_motor(&drive, i);
-			set_motor(&steer, -i);
+			set_motor(&driveMotor, i);
+			set_motor(&steerMotor, -i);
 			SysCtlDelay((SysCtlClockGet()/3)/10);	// 100ms delay
 		}
-	#else
+	#else 
 		cmd_frame = Xbee_ReceiveRxFrame();
 		if(cmd_frame.message[0] == '*') {
 			// Valid Command
@@ -105,25 +132,31 @@ int main(void) {
 			if(cmd_frame.message[7] == 't') {  	// Tele-operated
 				if(cmd_frame.message[2] == '1') {
 					if(cmd_frame.message[1] == '-') {
-						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
-						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
+						reverse();
+//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
+//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
 					} else {
-						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
-						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+						drive();
+//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 					}
 				} else {
+					// Stop
 					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
 				}
 				if(cmd_frame.message[5] == '1') {
 					if(cmd_frame.message[4] == '-') {
-						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+						turn_right();
+//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
 					} else {
-					 	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
-						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+						turn_left();
+//					 	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
+//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 					}
 				} else {
+					// Stop
 					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 				}
@@ -137,25 +170,31 @@ int main(void) {
 
 			 	if(left_sonar.distance < MINRANGE) {
 					if(right_sonar.distance < MINRANGE) {
-					// Reverse
-						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
-						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);			
+					// reverse
+						reverse();
+//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
+//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);			
 					// Turn
-						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+						turn_left();
+//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
 					} else {
-						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+						turn_right();
+//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
 						// Drive forward
-						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
-						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+						drive();
+//						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+//						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 					}	
 				} else if(right_sonar.distance < MINRANGE) {
-					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
-					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+					turn_left();
+//					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
+//					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 					// Drive forward
-					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
-					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+					drive();
+//					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+//					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 				}
 			}
 			if(left_sonar.distance < 999) {
