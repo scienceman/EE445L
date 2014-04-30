@@ -91,6 +91,13 @@ void set_motor(tMotor* motor, signed long speed) {
 	PWMOutputState(PWM_BASE, (motor->PWM_OUT_POS | motor->PWM_OUT_NEG), true);
 }
 
+void PWM1_Handler(void) {
+	
+}
+         
+void PWM2_Handler(void) {
+
+}
 
 /*************************************************************************************
  *	PWM generation test

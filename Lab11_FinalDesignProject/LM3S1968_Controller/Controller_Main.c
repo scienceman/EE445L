@@ -103,7 +103,8 @@ int main(void) {
 		
 		fb_frame = Xbee_ReceiveRxFrame();
 		fb_frame.message[fb_frame.length-5]=0;
-		fb_frame.message[4] = 0;
-		RIT128x96x4StringDraw(fb_frame.message,55,20,15);								  
+		if(fb_frame.message[1] != 'X' && fb_frame.message[5] != 'X') 
+			RIT128x96x4StringDraw(fb_frame.message,50,20,15);
+		SysCtlDelay((SysCtlClockGet()/3)/20);								  
 	}
 }

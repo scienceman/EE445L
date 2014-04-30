@@ -30,19 +30,29 @@
 #include "Xbee.h"
 #include "system.h"
 #include "UART.h"
+#include "timerCtrl.h"
 #include <string.h>
 
 #include "lm3s811.h"
 
 //#define MOTORTEST
+#define MINRANGE 40
+
+void DisableInterrupts(void); // Disable interrupts
+void EnableInterrupts(void);  // Enable interrupts
+long StartCritical (void);    // previous I bit, disable interrupts
+void EndCritical(long sr);    // restore I bit to previous value
+void WaitForInterrupt(void);  // low power mode
 				 	
 tMotor drive, steer;
+tSonarModule left_sonar, right_sonar;
 
 int main(void) {
 	tXbee_frame cmd_frame;
 	tXbee_frame feedback_frame;
-	tSonarModule left_sonar, right_sonar;
 	char fb_msg[20];
+	char left_snr_str[6];
+	char right_snr_str[6];
 	int fb_length=0;
 	signed int drive_power, steering;
 	signed long i;
@@ -53,10 +63,13 @@ int main(void) {
 #ifndef MOTORTEST
 	UART0_811Init();
 	Xbee_Init();
-	left_sonar = Sonar_Init(CCP0_PERIPH, CCP0_PORT, CCP0_PIN, SYSCTL_PERIPH_GPIOD, 
+	DisableInterrupts();
+	left_sonar = Sonar_Init(CCP2_PERIPH, CCP2_PORT, CCP2_PIN, SYSCTL_PERIPH_GPIOD, 
 								GPIO_PORTD_BASE, GPIO_PIN_6, 0);
-	right_sonar = Sonar_Init(CCP2_PERIPH, CCP2_PORT, CCP2_PIN, SYSCTL_PERIPH_GPIOD, 
+	right_sonar = Sonar_Init(CCP0_PERIPH, CCP0_PORT, CCP0_PIN, SYSCTL_PERIPH_GPIOD, 
 								GPIO_PORTD_BASE, GPIO_PIN_7, 0);
+	Timer0_CaptureInit();
+	Timer1_CaptureInit(); 
 #else
 	motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,16000,8000,&drive);
 	motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,16000,8000,&steer);
@@ -64,6 +77,7 @@ int main(void) {
 
 	GPIOPinWrite(GPIO_PORTB_BASE, (GPIO_PIN_0 | GPIO_PIN_1), 0);
 	GPIOPinWrite(GPIO_PORTE_BASE, (GPIO_PIN_0 | GPIO_PIN_1), 0);
+	EnableInterrupts();
 	while(1) {
 	#ifdef MOTORTEST
 	    for(i=10;i<99;i++) {
@@ -114,8 +128,15 @@ int main(void) {
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 				}
 			} else { 		// Autonomous
-			 	if(left_sonar.distance < 500) {
-					if(right_sonar.distance < 500) {
+				Sonar_Trigger(&left_sonar);
+				//WaitForInterrupt();
+				SysCtlDelay((SysCtlClockGet()/3)/10);	//	100ms
+				Sonar_Trigger(&right_sonar);
+				SysCtlDelay((SysCtlClockGet()/3)/10);	//	100ms
+				//WaitForInterrupt();
+
+			 	if(left_sonar.distance < MINRANGE) {
+					if(right_sonar.distance < MINRANGE) {
 					// Reverse
 						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
 						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);			
@@ -125,14 +146,43 @@ int main(void) {
 					} else {
 						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
 						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+						// Drive forward
+						GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+						GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 					}	
-				} else if(right_sonar.distance < 500) {
+				} else if(right_sonar.distance < MINRANGE) {
 					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+					// Drive forward
+					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 				}
 			}
-			strncpy(fb_msg,"*X,X",sizeof(fb_msg));
-			fb_length = 4;
+			if(left_sonar.distance < 999) {
+				left_snr_str[0] = (left_sonar.distance/100)+0x30;
+				left_snr_str[1] = ((left_sonar.distance%100)/10)+0x30;
+				left_snr_str[2] = (((left_sonar.distance%100)%10)+0x30);	
+			} else {
+			 	strncpy(left_snr_str,"XXX",6);
+			} 
+			if(right_sonar.distance < 999) {
+				right_snr_str[0] = (right_sonar.distance/100)+0x30;
+				right_snr_str[1] = ((right_sonar.distance%100)/10)+0x30;
+				right_snr_str[2] = (((right_sonar.distance%100)%10)+0x30);
+			} else {
+			 	strncpy(right_snr_str,"XXX",6);
+			} 
+			fb_msg[0] = '*';
+			//strcat(fb_msg,left_snr_str);
+			for(i=0;i<3;i++) {
+				fb_msg[1+i] = left_snr_str[i];
+			}
+			fb_msg[4] = ',';
+			for(i=0;i<3;i++) {
+				fb_msg[5+i] = right_snr_str[i];
+			}
+			//strcat(fb_msg,right_snr_str);
+			fb_length = 8;
 			feedback_frame = Xbee_CreateTxFrame(fb_msg, fb_length);
 			Xbee_SendTxFrame(&feedback_frame);
 		}
