@@ -14,4 +14,5 @@ void Timer0_Init(unsigned short periodA, unsigned short periodB);
 void Timer1_Init(unsigned short periodA, unsigned short periodB);
 void Timer0_CaptureInit(void);
 void Timer1_CaptureInit(void);
+void Timer2_CaptureInit(void);
 

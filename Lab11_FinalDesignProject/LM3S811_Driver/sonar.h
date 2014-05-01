@@ -1,3 +1,5 @@
+#define CCP_SONAR
+
 typedef struct {
 	unsigned long captureBase;
 	unsigned long triggerBase;

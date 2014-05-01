@@ -43,8 +43,8 @@ void motorIO_811_Init(void) {
 
 	//SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM);
 	//SysCtlPWMClockSet(SYSCTL_PWMDIV_1);
-	SysCtlPeripheralEnable(GPIO_PORTB_BASE);
-	SysCtlPeripheralEnable(GPIO_PORTE_BASE);
+	//SysCtlPeripheralEnable(GPIO_PORTB_BASE);
+	//SysCtlPeripheralEnable(GPIO_PORTE_BASE);
 	
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB;  
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOE;

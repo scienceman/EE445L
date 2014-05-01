@@ -55,10 +55,12 @@ int main(void) {
 */
 	System_Init();
 	SysTick_Init();
+	printf("Entering UART\r");
 	UART1_Init();
+	printf("Exiting UART\r");
 	Xbee_Init();
 	ADCDualChannel_Init(SYSCTL_PERIPH_ADC0, ADC0_BASE, 0, ADC_CTL_CH1, ADC_CTL_CH3);
-
+	printf("Xbee/ADC Init Complete\r");
 	EnableInterrupts();
 
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2, 0x00);
@@ -104,24 +106,24 @@ int main(void) {
 		Xbee_SendTxFrame(&frame);
 		
 		fb_frame = Xbee_ReceiveRxFrame();
-		fb_frame.message[fb_frame.length-5]=0;
-
-		if(fb_frame.message[1] != 'X' && fb_frame.message[5] != 'X') { 
-			RIT128x96x4StringDraw(fb_frame.message,45,20,15);
-			left_sonar = (fb_frame.message[1]-0x30)*100;
-			left_sonar += ((fb_frame.message[2]-0x30)*10);
-			left_sonar += (fb_frame.message[3]-0x30);
-						   
-			right_sonar = (fb_frame.message[5]-0x30)*100;
-			right_sonar += ((fb_frame.message[6]-0x30)*10);
-			right_sonar += (fb_frame.message[7]-0x30);
-			RIT128x96x4_ClearImage();
-			RIT128x96x4_Line(85,48-(left_sonar/3),100,48-(left_sonar/3),15);
-			RIT128x96x4_Line(110,48-(right_sonar/3),127,48-(right_sonar/3),15);
-			// Cut off Range
-			RIT128x96x4_Line(80,48-(40/3),127,48-(40/3),10);	
-			RIT128x96x4_ShowImageLines();
-		}	  
-		//SysCtlDelay((SysCtlClockGet()/3)/20);								  
+		if(fb_frame.message[0] == '*') {
+			fb_frame.message[fb_frame.length-5]=0;
+			if(fb_frame.message[1] != 'X' && fb_frame.message[5] != 'X') { 
+				RIT128x96x4StringDraw(fb_frame.message,45,20,15);
+				left_sonar = (fb_frame.message[1]-0x30)*100;
+				left_sonar += ((fb_frame.message[2]-0x30)*10);
+				left_sonar += (fb_frame.message[3]-0x30);
+							   
+				right_sonar = (fb_frame.message[5]-0x30)*100;
+				right_sonar += ((fb_frame.message[6]-0x30)*10);
+				right_sonar += (fb_frame.message[7]-0x30);
+				RIT128x96x4_ClearImage();
+				RIT128x96x4_Line(85,48-(left_sonar/3),100,48-(left_sonar/3),15);
+				RIT128x96x4_Line(110,48-(right_sonar/3),127,48-(right_sonar/3),15);
+				// Cut off Range
+				RIT128x96x4_Line(80,48-(40/3),127,48-(40/3),10);	
+				RIT128x96x4_ShowImageLines();
+			}	  
+		}							  
 	}
 }

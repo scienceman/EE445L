@@ -31,11 +31,13 @@
 #include "system.h"
 #include "UART.h"
 #include "timerCtrl.h"
+#include "systick.h"
 #include <string.h>
 
 #include "lm3s811.h"
 
 //#define MOTORTEST
+#define SONARTEST
 #define MINRANGE 40
 
 void DisableInterrupts(void); // Disable interrupts
@@ -43,9 +45,14 @@ void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
-				 	
+
+/**
+* 	Globals
+*/				 	
 tMotor driveMotor, steerMotor;
 tSonarModule left_sonar, right_sonar;
+unsigned int x_axis_accel, y_axis_accel;
+
 /**
 * 	Driving Commands
 */
@@ -95,9 +102,16 @@ int main(void) {
 								GPIO_PORTD_BASE, GPIO_PIN_6, 0);
 	right_sonar = Sonar_Init(CCP0_PERIPH, CCP0_PORT, CCP0_PIN, SYSCTL_PERIPH_GPIOD, 
 								GPIO_PORTD_BASE, GPIO_PIN_7, 0);
+	//Accel_Init(CCP1_PERIPH, CCP1_PORT, CCP1_PIN, CCP5_PERIPH, CCP5_PORT, CCP5_PIN);
+	
+	SysTick_Init();
+#ifndef CCP_SONAR 
 	Timer0_CaptureInit();
 	Timer1_CaptureInit(); 
-#else
+//	Timer2_CaptureInit();
+#endif
+
+#else  
 	motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,16000,8000,&driveMotor);
 	motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,16000,8000,&steerMotor);
 #endif
@@ -112,14 +126,21 @@ int main(void) {
 			set_motor(&steerMotor, -i);
 			SysCtlDelay((SysCtlClockGet()/3)/10);	// 100ms delay
 		}
-	#else 
+	#endif
+	#ifdef SONARTEST
+		Sonar_Trigger(&left_sonar);
+		WaitForInterrupt();
+
+		if(right_sonar.distance < 50)
+			GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 1);
+		else
+			GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+	#else
 		cmd_frame = Xbee_ReceiveRxFrame();
 		Sonar_Trigger(&left_sonar);
-		//WaitForInterrupt();
-		//SysCtlDelay((SysCtlClockGet()/3)/10);	//	100ms
+		SysCtlDelay((SysCtlClockGet()/3)/20);	//	50ms
 		Sonar_Trigger(&right_sonar);
-		//SysCtlDelay((SysCtlClockGet()/3)/10);	//	100ms
-		//WaitForInterrupt();
+		SysCtlDelay((SysCtlClockGet()/3)/20);	//	50ms
 
 		if(cmd_frame.message[0] == '*') {
 			// Valid Command
@@ -154,7 +175,7 @@ int main(void) {
 						turn_left();
 					} else {
 						turn_right();
-						// Drive forward
+					// Drive forward
 						drive();
 					}	
 				} else if(right_sonar.distance < MINRANGE) {
@@ -163,32 +184,32 @@ int main(void) {
 					drive();
 				}
 			}
-			if(left_sonar.distance < 999) {
-				left_snr_str[0] = (left_sonar.distance/100)+0x30;
-				left_snr_str[1] = ((left_sonar.distance%100)/10)+0x30;
-				left_snr_str[2] = (((left_sonar.distance%100)%10)+0x30);	
-			} else {
-			 	strncpy(left_snr_str,"XXX",6);
-			} 
-			if(right_sonar.distance < 999) {
-				right_snr_str[0] = (right_sonar.distance/100)+0x30;
-				right_snr_str[1] = ((right_sonar.distance%100)/10)+0x30;
-				right_snr_str[2] = (((right_sonar.distance%100)%10)+0x30);
-			} else {
-			 	strncpy(right_snr_str,"XXX",6);
-			} 
-			fb_msg[0] = '*';
-			for(i=0;i<3;i++) {
-				fb_msg[1+i] = left_snr_str[i];
-			}
-			fb_msg[4] = ',';
-			for(i=0;i<3;i++) {
-				fb_msg[5+i] = right_snr_str[i];
-			}
-			fb_length = 8;
-			feedback_frame = Xbee_CreateTxFrame(fb_msg, fb_length);
-			Xbee_SendTxFrame(&feedback_frame);
 		}
+		if(left_sonar.distance < 999) {
+			left_snr_str[0] = (left_sonar.distance/100)+0x30;
+			left_snr_str[1] = ((left_sonar.distance%100)/10)+0x30;
+			left_snr_str[2] = (((left_sonar.distance%100)%10)+0x30);	
+		} else {
+		 	strncpy(left_snr_str,"XXX",6);
+		} 
+		if(right_sonar.distance < 999) {
+			right_snr_str[0] = (right_sonar.distance/100)+0x30;
+			right_snr_str[1] = ((right_sonar.distance%100)/10)+0x30;
+			right_snr_str[2] = (((right_sonar.distance%100)%10)+0x30);
+		} else {
+		 	strncpy(right_snr_str,"XXX",6);
+		} 
+		fb_msg[0] = '*';
+		for(i=0;i<3;i++) {
+			fb_msg[1+i] = left_snr_str[i];
+		}
+		fb_msg[4] = ',';
+		for(i=0;i<3;i++) {
+			fb_msg[5+i] = right_snr_str[i];
+		}
+		fb_length = 8;
+		feedback_frame = Xbee_CreateTxFrame(fb_msg, fb_length);
+		Xbee_SendTxFrame(&feedback_frame);
 	#endif
 	}
 }
