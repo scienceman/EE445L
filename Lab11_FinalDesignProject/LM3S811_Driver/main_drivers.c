@@ -102,13 +102,13 @@ int main(void) {
 								GPIO_PORTD_BASE, GPIO_PIN_6, 0);
 	right_sonar = Sonar_Init(CCP0_PERIPH, CCP0_PORT, CCP0_PIN, SYSCTL_PERIPH_GPIOD, 
 								GPIO_PORTD_BASE, GPIO_PIN_7, 0);
-	//Accel_Init(CCP1_PERIPH, CCP1_PORT, CCP1_PIN, CCP5_PERIPH, CCP5_PORT, CCP5_PIN);
+	Accel_Init(CCP1_PERIPH, CCP1_PORT, CCP1_PIN, CCP5_PERIPH, CCP5_PORT, CCP5_PIN);
 	
 	SysTick_Init();
-#ifndef CCP_SONAR 
+#ifdef CCP_SONAR 
 	Timer0_CaptureInit();
 	Timer1_CaptureInit(); 
-//	Timer2_CaptureInit();
+	Timer2_CaptureInit();
 #endif
 
 #else  

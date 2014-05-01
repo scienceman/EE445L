@@ -27,6 +27,8 @@ void WaitForInterrupt(void);  // low power mode
 
 tBoolean rising_x = true;
 tBoolean rising_y = true;
+unsigned long t_rise1_y=2, t_rise2_y=0, t_fall_y=1; 
+unsigned long t_rise1_x=2, t_rise2_x=0, t_fall_x=1;
 extern tSonarModule left_sonar, right_sonar;
 extern unsigned int x_axis_accel, y_axis_accel;
 
@@ -61,6 +63,7 @@ void Timer1_Init(unsigned short periodA, unsigned short periodB) {
 void Timer0_CaptureInit(void) {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
 	TimerConfigure(TIMER0_BASE, TIMER_CFG_A_CAP_TIME | TIMER_CFG_B_CAP_TIME | TIMER_CFG_SPLIT_PAIR);
+	//TIMER0_TAILR_R = 0x0000FFFF;
 	TimerLoadSet(TIMER0_BASE, TIMER_A, 10000);
 	TimerLoadSet(TIMER0_BASE, TIMER_B, 10000);
 	TimerControlEvent(TIMER0_BASE, TIMER_A, TIMER_EVENT_POS_EDGE);
@@ -76,6 +79,7 @@ void Timer0_CaptureInit(void) {
 void Timer1_CaptureInit(void) {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER1);
 	TimerConfigure(TIMER1_BASE, TIMER_CFG_A_CAP_TIME | TIMER_CFG_B_PERIODIC | TIMER_CFG_SPLIT_PAIR);
+	TIMER1_TAILR_R = 0x0000FFFF;
 	TimerLoadSet(TIMER1_BASE, TIMER_A, 10000);
 	TimerLoadSet(TIMER1_BASE, TIMER_B, 10000);
 	TimerControlEvent(TIMER1_BASE, TIMER_A, TIMER_EVENT_POS_EDGE);
@@ -116,10 +120,14 @@ void Timer0B_Handler(void) {
 	if(rising_y) {
 		TimerControlEvent(TIMER0_BASE, TIMER_B, TIMER_EVENT_NEG_EDGE);
 		rising_y = false;
-	  	//(t2-t1)/(t3-t1)
-	} else {
+	  	//(t2-t1)/(t3-t1) -> count down timer (t1-t2)/(t1-t3)
+		t_rise2_y = TIMER0_TBR_R;
+		y_axis_accel = (t_rise1_y-t_fall_y)/(t_rise1_y-t_rise2_y);
+		t_rise1_y = t_rise2_y; 
+	} else {					 
 	   	TimerControlEvent(TIMER0_BASE, TIMER_B, TIMER_EVENT_POS_EDGE);
 		rising_y = true;
+		t_fall_y = TIMER0_TBR_R;
 	} 
 }
 
@@ -148,6 +156,18 @@ void Timer2A_Handler(void) {
 */
 void Timer2B_Handler(void) {
 	TimerIntClear(TIMER2_BASE, TIMER_CAPB_EVENT);
+	 if(rising_x) {
+		TimerControlEvent(TIMER2_BASE, TIMER_B, TIMER_EVENT_NEG_EDGE);
+		rising_x = false;
+	  	//(t2-t1)/(t3-t1) -> count down timer (t1-t2)/(t1-t3)
+		t_rise2_x = TIMER2_TBR_R;
+		x_axis_accel = (t_rise1_x-t_fall_x)/(t_rise1_x-t_rise2_x);
+		t_rise1_x = t_rise2_x; 
+	} else {
+	   	TimerControlEvent(TIMER2_BASE, TIMER_B, TIMER_EVENT_POS_EDGE);
+		rising_x = true;
+		t_fall_x = TIMER2_TBR_R;
+	}
 }
 
 
