@@ -66,7 +66,6 @@ void Timer1_Init(unsigned short periodA, unsigned short periodB) {
 void Timer0_CaptureInit(void) {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
 	TimerConfigure(TIMER0_BASE, TIMER_CFG_A_CAP_TIME | TIMER_CFG_B_CAP_TIME | TIMER_CFG_SPLIT_PAIR);
-	//TIMER0_TAILR_R = 0x0000FFFF;
 	TimerLoadSet(TIMER0_BASE, TIMER_A, 10000);
 	TimerLoadSet(TIMER0_BASE, TIMER_B, 10000);
 	TimerControlEvent(TIMER0_BASE, TIMER_A, TIMER_EVENT_POS_EDGE);
@@ -84,7 +83,6 @@ void Timer1_CaptureInit(void) {
 	TimerConfigure(TIMER1_BASE, TIMER_CFG_A_CAP_TIME | TIMER_CFG_B_PERIODIC | TIMER_CFG_SPLIT_PAIR);
 	TimerLoadSet(TIMER1_BASE, TIMER_A, 10000);
 	TimerLoadSet(TIMER1_BASE, TIMER_B, 10000);
-	//TimerMatchSet(TIMER1_BASE, TIMER_B, 5000);
 	TimerControlEvent(TIMER1_BASE, TIMER_A, TIMER_EVENT_POS_EDGE);
 	TimerEnable(TIMER1_BASE, TIMER_A);
 	TimerEnable(TIMER1_BASE, TIMER_B); 

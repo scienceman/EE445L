@@ -75,32 +75,24 @@ void drive(int power) {
 	IntEnable(INT_TIMER1B);
 	forward = true;
 	speed = power;
-//	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
-//	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 }
 
 void reverse(int power) {
 	IntEnable(INT_TIMER1B);
 	forward = false;
 	speed = power;
-//	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
-//	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
 }
 
 void turn_left(int power) {
 	IntEnable(INT_TIMER2A);
 	left = true;
 	steering = power;
-//	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
-//	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 }
 
 void turn_right(int power) {
 	IntEnable(INT_TIMER2A);
 	left = false;
 	steering = power;
-//	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-//	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
 }
 
 int main(void) {
@@ -164,16 +156,16 @@ int main(void) {
 			GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 	#endif
 	#ifdef BROWNOUTTEST
-//	   	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
-//		GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
-//
-//		GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
-//		GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
-//		SysCtlDelay((SysCtlClockGet()/3)/1000);
-//
-//		GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
-//		GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-//		SysCtlDelay((SysCtlClockGet()/3)/4000);
+	   	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+		GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+
+		GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
+		GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+		SysCtlDelay((SysCtlClockGet()/3)/1000);
+
+		GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
+		GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+		SysCtlDelay((SysCtlClockGet()/3)/4000);
 	#endif
 	#ifdef MAIN	   
 		cmd_frame = Xbee_ReceiveRxFrame();
