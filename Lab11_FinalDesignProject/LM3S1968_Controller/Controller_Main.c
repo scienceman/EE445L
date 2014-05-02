@@ -55,12 +55,9 @@ int main(void) {
 */
 	System_Init();
 	SysTick_Init();
-	printf("Entering UART\r");
 	UART1_Init();
-	printf("Exiting UART\r");
 	Xbee_Init();
 	ADCDualChannel_Init(SYSCTL_PERIPH_ADC0, ADC0_BASE, 0, ADC_CTL_CH1, ADC_CTL_CH3);
-	printf("Xbee/ADC Init Complete\r");
 	EnableInterrupts();
 
 	GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_2, 0x00);

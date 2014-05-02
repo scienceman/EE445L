@@ -77,7 +77,8 @@ void UART1_Init(void){
 	// Enable the UART.
 	//
 	UARTEnable(UART1_BASE);
-
+
+
   GPIO_PORTD_AFSEL_R |= 0x0c;           // enable alt funct on PD2-3
   GPIO_PORTD_DEN_R |= 0x0c;             // enable digital I/O on PD2-3
 }

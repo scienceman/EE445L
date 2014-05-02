@@ -31,7 +31,7 @@ void System_Init() {
 }
 
 void motorIO_811_Init(void) {
-//	unsigned long period;
+	unsigned long period;
 //	SYSCTL_RCGC0_R |= SYSCTL_RCGC0_PWM;   // 1)activate PWM
 //    SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB;   // GPIOG
 //	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOE;
@@ -41,14 +41,14 @@ void motorIO_811_Init(void) {
 //	GPIO_PORTE_AFSEL_R |= 0x03;        // Enable alt funct on PE0,1(PWM4,5)
 //	GPIO_PORTE_DEN_R |= 0x03;
 
-	//SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM);
-	//SysCtlPWMClockSet(SYSCTL_PWMDIV_1);
-	//SysCtlPeripheralEnable(GPIO_PORTB_BASE);
-	//SysCtlPeripheralEnable(GPIO_PORTE_BASE);
-	
+//	SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM);
+//	//SysCtlPWMClockSet(SYSCTL_PWMDIV_1);
+//	SysCtlPeripheralEnable(GPIO_PORTB_BASE);
+//	SysCtlPeripheralEnable(GPIO_PORTE_BASE);
+//	
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB;  
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOE;
-
+	period = 1;
 	GPIO_PORTB_DIR_R |= 0x03;
 	GPIO_PORTB_DEN_R |= 0x03;
 	GPIO_PORTB_AFSEL_R &= 0x03;
@@ -56,10 +56,11 @@ void motorIO_811_Init(void) {
 	GPIO_PORTE_DIR_R |= 0x03;
 	GPIO_PORTE_DEN_R |= 0x03;
 	GPIO_PORTE_AFSEL_R &= 0x03;
-	//GPIOPinTypePWM(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1);
-	//GPIOPinTypePWM(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_1);
-	//GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, (GPIO_PIN_0 | GPIO_PIN_1));
-	//GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, (GPIO_PIN_0 | GPIO_PIN_1));
+
+//	GPIOPinTypePWM(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+//	GPIOPinTypePWM(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+//	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, (GPIO_PIN_0 | GPIO_PIN_1));
+//	GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, (GPIO_PIN_0 | GPIO_PIN_1));
 }
 
 #ifdef PART_LM3S1968

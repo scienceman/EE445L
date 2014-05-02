@@ -15,10 +15,12 @@
 #include "../inc/hw_memmap.h"
 #include "../driverlib/sysctl.h"
 #include "../driverlib/interrupt.h"
+#include "../driverlib/timer.h"
 #include "../inc/hw_pwm.h"
 #include "../driverlib/pwm.h"
 
 #include "lm3s811.h"
+#include "TimerCtrl.h"
 #include "motor_driver.h"
 
 void PWM1_Init(unsigned short period, unsigned short duty);
@@ -31,7 +33,6 @@ void motor_Init(unsigned long PWM_Generator,
 				unsigned long period,
 			    unsigned long dutyCycle,
 				tMotor* motor) {
-
 	motor->PWM_GEN = PWM_Generator;
 	motor->PWM_OUT_POS = PWM_Out1;
 	motor->PWM_OUT_NEG = PWM_Out2;
@@ -51,6 +52,34 @@ void motor_Init(unsigned long PWM_Generator,
 	// Enable the outputs.
 	PWMOutputState(PWM_BASE, (PWM_Out1 | PWM_Out2), true);	
 }									  	
+
+void drive_Init_SW(unsigned long timer_periph_base,
+				   unsigned long timer_base,  
+				   unsigned long PWM_Out1,
+				   unsigned long PWM_OUt2,
+				   unsigned long period,
+				   unsigned long dutyCycle,
+				   tMotor* motor) {
+//	switch(timer_base) {
+//		case TIMER0_BASE:
+//			// Configure timer
+//   			SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER);
+//    		TimerConfigure(TIMER0_BASE, TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_PWM);
+//   			TimerLoadSet(TIMER0_BASE, TIMER_A, ulPeriod -1);
+//   			TimerMatchSet(TIMER0_BASE, TIMER_A, dutyCycle); // PWM
+//   			TimerEnable(TIMER0_BASE, TIMER_A);
+//			break;
+//		case TIMER1_BASE:
+//			Timer1_Init(period, 1000);
+//			break;
+//	}
+	    // Configure timer
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER1);
+    TimerConfigure(TIMER0_BASE, TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_PWM);
+    TimerLoadSet(TIMER0_BASE, TIMER_A, period -1);
+    TimerMatchSet(TIMER0_BASE, TIMER_A, dutyCycle); // PWM
+    TimerEnable(TIMER0_BASE, TIMER_A);		
+}
 
 void PWM1_Init(unsigned short period, unsigned short duty){
   SYSCTL_RCGC0_R |= SYSCTL_RCGC0_PWM;   // 1)activate PWM

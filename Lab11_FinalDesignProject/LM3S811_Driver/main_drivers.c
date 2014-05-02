@@ -15,7 +15,9 @@
 #include "../driverlib/gpio.h"
 #include "../inc/hw_gpio.h"
 #include "../driverlib/interrupt.h"
+#include "../inc/hw_ints.h"
 #include "../inc/hw_memmap.h"
+#include "../driverlib/timer.h"
 #include "../driverlib/sysctl.h"
 #include "../driverlib/interrupt.h"
 #include "../inc/hw_pwm.h"
@@ -37,8 +39,12 @@
 #include "lm3s811.h"
 
 //#define MOTORTEST
-#define SONARTEST
+//#define SONARTEST
+//#define BROWNOUTTEST
+//#define PWMTEST
+#define MAIN
 #define MINRANGE 40
+#define PWM	95
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -52,33 +58,49 @@ void WaitForInterrupt(void);  // low power mode
 tMotor driveMotor, steerMotor;
 tSonarModule left_sonar, right_sonar;
 unsigned int x_axis_accel, y_axis_accel;
+int speed = 2;
+int steering = 2;
+tBoolean forward = true;
+tBoolean left = false; 
 
 /**
 * 	Driving Commands
 */
-void drive(void);
-void reverse(void);
-void turn_left(void);
-void turn_right(void);
+void drive(int power);					    
+void reverse(int power);
+void turn_left(int power);
+void turn_right(int power);
 
-void drive(void) {
-	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
-	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+void drive(int power) {
+	IntEnable(INT_TIMER1B);
+	forward = true;
+	speed = power;
+//	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+//	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 }
 
-void reverse(void) {
-	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
-	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
+void reverse(int power) {
+	IntEnable(INT_TIMER1B);
+	forward = false;
+	speed = power;
+//	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
+//	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
 }
 
-void turn_left(void) {
-	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
-	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+void turn_left(int power) {
+	IntEnable(INT_TIMER2A);
+	left = true;
+	steering = power;
+//	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
+//	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
 }
 
-void turn_right(void) {
-	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
-	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
+void turn_right(int power) {
+	IntEnable(INT_TIMER2A);
+	left = false;
+	steering = power;
+//	GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+//	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0xFF);
 }
 
 int main(void) {
@@ -102,7 +124,7 @@ int main(void) {
 								GPIO_PORTD_BASE, GPIO_PIN_6, 0);
 	right_sonar = Sonar_Init(CCP0_PERIPH, CCP0_PORT, CCP0_PIN, SYSCTL_PERIPH_GPIOD, 
 								GPIO_PORTD_BASE, GPIO_PIN_7, 0);
-	Accel_Init(CCP1_PERIPH, CCP1_PORT, CCP1_PIN, CCP5_PERIPH, CCP5_PORT, CCP5_PIN);
+	//Accel_Init(CCP1_PERIPH, CCP1_PORT, CCP1_PIN, CCP5_PERIPH, CCP5_PORT, CCP5_PIN);
 	
 	SysTick_Init();
 #ifdef CCP_SONAR 
@@ -112,76 +134,97 @@ int main(void) {
 #endif
 
 #else  
-	motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,16000,8000,&driveMotor);
-	motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,16000,8000,&steerMotor);
+	Timer1_CaptureInit();
+	Timer2_CaptureInit();
+	//motor_Init(PWM_GEN_1,PWM_OUT_2,PWM_OUT_3,16000,8000,&driveMotor);
+	//motor_Init(PWM_GEN_2,PWM_OUT_4,PWM_OUT_5,16000,8000,&steerMotor);	
 #endif
-
 	GPIOPinWrite(GPIO_PORTB_BASE, (GPIO_PIN_0 | GPIO_PIN_1), 0);
 	GPIOPinWrite(GPIO_PORTE_BASE, (GPIO_PIN_0 | GPIO_PIN_1), 0);
 	EnableInterrupts();
 	while(1) {
 	#ifdef MOTORTEST
-	    for(i=10;i<99;i++) {
-			set_motor(&driveMotor, i);
-			set_motor(&steerMotor, -i);
-			SysCtlDelay((SysCtlClockGet()/3)/10);	// 100ms delay
+	    for(i=10;i<95;i++) {
+			speed = i;
+			steering = i;
+			//set_motor(&driveMotor, i);
+			//set_motor(&steerMotor, -i);
+			SysCtlDelay((SysCtlClockGet()/3)/20);	// 50ms delay
 		}
+		forward ^= 1;
+		left ^= 1;
 	#endif
 	#ifdef SONARTEST
 		Sonar_Trigger(&left_sonar);
 		WaitForInterrupt();
-
-		if(right_sonar.distance < 50)
+		
+		if(left_sonar.distance < 50)
 			GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 1);
 		else
 			GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
-	#else
+	#endif
+	#ifdef BROWNOUTTEST
+//	   	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0xFF);
+//		GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
+//
+//		GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0xFF);
+//		GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+//		SysCtlDelay((SysCtlClockGet()/3)/1000);
+//
+//		GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
+//		GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
+//		SysCtlDelay((SysCtlClockGet()/3)/4000);
+	#endif
+	#ifdef MAIN	   
 		cmd_frame = Xbee_ReceiveRxFrame();
 		Sonar_Trigger(&left_sonar);
-		SysCtlDelay((SysCtlClockGet()/3)/20);	//	50ms
+		SysCtlDelay((SysCtlClockGet()/3)/100);	//	10ms
 		Sonar_Trigger(&right_sonar);
-		SysCtlDelay((SysCtlClockGet()/3)/20);	//	50ms
+		SysCtlDelay((SysCtlClockGet()/3)/100);	//	10ms
 
 		if(cmd_frame.message[0] == '*') {
 			// Valid Command
 			if(cmd_frame.message[7] == 't') {  	// Tele-operated
 				if(cmd_frame.message[2] == '1') {
 					if(cmd_frame.message[1] == '-') {
-						reverse();
+						reverse(PWM);
 					} else {
-						drive();
+						drive(PWM);
 					}
 				} else {
 					// Stop
+					IntDisable(INT_TIMER1B);
 					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0);
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_1, 0);
 				}
 				if(cmd_frame.message[5] == '1') {
 					if(cmd_frame.message[4] == '-') {
-						turn_right();
+						turn_right(85);
 					} else {
-						turn_left();
+						turn_left(85);
 					}
 				} else {
 					// Stop
+					IntDisable(INT_TIMER2A);
 					GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_1, 0);
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0);
+
 				}
 			} else { 		// Autonomous
 			 	if(left_sonar.distance < MINRANGE) {
 					if(right_sonar.distance < MINRANGE) {
-						reverse();			
+						reverse(85);			
 					// Turn
-						turn_left();
+						turn_left(85);
 					} else {
-						turn_right();
+						turn_right(85);
 					// Drive forward
-						drive();
+						drive(85);
 					}	
 				} else if(right_sonar.distance < MINRANGE) {
-					turn_left();
+					turn_left(85);
 					// Drive forward
-					drive();
+					drive(85);
 				}
 			}
 		}
